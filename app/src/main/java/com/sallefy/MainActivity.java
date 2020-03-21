@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import static com.google.android.material.snackbar.Snackbar.make;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -22,12 +24,10 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
+        fab.setOnClickListener(view -> {
+            make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null)
+                    .show();
         });
     }
 
