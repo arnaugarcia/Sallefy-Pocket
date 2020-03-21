@@ -7,4 +7,6 @@
     <string name="next">Siguiente</string>
     <string name="previous">Anterior</string>
     <string name="hello_first_fragment">Hola primer fragmento</string>
+    <string name="home_activity">Main Activity</string>
+    <string name="login_title">Login</string>
 </resources>
