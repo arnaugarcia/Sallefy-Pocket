@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sallefy</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="first_fragment_label">Primer fagmento</string>
+    <string name="second_fragment_label">Segundo fragmento</string>
+    <string name="next">Siguiente</string>
+    <string name="previous">Anterior</string>
+    <string name="hello_first_fragment">Hola primer fragmento</string>
+</resources>
