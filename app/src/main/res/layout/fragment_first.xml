@@ -38,21 +38,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_title">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Username"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/edit_text_login_username"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <EditText
             android:id="@+id/edit_text_login_username"
             android:layout_width="match_parent"
-            android:textColor="@color/colorPrimary"
             android:layout_height="50dp"
             android:layout_marginTop="200dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Enter username" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:text="Password"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/edit_text_login_password"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_login_username" />
 
         <EditText
             android:id="@+id/edit_text_login_password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:textColor="@color/colorPrimary"
             android:layout_marginTop="50dp"
+            android:textSize="14sp"
+            android:textColor="@color/colorPrimary"
             app:layout_constraintTop_toBottomOf="@+id/edit_text_login_username"
             tools:text="Enter password" />
 
@@ -62,9 +88,9 @@
             android:layout_height="60dp"
             android:layout_marginTop="60dp"
             android:background="@drawable/button_login_register"
-            android:textColor="@color/colorPrimary"
-
             android:text="Login"
+
+            android:textColor="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_text_login_password" />
