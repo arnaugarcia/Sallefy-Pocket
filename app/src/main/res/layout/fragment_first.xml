@@ -61,8 +61,9 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="60dp"
-            android:background="@android:color/transparent"
+            android:background="@drawable/button_login_register"
             android:textColor="@color/colorPrimary"
+
             android:text="Login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
