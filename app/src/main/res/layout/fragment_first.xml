@@ -19,6 +19,7 @@
             android:id="@+id/textview_login_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_black"
             android:layout_marginLeft="20dp"
             android:text="@string/login_title"
             android:textColor="@color/colorPrimary"
@@ -36,12 +37,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_title">
+        app:layout_constraintTop_toBottomOf="@+id/login_title"
+        app:layout_constraintVertical_bias="1.0">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:fontFamily="@font/poppins_bold"
             android:text="Username"
             android:textColor="@color/colorPrimary"
             android:textSize="15dp"
@@ -54,8 +57,12 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="200dp"
+            android:fontFamily="@font/poppins_regular"
+            android:background="@drawable/edit_text_bottom_line"
             android:textColor="@color/colorPrimary"
             android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Enter username" />
 
@@ -63,6 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:fontFamily="@font/poppins_bold"
             android:layout_marginBottom="15dp"
             android:text="Password"
             android:textColor="@color/colorPrimary"
@@ -76,9 +84,13 @@
             android:id="@+id/edit_text_login_password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:background="@drawable/edit_text_bottom_line"
             android:layout_marginTop="50dp"
-            android:textSize="14sp"
             android:textColor="@color/colorPrimary"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_text_login_username"
             tools:text="Enter password" />
 
@@ -86,6 +98,7 @@
             android:id="@+id/button_first"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:fontFamily="@font/poppins_bold"
             android:layout_marginTop="60dp"
             android:background="@drawable/button_login_register"
             android:text="Login"
