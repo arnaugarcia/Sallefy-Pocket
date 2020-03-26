@@ -13,6 +13,7 @@ import com.sallefy.R;
 
 public class First2Fragment extends Fragment {
 
+    private int test;
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
