@@ -8,7 +8,5 @@
     <string name="previous">Anterior</string>
     <string name="hello_first_fragment">Hola primer fragmento</string>
     <string name="home_activity">Main Activity</string>
-    <string name="login_title">Log in</string>
-    <string name="hello_second_fragment">Hola segundo fragmento</string>
-    <string name="title_activity_login">Login Activity</string>
+    <string name="login_title">Login</string>
 </resources>
