@@ -5,6 +5,4 @@
     android:layout_height="match_parent"
     tools:context=".activity.LoginActivity">
 
-    <include layout="@layout/content_login" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
