@@ -2,8 +2,6 @@ package com.sallefy.services;
 
 import android.text.TextUtils;
 
-import com.sallefy.services.authentication.AuthenticationInterceptor;
-
 import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
