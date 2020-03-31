@@ -38,10 +38,10 @@ public class AuthenticationManager extends BaseManager {
 
                 if (code == 200 || code == 201) {
                     if (token != null) {
-                        userDetailCallback.onSuccess(response.body());
+                        userDetailCallback.onAuthenticationSuccess(response.body());
                     }
                 } else {
-                    userDetailCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
+                    userDetailCallback.onAuthenticationFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
                 }
             }
 
@@ -53,7 +53,7 @@ public class AuthenticationManager extends BaseManager {
                 if (t instanceof RuntimeException) {
                     Log.d("nxw => T", t.getMessage());
                 }
-                userDetailCallback.onFailure(t);
+                userDetailCallback.onAuthenticationFailure(t);
             }
         });
     }
