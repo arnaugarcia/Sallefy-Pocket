@@ -48,11 +48,11 @@
             android:textColor="@android:color/white"
             android:textSize="15dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/edit_text_login_username"
+            app:layout_constraintBottom_toTopOf="@+id/login_form_field_username"
             app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
-            android:id="@+id/edit_text_login_username"
+            android:id="@+id/login_form_field_username"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="200dp"
@@ -78,12 +78,12 @@
             android:textColor="@android:color/white"
             android:textSize="15dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/edit_text_login_password"
+            app:layout_constraintBottom_toTopOf="@id/login_form_field_password"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_text_login_username" />
+            app:layout_constraintTop_toBottomOf="@+id/login_form_field_username" />
 
         <EditText
-            android:id="@+id/edit_text_login_password"
+            android:id="@+id/login_form_field_password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="50dp"
@@ -97,11 +97,11 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_text_login_username"
+            app:layout_constraintTop_toBottomOf="@+id/login_form_field_username"
             tools:text="Enter password" />
 
         <Button
-            android:id="@+id/button_first"
+            android:id="@+id/login_form_submit_button"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:fontFamily="@font/poppins_bold"
@@ -111,7 +111,7 @@
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_text_login_password" />
+            app:layout_constraintTop_toBottomOf="@+id/login_form_field_password" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
