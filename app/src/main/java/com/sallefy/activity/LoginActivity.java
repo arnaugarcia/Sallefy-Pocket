@@ -11,6 +11,7 @@ import com.sallefy.R;
 import com.sallefy.managers.authentication.AuthenticationCallback;
 import com.sallefy.managers.authentication.AuthenticationManager;
 import com.sallefy.model.JWTToken;
+import com.sallefy.model.UserCredentials;
 
 public class LoginActivity extends AppCompatActivity implements AuthenticationCallback {
 
@@ -23,12 +24,7 @@ public class LoginActivity extends AppCompatActivity implements AuthenticationCa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initView();
-    }
 
-    private void initView() {
-        mUsernameField = findViewById(R.id.login_form_field_username);
-        mPasswordField = findViewById(R.id.login_form_field_password);
-        mLoginButton = findViewById(R.id.login_form_submit_button);
         mLoginButton.setOnClickListener(listener -> {
             String username = mUsernameField.getText().toString();
             String password = mPasswordField.getText().toString();
@@ -36,8 +32,15 @@ public class LoginActivity extends AppCompatActivity implements AuthenticationCa
         });
     }
 
+    private void initView() {
+        mUsernameField = findViewById(R.id.login_form_field_username);
+        mPasswordField = findViewById(R.id.login_form_field_password);
+        mLoginButton = findViewById(R.id.login_form_submit_button);
+    }
+
     private void attemptLogin(String username, String password) {
-        AuthenticationManager.getInstance().authenticate(username, password, this);
+        UserCredentials userCredentials = new UserCredentials(username, password, true);
+        AuthenticationManager.getInstance().authenticate(userCredentials, this);
     }
 
     @Override
