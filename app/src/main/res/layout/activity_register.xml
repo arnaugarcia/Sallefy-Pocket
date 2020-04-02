@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/login_title"
+        android:id="@+id/register_title"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -15,12 +15,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tv_login_title"
+            android:id="@+id/tv_register_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_black"
             android:layout_marginStart="20dp"
-            android:text="@string/login_title"
+            android:text="@string/register_title"
             android:textColor="@android:color/white"
             android:textSize="36sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -29,14 +29,14 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/login_form"
+        android:id="@+id/register_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_title"
+        app:layout_constraintTop_toBottomOf="@+id/register_title"
         app:layout_constraintVertical_bias="1.0">
 
         <TextView
@@ -48,11 +48,11 @@
             android:textColor="@color/colorTextPrimary"
             android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/et_login_username"
+            app:layout_constraintBottom_toTopOf="@+id/et_register_username"
             app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
-            android:id="@+id/et_login_username"
+            android:id="@+id/et_register_username"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="200dp"
@@ -77,16 +77,50 @@
             android:layout_marginTop="15dp"
             android:fontFamily="@font/poppins_bold"
             android:layout_marginBottom="15dp"
+            android:text="@string/email_title"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/et_register_email"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_register_username" />
+
+        <EditText
+            android:id="@+id/et_register_email"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/edit_text_bottom_line"
+            android:fontFamily="@font/poppins_regular"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/colorTextPrimary"
+            android:textColorHint="@color/colorTextPrimary"
+            android:textColorLink="@color/colorTextPrimary"
+            android:textCursorDrawable="@color/colorTextPrimary"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_register_username"
+            tools:text="@string/enter_password_placeholder"
+            android:autofillHints="password"
+            android:hint="@string/enter_password_placeholder"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/poppins_bold"
+            android:layout_marginBottom="15dp"
             android:text="@string/password_title"
             android:textColor="@color/colorTextPrimary"
             android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/et_login_password"
+            app:layout_constraintBottom_toTopOf="@+id/et_register_password"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_login_username" />
+            app:layout_constraintTop_toBottomOf="@+id/et_register_email" />
 
         <EditText
-            android:id="@+id/et_login_password"
+            android:id="@+id/et_register_password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="50dp"
@@ -100,7 +134,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_login_username"
+            app:layout_constraintTop_toBottomOf="@+id/et_register_email"
             tools:text="@string/enter_password_placeholder"
             android:autofillHints="password"
             android:hint="@string/enter_password_placeholder"/>
@@ -112,11 +146,11 @@
             android:fontFamily="@font/poppins_bold"
             android:layout_marginTop="60dp"
             android:background="@drawable/button_login_register"
-            android:text="@string/login_title"
+            android:text="@string/register_title"
             android:textColor="@color/colorTextPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_login_password" />
+            app:layout_constraintTop_toBottomOf="@+id/et_register_password" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

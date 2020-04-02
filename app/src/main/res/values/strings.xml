@@ -12,6 +12,13 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="home_activity">Main Activity</string>
     <string name="login_title">Login</string>
+    <string name="username_title">Username</string>
+    <string name="password_title">Password</string>
+    <string name="login_title">Login</string>
+    <string name="register_title">Register</string>
+    <string name="enter_username_placeholder">Enter username</string>
+    <string name="enter_password_placeholder">Enter password</string>
+    <string name="email_title">Email</string>
     <string name="menu_home">Home</string>
     <string name="menu_search">Search</string>
     <string name="action_profile">Profile</string>
