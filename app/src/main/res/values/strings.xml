@@ -16,4 +16,7 @@
     <string name="password_title">Password</string>
     <string name="login_title">Login</string>
     <string name="register_title">Register</string>
+    <string name="enter_username_placeholder">Enter username</string>
+    <string name="enter_password_placeholder">Enter password</string>
+    <string name="email_title">Email</string>
 </resources>
