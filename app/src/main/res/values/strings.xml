@@ -19,4 +19,7 @@
     <string name="enter_username_placeholder">Enter username</string>
     <string name="enter_password_placeholder">Enter password</string>
     <string name="email_title">Email</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_search">Search</string>
+    <string name="action_profile">Profile</string>
 </resources>
