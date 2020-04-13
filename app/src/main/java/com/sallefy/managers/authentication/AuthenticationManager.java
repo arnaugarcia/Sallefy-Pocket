@@ -7,6 +7,8 @@ import com.sallefy.model.JWTToken;
 import com.sallefy.model.UserCredentials;
 import com.sallefy.services.authentication.AuthenticationService;
 
+import org.json.JSONObject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,7 +49,12 @@ public class AuthenticationManager {
                         userDetailCallback.onAuthenticationSuccess(response.body());
                     }
                 } else {
-                    userDetailCallback.onAuthenticationFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
+                    try {
+                        JSONObject error = new JSONObject(response.errorBody().string());
+                        userDetailCallback.onAuthenticationFailure(new Throwable(error.get("detail").toString()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
