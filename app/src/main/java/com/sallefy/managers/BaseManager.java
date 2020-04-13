@@ -1,16 +1,24 @@
 package com.sallefy.managers;
 
+import android.content.Intent;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.sallefy.activity.LoginActivity;
 import com.sallefy.constants.ApplicationConstants;
 import com.sallefy.services.authentication.TokenStoreManager;
 
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static androidx.core.content.ContextCompat.startActivity;
+import static java.net.HttpURLConnection.*;
 
 public abstract class BaseManager {
     protected Retrofit retrofit;
@@ -25,7 +33,22 @@ public abstract class BaseManager {
         httpClient.connectTimeout(500, TimeUnit.SECONDS)
                 .readTimeout(500, TimeUnit.SECONDS);
 
-        httpClient.addInterceptor(chain -> {
+        httpClient.addInterceptor(tokenInterceptor());
+
+        httpClient.addInterceptor(forbiddenInterceptor());
+
+        OkHttpClient client = httpClient.build();
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationConstants.API_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(client)
+                .build();
+
+    }
+
+    private Interceptor tokenInterceptor() {
+        return chain -> {
             Request original = chain.request();
 
             String bearerToken = TokenStoreManager.getInstance().getToken();
@@ -40,15 +63,22 @@ public abstract class BaseManager {
 
             Request request = requestBuilder.build();
             return chain.proceed(request);
-        });
+        };
+    }
 
-        OkHttpClient client = httpClient.build();
+    private Interceptor forbiddenInterceptor() {
+        return chain -> {
+                    Request request = chain.request();
+                    Response response = chain.proceed(request);
+                    if (response.code() == HTTP_FORBIDDEN) {
+                        goToLogin();
+                    }
+                    return response;
+                };
+    }
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl(ApplicationConstants.API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .client(client)
-                .build();
-
+    private void goToLogin() {
+        Intent intent = new Intent(TokenStoreManager.getInstance().getContext(), LoginActivity.class);
+        TokenStoreManager.getInstance().getContext().startActivity(intent);
     }
 }

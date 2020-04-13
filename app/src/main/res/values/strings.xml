@@ -11,7 +11,6 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="home_activity">Main Activity</string>
-    <string name="login_title">Login</string>
     <string name="username_title">Username</string>
     <string name="password_title">Password</string>
     <string name="login_title">Login</string>
