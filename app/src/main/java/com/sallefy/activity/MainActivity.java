@@ -2,6 +2,7 @@ package com.sallefy.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -14,6 +15,9 @@ import static com.sallefy.services.authentication.AuthenticationUtils.isUserLogg
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final long SPLASH_SCREEN_DELAY = 2000L;
+    private final Handler handler = new Handler();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,11 +28,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        // Here we need to check the permissions too
+        handler.postDelayed(this::checkUserLogin, SPLASH_SCREEN_DELAY);
+
+    }
+
+    private void checkUserLogin() {
         if (!isUserLogged(this)) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
 
-        } else { // TODO: Replace this on finish splash screen
+        } else {
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
         }
