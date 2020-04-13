@@ -3,4 +3,11 @@
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#03DAC5</color>
+
+    //Item colors
+    <color name="ButtonNavigationView">#111625</color>
+    <color name="gradientStart">#EE0979</color>
+    <color name="gradientEnd">#FF6A00</color>
+
+    <color name="colorTextPrimary">#FFFFFFFF</color>
 </resources>
