@@ -19,9 +19,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         TokenStoreManager.getInstance().setContext(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         if (!isUserLogged(this)) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
+
         } else { // TODO: Replace this on finish splash screen
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
