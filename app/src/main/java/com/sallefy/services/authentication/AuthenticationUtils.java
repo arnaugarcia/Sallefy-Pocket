@@ -39,7 +39,7 @@ public class AuthenticationUtils {
 
     public static String getToken(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(LOGIN_COLLECTION, Context.MODE_PRIVATE);
-        return prefs.getString(KEY_USER, null);
+        return prefs.getString(KEY_TOKEN, null);
     }
 
     public static String getLogin(Context context) {
