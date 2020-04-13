@@ -106,7 +106,7 @@
             android:hint="@string/enter_password_placeholder"/>
 
         <Button
-            android:id="@+id/button_first"
+            android:id="@+id/bt_login"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:fontFamily="@font/poppins_bold"

@@ -34,9 +34,9 @@ public class LoginActivity extends AppCompatActivity implements AuthenticationCa
     }
 
     private void initView() {
-        mUsernameField = findViewById(R.id.login_form_field_username);
-        mPasswordField = findViewById(R.id.login_form_field_password);
-        mLoginButton = findViewById(R.id.login_form_submit_button);
+        mUsernameField = findViewById(R.id.et_login_username);
+        mPasswordField = findViewById(R.id.et_login_password);
+        mLoginButton = findViewById(R.id.bt_login);
     }
 
     private void attemptLogin(String username, String password) {
