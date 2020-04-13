@@ -21,4 +21,5 @@
     <string name="menu_home">Home</string>
     <string name="menu_search">Search</string>
     <string name="action_profile">Profile</string>
+    <string name="no_account_register">Don\'t have an account? Click here to register.</string>
 </resources>
