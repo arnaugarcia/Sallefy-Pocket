@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.sallefy.model.JWTToken;
-import com.sallefy.model.User;
 
 import static java.util.Objects.isNull;
 
@@ -27,6 +26,7 @@ public class AuthenticationUtils {
         SharedPreferences.Editor prefsEditor = prefs.edit();
         prefsEditor.putString(KEY_TOKEN, token.getToken());
         prefsEditor.apply();
+        TokenStoreManager.getInstance().setToken(token.getToken());
         return true;
     }
 
@@ -37,7 +37,7 @@ public class AuthenticationUtils {
         return !isNull(username) && !isNull(token);
     }
 
-    private static String getToken(Context context) {
+    public static String getToken(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(LOGIN_COLLECTION, Context.MODE_PRIVATE);
         return prefs.getString(KEY_USER, null);
     }

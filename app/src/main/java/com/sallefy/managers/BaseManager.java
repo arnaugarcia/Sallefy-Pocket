@@ -3,6 +3,7 @@ package com.sallefy.managers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sallefy.constants.ApplicationConstants;
+import com.sallefy.services.authentication.TokenStoreManager;
 
 import java.util.concurrent.TimeUnit;
 
