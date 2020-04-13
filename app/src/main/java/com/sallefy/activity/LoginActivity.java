@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,7 @@ public class LoginActivity extends AppCompatActivity implements AuthenticationCa
     private Button mLoginButton;
     private EditText mUsernameField;
     private EditText mPasswordField;
+    private TextView mRegisterText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +33,15 @@ public class LoginActivity extends AppCompatActivity implements AuthenticationCa
             String password = mPasswordField.getText().toString();
             attemptLogin(username, password);
         });
+
+        mRegisterText.setOnClickListener(listener -> goToRegisterActivity());
     }
 
     private void initView() {
         mUsernameField = findViewById(R.id.et_login_username);
         mPasswordField = findViewById(R.id.et_login_password);
         mLoginButton = findViewById(R.id.bt_login);
+        mRegisterText = findViewById(R.id.tv_login_register);
     }
 
     private void attemptLogin(String username, String password) {
@@ -59,6 +64,11 @@ public class LoginActivity extends AppCompatActivity implements AuthenticationCa
 
     private void goToMainActivity() {
         Intent intent= new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    private void goToRegisterActivity() {
+        Intent intent= new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
 }
