@@ -15,7 +15,7 @@ import static com.sallefy.services.authentication.AuthenticationUtils.isUserLogg
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final long SPLASH_SCREEN_DELAY = 2000L;
+    private static final long SPLASH_SCREEN_DELAY = 1500L;
     private final Handler handler = new Handler();
 
     @Override
