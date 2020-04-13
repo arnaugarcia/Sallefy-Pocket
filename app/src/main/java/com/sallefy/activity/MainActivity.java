@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         if (!isUserLogged(this)) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
-        } else {
+        } else { // TODO: Replace this on finish splash screen
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
         }
