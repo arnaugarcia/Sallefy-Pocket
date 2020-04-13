@@ -1,5 +1,6 @@
 package com.sallefy.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,9 +13,9 @@ import com.sallefy.managers.authentication.AuthenticationCallback;
 import com.sallefy.managers.authentication.AuthenticationManager;
 import com.sallefy.model.JWTToken;
 import com.sallefy.model.UserCredentials;
+import com.sallefy.services.authentication.AuthenticationUtils;
 
 public class LoginActivity extends AppCompatActivity implements AuthenticationCallback {
-
     private Button mLoginButton;
     private EditText mUsernameField;
     private EditText mPasswordField;
@@ -45,11 +46,19 @@ public class LoginActivity extends AppCompatActivity implements AuthenticationCa
 
     @Override
     public void onAuthenticationSuccess(JWTToken token) {
-        Toast.makeText(this, token.getToken(), Toast.LENGTH_SHORT).show();
+        AuthenticationUtils.resetValues(this);
+        AuthenticationUtils.saveToken(this, token);
+        AuthenticationUtils.saveLogin(this, this.mUsernameField.getText().toString());
+        goToMainActivity();
     }
 
     @Override
     public void onAuthenticationFailure(Throwable throwable) {
-        Toast.makeText(this, "Error authenticating", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Error authenticating: " + throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+    private void goToMainActivity() {
+        Intent intent= new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
