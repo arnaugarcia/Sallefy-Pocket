@@ -23,13 +23,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         TokenStoreManager.getInstance().setContext(this);
+        handler.postDelayed(this::checkUserLogin, SPLASH_SCREEN_DELAY);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         // Here we need to check the permissions too
-        handler.postDelayed(this::checkUserLogin, SPLASH_SCREEN_DELAY);
+        this.checkUserLogin();
 
     }
 
