@@ -1,15 +1,19 @@
 package com.sallefy.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sallefy.R;
+import com.sallefy.managers.registration.RegistrationCallback;
+import com.sallefy.managers.registration.RegistrationManager;
 import com.sallefy.model.UserRegister;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements RegistrationCallback {
 
     private EditText usernameField;
     private EditText emailField;
@@ -39,7 +43,21 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void attemptRegister(String username, String email, String password) {
         UserRegister userRegister = new UserRegister(email, username, password);
-
+        RegistrationManager.getInstance().register(userRegister, this);
     }
 
+    @Override
+    public void onRegistrationSuccess() {
+        goToLoginActivity();
+    }
+
+    @Override
+    public void onRegistrationFailure(Throwable throwable) {
+        Toast.makeText(this, "Error registering: " + throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+    private void goToLoginActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
 }
