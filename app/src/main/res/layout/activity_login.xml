@@ -106,17 +106,28 @@
             android:hint="@string/enter_password_placeholder"/>
 
         <Button
-            android:id="@+id/button_first"
+            android:id="@+id/bt_login"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:fontFamily="@font/poppins_bold"
             android:layout_marginTop="60dp"
             android:background="@drawable/button_login_register"
+            android:fontFamily="@font/poppins_bold"
             android:text="@string/login_title"
             android:textColor="@color/colorTextPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_login_password" />
+
+        <TextView
+            android:id="@+id/tv_login_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/no_account_register"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bt_login" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -2,32 +2,44 @@ package com.sallefy.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.sallefy.R;
-import com.sallefy.activity.LoginActivity;
-import com.sallefy.services.authentication.AuthenticationUtils;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.util.Log;
-import android.view.View;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import static com.google.android.material.snackbar.Snackbar.make;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.sallefy.R;
+import com.sallefy.services.authentication.TokenStoreManager;
+
 import static com.sallefy.services.authentication.AuthenticationUtils.isUserLogged;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final long SPLASH_SCREEN_DELAY = 1500L;
+    private final Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        TokenStoreManager.getInstance().setContext(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Here we need to check the permissions too
+        handler.postDelayed(this::checkUserLogin, SPLASH_SCREEN_DELAY);
+
+    }
+
+    private void checkUserLogin() {
         if (!isUserLogged(this)) {
             Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+
+        } else {
+            Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
         }
     }
