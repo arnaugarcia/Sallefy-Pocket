@@ -22,4 +22,7 @@
     <string name="menu_search">Search</string>
     <string name="action_profile">Profile</string>
     <string name="no_account_register">Don\'t have an account? Click here to register.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
