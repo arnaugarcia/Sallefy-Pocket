@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,7 @@ public class RegisterActivity extends AppCompatActivity implements RegistrationC
     private EditText emailField;
     private EditText passwordField;
     private Button registerButton;
+    private TextView loginText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,8 @@ public class RegisterActivity extends AppCompatActivity implements RegistrationC
             String password = passwordField.getText().toString();
             attemptRegister(username, email, password);
         });
+
+        loginText.setOnClickListener(listener -> finish());
     }
 
     private void initView() {
@@ -39,6 +43,7 @@ public class RegisterActivity extends AppCompatActivity implements RegistrationC
         emailField = findViewById(R.id.et_register_email);
         passwordField = findViewById(R.id.et_register_password);
         registerButton = findViewById(R.id.btn_register);
+        loginText = findViewById(R.id.tv_register_login);
     }
 
     private void attemptRegister(String username, String email, String password) {
