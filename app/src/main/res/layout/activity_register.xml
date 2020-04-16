@@ -101,9 +101,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_register_username"
-            tools:text="@string/enter_password_placeholder"
+            tools:text="@string/enter_email_placeholder"
             android:autofillHints="password"
-            android:hint="@string/enter_password_placeholder"/>
+            android:hint="@string/enter_email_placeholder"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -140,7 +140,7 @@
             android:hint="@string/enter_password_placeholder"/>
 
         <Button
-            android:id="@+id/button_first"
+            android:id="@+id/btn_register"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:fontFamily="@font/poppins_bold"
@@ -151,6 +151,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_register_password" />
+
+        <TextView
+            android:id="@+id/tv_register_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/already_registered"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_register" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
