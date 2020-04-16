@@ -13,7 +13,6 @@ import com.sallefy.R;
 public class SearchFragment extends Fragment {
 
     public SearchFragment() {
-        // Required empty public constructor
     }
 
     public static SearchFragment getInstance() {
@@ -28,5 +27,15 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_search, container, false);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 }
