@@ -12,7 +12,7 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sallefy.R;
 import com.sallefy.fragments.HomeFragment;
-import com.sallefy.fragments.ProfileFragment;
+import com.sallefy.fragments.YourLibraryFragment;
 import com.sallefy.fragments.SearchFragment;
 
 
@@ -46,8 +46,8 @@ public class HomeActivity extends FragmentActivity{
                     case R.id.action_search:
                         fragment = SearchFragment.getInstance();
                         break;
-                    case R.id.action_profile:
-                        fragment = ProfileFragment.getInstance();
+                    case R.id.action_your_library:
+                        fragment = YourLibraryFragment.getInstance();
                         break;
                 }
                 changeFragment(fragment);

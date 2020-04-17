@@ -10,13 +10,13 @@ import android.view.ViewGroup;
 
 import com.sallefy.R;
 
-public class ProfileFragment extends Fragment {
+public class YourLibraryFragment extends Fragment {
 
-    public ProfileFragment() {
+    public YourLibraryFragment() {
     }
 
-    public static ProfileFragment getInstance() {
-        return new ProfileFragment();
+    public static YourLibraryFragment getInstance() {
+        return new YourLibraryFragment();
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        return inflater.inflate(R.layout.fragment_your_library, container, false);
     }
 
     @Override
