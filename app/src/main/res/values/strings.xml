@@ -24,4 +24,5 @@
     <string name="action_profile">Profile</string>
     <string name="no_account_register">Don\'t have an account? Click here to register.</string>
     <string name="already_registered">Already have an account? Click here to login.</string>
+
 </resources>
