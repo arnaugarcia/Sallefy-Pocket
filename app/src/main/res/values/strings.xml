@@ -24,5 +24,8 @@
     <string name="action_profile">Profile</string>
     <string name="no_account_register">Don\'t have an account? Click here to register.</string>
     <string name="already_registered">Already have an account? Click here to login.</string>
-    <string name="action_your_library">Your library</string>
+    <string name="your_library_title">Your library</string>
+    <string name="playlists_title">Playlists</string>
+    <string name="playlist_title_title">Playlist Title</string>
+    <string name="default_num_songs">0 songs</string>
 </resources>
