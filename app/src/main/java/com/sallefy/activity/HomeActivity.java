@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -32,7 +31,10 @@ public class HomeActivity extends FragmentActivity{
     }
 
     private void initViews() {
-        mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        mFragmentManager = getSupportFragmentManager();
+        mTransaction = mFragmentManager.beginTransaction();
+
+        mBottomNavigationView = findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -59,9 +61,11 @@ public class HomeActivity extends FragmentActivity{
         String fragmentTag = ((Object) fragment).getClass().getName();
         Fragment currentFragment = mFragmentManager.findFragmentByTag(fragmentTag);
         try {
-            if (!currentFragment.isVisible()){
-                if (fragment.getArguments() != null){
-                    currentFragment.setArguments(fragment.getArguments());
+            if (currentFragment != null){
+                if (!currentFragment.isVisible()) {
+                    if (fragment.getArguments() != null) {
+                        currentFragment.setArguments(fragment.getArguments());
+                    }
                     mFragmentManager.beginTransaction()
                             .replace(R.id.fragment_manager, currentFragment, fragmentTag)
                             .addToBackStack(null)
