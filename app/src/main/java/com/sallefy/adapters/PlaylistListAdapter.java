@@ -1,6 +1,7 @@
 package com.sallefy.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sallefy.R;
+import com.sallefy.activity.CreatePlaylistActivity;
 import com.sallefy.model.Playlist;
 
 import java.util.List;
@@ -89,6 +91,11 @@ public class PlaylistListAdapter extends RecyclerView.Adapter<PlaylistListAdapte
             ivThumbnail.setVisibility(GONE);
             tvPlaylistTitle.setVisibility(GONE);
             tvNumSongs.setVisibility(GONE);
+
+            createPlaylistLayout.setOnClickListener(layoutView -> {
+                Intent intent = new Intent(context, CreatePlaylistActivity.class);
+                context.startActivity(intent);
+            });
         }
 
         public void makeOtherItems() {

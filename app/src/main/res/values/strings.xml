@@ -35,4 +35,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="profile_title">Profile</string>
     <string name="create_a_playlist">Create a playlist</string>
+    <string name="playlist_name_title">Name</string>
+    <string name="enter_playlist_name_placeholder">Enter playlist name</string>
+    <string name="description_title">Description</string>
+    <string name="private_title">Private</string>
+    <string name="create_playlist_title">Create playlist</string>
 </resources>
