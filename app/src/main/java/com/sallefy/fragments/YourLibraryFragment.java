@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.sallefy.R;
 import com.sallefy.adapters.PlaylistListAdapter;
+import com.sallefy.adapters.YourLibraryAdapter;
 import com.sallefy.managers.playlists.PlaylistCallback;
 import com.sallefy.managers.playlists.PlaylistManager;
 import com.sallefy.model.Playlist;
@@ -75,6 +76,8 @@ public class YourLibraryFragment extends Fragment implements PlaylistCallback {
     private void initViews(View view) {
 //        rvPlaylists = view.findViewById(R.id.rv_playlists);
         viewPager = view.findViewById(R.id.view_pager);
+        YourLibraryAdapter adapter = new YourLibraryAdapter(context, YourLibraryAdapter.PLAYLISTS);
+        viewPager.setAdapter(adapter);
     }
 
     private void getMyPlaylists() {
@@ -83,11 +86,11 @@ public class YourLibraryFragment extends Fragment implements PlaylistCallback {
 
     @Override
     public void onMyPlaylistsReceived(List<Playlist> playlists) {
-        this.playlists = playlists;
-        LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
-        rvPlaylists.setLayoutManager(manager);
-        PlaylistListAdapter adapter = new PlaylistListAdapter(context, this.playlists);
-        rvPlaylists.setAdapter(adapter);
+//        this.playlists = playlists;
+//        LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
+//        rvPlaylists.setLayoutManager(manager);
+//        PlaylistListAdapter adapter = new PlaylistListAdapter(context, this.playlists);
+//        rvPlaylists.setAdapter(adapter);
     }
 
     @Override
