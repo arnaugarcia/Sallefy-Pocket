@@ -14,7 +14,11 @@ import com.sallefy.model.Playlist;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 public class PlaylistListAdapter extends RecyclerView.Adapter<PlaylistListAdapter.ViewHolder> {
 
@@ -36,18 +40,24 @@ public class PlaylistListAdapter extends RecyclerView.Adapter<PlaylistListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Playlist playlist = playlists.get(position);
 
-        holder.tvPlaylistTitle.setText(playlist.getName());
-        int numSongs = playlist.getTracks().size();
-        holder.tvNumSongs.setText((numSongs == 1) ? numSongs + " song" : numSongs + " songs");
+        if (position == 0) {
+            holder.makeFirstItem();
+        } else {
+            holder.makeOtherItems();
+            Playlist playlist = playlists.get(position);
 
-        if (playlist.getThumbnail() != null) {
-            Glide.with(context)
-                    .asBitmap()
-                    .placeholder(R.drawable.application_logo)
-                    .load(playlist.getThumbnail())
-                    .into(holder.ivThumbnail);
+            holder.tvPlaylistTitle.setText(playlist.getName());
+            int numSongs = playlist.getTracks().size();
+            holder.tvNumSongs.setText((numSongs == 1) ? numSongs + " song" : numSongs + " songs");
+
+            if (playlist.getThumbnail() != null) {
+                Glide.with(context)
+                        .asBitmap()
+                        .placeholder(R.drawable.application_logo)
+                        .load(playlist.getThumbnail())
+                        .into(holder.ivThumbnail);
+            }
         }
     }
 
@@ -58,6 +68,8 @@ public class PlaylistListAdapter extends RecyclerView.Adapter<PlaylistListAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        ConstraintLayout createPlaylistLayout;
+
         ImageView ivThumbnail;
         TextView tvPlaylistTitle;
         TextView tvNumSongs;
@@ -65,9 +77,25 @@ public class PlaylistListAdapter extends RecyclerView.Adapter<PlaylistListAdapte
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            createPlaylistLayout = itemView.findViewById(R.id.create_layout);
+
             ivThumbnail = itemView.findViewById(R.id.iv_thumbnail);
             tvPlaylistTitle = itemView.findViewById(R.id.tv_title);
             tvNumSongs = itemView.findViewById(R.id.tv_songs_number);
+        }
+
+        public void makeFirstItem() {
+            createPlaylistLayout.setVisibility(VISIBLE);
+            ivThumbnail.setVisibility(GONE);
+            tvPlaylistTitle.setVisibility(GONE);
+            tvNumSongs.setVisibility(GONE);
+        }
+
+        public void makeOtherItems() {
+            createPlaylistLayout.setVisibility(GONE);
+            ivThumbnail.setVisibility(VISIBLE);
+            tvPlaylistTitle.setVisibility(VISIBLE);
+            tvNumSongs.setVisibility(VISIBLE);
         }
     }
 }
