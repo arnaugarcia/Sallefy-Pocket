@@ -6,17 +6,20 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sallefy.R;
 import com.sallefy.fragments.HomeFragment;
-import com.sallefy.fragments.ProfileFragment;
+import com.sallefy.fragments.YourLibraryFragment;
 import com.sallefy.fragments.SearchFragment;
 
 
-public class HomeActivity extends FragmentActivity{
+public class HomeActivity extends FragmentActivity {
+
+    private Context context;
 
     private BottomNavigationView mBottomNavigationView;
     private FragmentTransaction mTransaction;
@@ -28,6 +31,7 @@ public class HomeActivity extends FragmentActivity{
         setContentView(R.layout.activity_home);
         initViews();
         setInitialFragment();
+        this.context = getApplicationContext();
     }
 
     private void initViews() {
@@ -39,15 +43,15 @@ public class HomeActivity extends FragmentActivity{
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment = null;
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.action_home:
                         fragment = HomeFragment.getInstance();
                         break;
                     case R.id.action_search:
                         fragment = SearchFragment.getInstance();
                         break;
-                    case R.id.action_profile:
-                        fragment = ProfileFragment.getInstance();
+                    case R.id.action_your_library:
+                        fragment = YourLibraryFragment.getInstance(context);
                         break;
                 }
                 changeFragment(fragment);
@@ -57,11 +61,11 @@ public class HomeActivity extends FragmentActivity{
     }
 
 
-    private void changeFragment(Fragment fragment){
+    private void changeFragment(Fragment fragment) {
         String fragmentTag = ((Object) fragment).getClass().getName();
         Fragment currentFragment = mFragmentManager.findFragmentByTag(fragmentTag);
         try {
-            if (currentFragment != null){
+            if (currentFragment != null) {
                 if (!currentFragment.isVisible()) {
                     if (fragment.getArguments() != null) {
                         currentFragment.setArguments(fragment.getArguments());
@@ -77,7 +81,7 @@ public class HomeActivity extends FragmentActivity{
                         .addToBackStack(null)
                         .commit();
             }
-        } catch (IllegalStateException e){
+        } catch (IllegalStateException e) {
             e.printStackTrace();
         }
 

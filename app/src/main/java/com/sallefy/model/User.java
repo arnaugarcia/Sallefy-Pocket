@@ -43,7 +43,7 @@ public class User implements Serializable {
     @SerializedName("lastName")
     private String lastName;
 
-    @SerializedName("PLAYLISTS")
+    @SerializedName("playlists")
     private Integer playlists;
 
     @SerializedName("tracks")
@@ -217,4 +217,26 @@ public class User implements Serializable {
         this.login = login;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "activated=" + activated +
+                ", authorities=" + authorities +
+                ", createdBy='" + createdBy + '\'' +
+                ", createdDate='" + createdDate + '\'' +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", id=" + id +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", langKey='" + langKey + '\'' +
+                ", lastModifiedBy='" + lastModifiedBy + '\'' +
+                ", lastModifiedDate='" + lastModifiedDate + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", playlists=" + playlists +
+                ", tracks=" + tracks +
+                ", followers=" + followers +
+                ", following=" + following +
+                ", login='" + login + '\'' +
+                '}';
+    }
 }
