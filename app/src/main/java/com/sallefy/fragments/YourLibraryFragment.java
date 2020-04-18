@@ -11,7 +11,10 @@ import com.sallefy.R;
 import com.sallefy.adapters.YourLibraryAdapter;
 import com.sallefy.managers.playlists.PlaylistCallback;
 import com.sallefy.managers.playlists.PlaylistManager;
+import com.sallefy.managers.tracks.TrackCallback;
+import com.sallefy.managers.tracks.TrackManager;
 import com.sallefy.model.Playlist;
+import com.sallefy.model.Track;
 
 import java.util.List;
 
@@ -20,7 +23,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
-public class YourLibraryFragment extends Fragment implements PlaylistCallback {
+public class YourLibraryFragment extends Fragment
+        implements PlaylistCallback, TrackCallback {
 
     private static YourLibraryFragment instance;
     private Context context;
@@ -32,6 +36,7 @@ public class YourLibraryFragment extends Fragment implements PlaylistCallback {
         this.context = context;
         yourLibraryAdapter = new YourLibraryAdapter(context);
         getMyPlaylists();
+        getMyTracks();
     }
 
     public static YourLibraryFragment getInstance(Context context) {
@@ -74,6 +79,10 @@ public class YourLibraryFragment extends Fragment implements PlaylistCallback {
         PlaylistManager.getInstance().getMyPlaylists(context, this);
     }
 
+    private void getMyTracks() {
+        TrackManager.getInstance().getMyTracks(context, this);
+    }
+
     @Override
     public void onMyPlaylistsReceived(List<Playlist> playlists) {
         yourLibraryAdapter.setPlaylists(playlists);
@@ -83,5 +92,16 @@ public class YourLibraryFragment extends Fragment implements PlaylistCallback {
     @Override
     public void onMyPlaylistsFailure(Throwable throwable) {
         Toast.makeText(context, "Error receiving playlists", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onMyTracksReceived(List<Track> tracks) {
+        yourLibraryAdapter.setTracks(tracks);
+        viewPager.setAdapter(yourLibraryAdapter);
+    }
+
+    @Override
+    public void onMyTracksFailure(Throwable throwable) {
+        Toast.makeText(context, "Error receiving tracks", Toast.LENGTH_SHORT).show();
     }
 }
