@@ -6,7 +6,7 @@
     android:background="@android:color/black"
     android:orientation="horizontal">
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <ImageView
         android:id="@+id/iv_thumbnail"
         android:layout_width="60dp"
         android:layout_height="match_parent"
