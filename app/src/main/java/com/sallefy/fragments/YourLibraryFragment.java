@@ -104,9 +104,9 @@ public class YourLibraryFragment extends Fragment
     }
 
     private void openProfileFragment() {
-        ProfileFragment nextFrag = new ProfileFragment();
+        ProfileFragment profileFragment = new ProfileFragment(context);
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(((ViewGroup) getView().getParent()).getId(), nextFrag, "profileFragment")
+                .replace(((ViewGroup) getView().getParent()).getId(), profileFragment, "profileFragment")
                 .addToBackStack(null)
                 .commit();
     }

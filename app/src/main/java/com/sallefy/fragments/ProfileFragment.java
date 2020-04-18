@@ -1,5 +1,6 @@
 package com.sallefy.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,21 +11,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.sallefy.R;
+import com.sallefy.managers.user.UserCallback;
+import com.sallefy.managers.user.UserManager;
+import com.sallefy.model.User;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements UserCallback {
+
+    private Context context;
 
     private CircularImageView ivProfilePic;
     private TextView tvUsername;
     private TextView tvFirstName;
     private TextView tvLastName;
+    private TextView tvEmail;
+    private TextView tvDateCreated;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,6 +47,11 @@ public class ProfileFragment extends Fragment {
 
     public ProfileFragment() {
         // Required empty public constructor
+    }
+
+    public ProfileFragment(Context context) {
+        this.context = context;
+        getUserData();
     }
 
     /**
@@ -85,5 +100,33 @@ public class ProfileFragment extends Fragment {
         tvUsername = view.findViewById(R.id.tv_login);
         tvFirstName = view.findViewById(R.id.tv_first_name);
         tvLastName = view.findViewById(R.id.tv_last_name);
+        tvEmail = view.findViewById(R.id.tv_email);
+        tvDateCreated = view.findViewById(R.id.tv_date_created);
+    }
+
+    private void getUserData() {
+        UserManager.getInstance().getUserData(context, this);
+    }
+
+    @Override
+    public void onUserDataReceived(User user) {
+        tvUsername.setText(user.getLogin());
+        tvFirstName.setText(user.getFirstName());
+        tvLastName.setText(user.getLastName());
+        tvEmail.setText(user.getEmail());
+        tvDateCreated.setText(user.getCreatedDate());
+
+        if (user.getImageUrl() != null) {
+            Glide.with(context)
+                    .asBitmap()
+                    .placeholder(R.drawable.application_logo)
+                    .load(user.getImageUrl())
+                    .into(ivProfilePic);
+        }
+    }
+
+    @Override
+    public void onUserDataFailure(Throwable throwable) {
+        Toast.makeText(context, "Error receiving user data", Toast.LENGTH_SHORT).show();
     }
 }

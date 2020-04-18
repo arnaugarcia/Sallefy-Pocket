@@ -76,6 +76,16 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_first_name" />
 
         <TextView
+            android:id="@+id/tv_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:text="login@students.salle.url.edu"
+            android:textColor="@color/colorTextPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_last_name" />
+
+        <TextView
             android:id="@+id/tv_date_created"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -83,7 +93,7 @@
             android:text="1970-01-01T00:00:00Z"
             android:textColor="@color/colorTextPrimary"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_last_name" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_email" />
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/iv_profile_pic"
