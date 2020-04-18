@@ -28,20 +28,20 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_track_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_black"
-            android:text="@string/playlist_title_placeholder"
+            android:text="@string/track_title_placeholder"
             android:textColor="@color/colorPrimary"
             android:textSize="15sp" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_songs_number"
+            android:id="@+id/tv_owner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
-            android:text="@string/default_num_songs"
+            android:text="@string/owner_login_placeholder"
             android:textColor="@color/colorPrimary"
             android:textSize="12sp" />
 

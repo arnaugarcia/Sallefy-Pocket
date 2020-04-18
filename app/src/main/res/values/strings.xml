@@ -26,6 +26,8 @@
     <string name="already_registered">Already have an account? Click here to login.</string>
     <string name="your_library_title">Your library</string>
     <string name="playlists_title">Playlists</string>
-    <string name="playlist_title_title">Playlist Title</string>
+    <string name="playlist_title_placeholder">Playlist Title</string>
     <string name="default_num_songs">0 songs</string>
+    <string name="owner_login_placeholder">Owner login</string>
+    <string name="track_title_placeholder">Track Title</string>
 </resources>

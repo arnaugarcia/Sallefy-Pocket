@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,8 @@ public class YourLibraryFragment extends Fragment implements PlaylistCallback {
 
     private static YourLibraryFragment instance;
     private Context context;
+
+    private ViewPager2 viewPager;
 
     private RecyclerView rvPlaylists;
     private List<Playlist> playlists;
@@ -70,7 +73,8 @@ public class YourLibraryFragment extends Fragment implements PlaylistCallback {
     }
 
     private void initViews(View view) {
-        rvPlaylists = view.findViewById(R.id.rv_playlists);
+//        rvPlaylists = view.findViewById(R.id.rv_playlists);
+        viewPager = view.findViewById(R.id.view_pager);
     }
 
     private void getMyPlaylists() {
