@@ -6,6 +6,7 @@ import android.util.Log;
 import com.sallefy.constants.ApplicationConstants;
 import com.sallefy.managers.BaseManager;
 import com.sallefy.model.Playlist;
+import com.sallefy.model.PlaylistRequest;
 import com.sallefy.services.authentication.AuthenticationUtils;
 import com.sallefy.services.playlists.PlaylistService;
 
@@ -38,7 +39,7 @@ public class PlaylistManager extends BaseManager {
         return instance;
     }
 
-    public synchronized void getMyPlaylists(Context context, final PlaylistCallback playlistCallback) {
+    public synchronized void getMyPlaylists(Context context, final MyPlaylistsCallback myPlaylistsCallback) {
         String userToken = AuthenticationUtils.getToken(context);
 
         Call<List<Playlist>> call = playlistService.getMyPlaylists("Bearer " + userToken);
@@ -48,12 +49,12 @@ public class PlaylistManager extends BaseManager {
                 int code = response.code();
 
                 if (response.isSuccessful()) {
-                    playlistCallback.onMyPlaylistsReceived(response.body());
+                    myPlaylistsCallback.onMyPlaylistsReceived(response.body());
                 } else {
                     Log.d("ncs", "Error MyPlaylists not successful: " + response.toString());
 
                     try {
-                        playlistCallback.onMyPlaylistsFailure(new Throwable("Error " + code + ", " + response.errorBody().string()));
+                        myPlaylistsCallback.onMyPlaylistsFailure(new Throwable("Error " + code + ", " + response.errorBody().string()));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -62,8 +63,38 @@ public class PlaylistManager extends BaseManager {
 
             @Override
             public void onFailure(Call<List<Playlist>> call, Throwable t) {
-                Log.d("ncs", "Error MyPlaylists not successful: " + Arrays.toString(t.getStackTrace()));
-                playlistCallback.onMyPlaylistsFailure(new Throwable("Error " + Arrays.toString(t.getStackTrace())));
+                Log.d("ncs", "Error MyPlaylists failure: " + Arrays.toString(t.getStackTrace()));
+                myPlaylistsCallback.onMyPlaylistsFailure(new Throwable("Error " + Arrays.toString(t.getStackTrace())));
+            }
+        });
+    }
+
+    public synchronized void createPlaylist(Context context, PlaylistRequest playlistRequest, final CreatePlaylistCallback createPlaylistCallback) {
+        String userToken = AuthenticationUtils.getToken(context);
+
+        Call<Playlist> call = playlistService.createPlaylist("Bearer " + userToken, playlistRequest);
+        call.enqueue(new Callback<Playlist>() {
+            @Override
+            public void onResponse(Call<Playlist> call, Response<Playlist> response) {
+                int code = response.code();
+
+                if (response.isSuccessful()) {
+                    createPlaylistCallback.onCreatePlaylistSuccess(response.body());
+                } else {
+                    Log.d("ncs", "Error MyPlaylists not successful: " + response.toString());
+
+                    try {
+                        createPlaylistCallback.onCreatePlaylistFailure(new Throwable("Error " + code + ", " + response.errorBody().string()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Playlist> call, Throwable t) {
+                Log.d("ncs", "Error CreatePlaylist failure: " + Arrays.toString(t.getStackTrace()));
+                createPlaylistCallback.onCreatePlaylistFailure(new Throwable("Error " + Arrays.toString(t.getStackTrace())));
             }
         });
     }

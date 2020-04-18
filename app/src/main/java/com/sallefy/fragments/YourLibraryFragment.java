@@ -13,7 +13,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.sallefy.R;
 import com.sallefy.adapters.YourLibraryAdapter;
-import com.sallefy.managers.playlists.PlaylistCallback;
+import com.sallefy.managers.playlists.MyPlaylistsCallback;
 import com.sallefy.managers.playlists.PlaylistManager;
 import com.sallefy.managers.tracks.TrackCallback;
 import com.sallefy.managers.tracks.TrackManager;
@@ -29,7 +29,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 public class YourLibraryFragment extends Fragment
-        implements PlaylistCallback, TrackCallback {
+        implements MyPlaylistsCallback, TrackCallback {
 
     private static YourLibraryFragment instance;
     private Context context;
@@ -87,6 +87,8 @@ public class YourLibraryFragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
+        getMyPlaylists();
+        getMyTracks();
     }
 
     private void initViews(View view) {
