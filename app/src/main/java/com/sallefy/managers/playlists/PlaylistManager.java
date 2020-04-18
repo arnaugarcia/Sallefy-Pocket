@@ -1,12 +1,12 @@
 package com.sallefy.managers.playlists;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.sallefy.constants.ApplicationConstants;
 import com.sallefy.managers.BaseManager;
 import com.sallefy.model.Playlist;
-import com.sallefy.model.UserToken;
-import com.sallefy.services.authentication.TokenStoreManager;
+import com.sallefy.services.authentication.AuthenticationUtils;
 import com.sallefy.services.playlists.PlaylistService;
 
 import java.io.IOException;
@@ -38,8 +38,8 @@ public class PlaylistManager extends BaseManager {
         return instance;
     }
 
-    public synchronized void getMyPlaylists(final PlaylistCallback playlistCallback) {
-        String userToken = TokenStoreManager.getInstance().getToken();
+    public synchronized void getMyPlaylists(Context context, final PlaylistCallback playlistCallback) {
+        String userToken = AuthenticationUtils.getToken(context);
 
         Call<List<Playlist>> call = playlistService.getMyPlaylists("Bearer " + userToken);
         call.enqueue(new Callback<List<Playlist>>() {

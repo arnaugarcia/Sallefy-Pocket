@@ -74,7 +74,7 @@ public class YourLibraryFragment extends Fragment implements PlaylistCallback {
     }
 
     private void getMyPlaylists() {
-        PlaylistManager.getInstance().getMyPlaylists(this);
+        PlaylistManager.getInstance().getMyPlaylists(context, this);
     }
 
     @Override
