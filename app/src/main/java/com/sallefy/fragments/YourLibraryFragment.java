@@ -2,28 +2,23 @@ package com.sallefy.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.sallefy.R;
-import com.sallefy.adapters.PlaylistListAdapter;
 import com.sallefy.adapters.YourLibraryAdapter;
 import com.sallefy.managers.playlists.PlaylistCallback;
 import com.sallefy.managers.playlists.PlaylistManager;
 import com.sallefy.model.Playlist;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 public class YourLibraryFragment extends Fragment implements PlaylistCallback {
 
@@ -31,13 +26,11 @@ public class YourLibraryFragment extends Fragment implements PlaylistCallback {
     private Context context;
 
     private ViewPager2 viewPager;
-
-    private RecyclerView rvPlaylists;
-    private List<Playlist> playlists;
+    private YourLibraryAdapter yourLibraryAdapter;
 
     public YourLibraryFragment(Context context) {
         this.context = context;
-        this.playlists = new ArrayList<>();
+        yourLibraryAdapter = new YourLibraryAdapter(context);
         getMyPlaylists();
     }
 
@@ -74,10 +67,7 @@ public class YourLibraryFragment extends Fragment implements PlaylistCallback {
     }
 
     private void initViews(View view) {
-//        rvPlaylists = view.findViewById(R.id.rv_playlists);
         viewPager = view.findViewById(R.id.view_pager);
-        YourLibraryAdapter adapter = new YourLibraryAdapter(context, YourLibraryAdapter.PLAYLISTS);
-        viewPager.setAdapter(adapter);
     }
 
     private void getMyPlaylists() {
@@ -86,11 +76,8 @@ public class YourLibraryFragment extends Fragment implements PlaylistCallback {
 
     @Override
     public void onMyPlaylistsReceived(List<Playlist> playlists) {
-//        this.playlists = playlists;
-//        LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
-//        rvPlaylists.setLayoutManager(manager);
-//        PlaylistListAdapter adapter = new PlaylistListAdapter(context, this.playlists);
-//        rvPlaylists.setAdapter(adapter);
+        yourLibraryAdapter.setPlaylists(playlists);
+        viewPager.setAdapter(yourLibraryAdapter);
     }
 
     @Override

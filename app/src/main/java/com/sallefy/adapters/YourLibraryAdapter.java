@@ -4,14 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.sallefy.R;
+import com.sallefy.model.Playlist;
+import com.sallefy.model.Track;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class YourLibraryAdapter extends RecyclerView.Adapter<YourLibraryAdapter.ViewHolder> {
@@ -21,42 +22,59 @@ public class YourLibraryAdapter extends RecyclerView.Adapter<YourLibraryAdapter.
 
     private Context context;
 
-    private List<String> types;
-    private int listType;
+    private List<Playlist> playlists;
+    private List<Track> tracks;
 
-    public YourLibraryAdapter(Context context, int listType) {
+    public YourLibraryAdapter(Context context) {
         this.context = context;
-        this.listType = listType;
-        this.types = new ArrayList<>();
-        this.types.add("Playlist");
-        this.types.add("Tracks");
+    }
+
+    public void setPlaylists(List<Playlist> playlists) {
+        this.playlists = playlists;
+    }
+
+    public void setTracks(List<Track> tracks) {
+        this.tracks = tracks;
     }
 
     @NonNull
     @Override
     public YourLibraryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.your_library_item, parent, false);
+                .inflate(R.layout.fragment_library_item, parent, false);
         return new YourLibraryAdapter.ViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull YourLibraryAdapter.ViewHolder holder, int position) {
-        holder.tv.setText(types.get(position));
+        LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
+        holder.rvYourLibrary.setLayoutManager(manager);
+
+        RecyclerView.Adapter adapter = null;
+
+        if (position == 0) {
+            if (this.playlists != null)
+                adapter = new PlaylistListAdapter(context, this.playlists);
+        } else if (position == 1) {
+            if (this.tracks != null)
+                adapter = new TrackListAdapter(context, this.tracks);
+        }
+        if (adapter != null) holder.rvYourLibrary.setAdapter(adapter);
     }
 
     @Override
     public int getItemCount() {
-        return types.size();
+        return 2;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tv;
+        RecyclerView rvYourLibrary;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tv = itemView.findViewById(R.id.tv);
+            rvYourLibrary = itemView.findViewById(R.id.rv_your_library);
         }
     }
 }
