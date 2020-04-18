@@ -34,6 +34,7 @@ public class YourLibraryFragment extends Fragment implements PlaylistCallback {
     public YourLibraryFragment(Context context) {
         this.context = context;
         this.playlists = new ArrayList<>();
+        getMyPlaylists();
     }
 
     public static YourLibraryFragment getInstance(Context context) {
@@ -56,7 +57,6 @@ public class YourLibraryFragment extends Fragment implements PlaylistCallback {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
-        getMyPlaylists();
     }
 
     @Override

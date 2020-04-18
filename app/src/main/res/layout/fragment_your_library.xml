@@ -34,7 +34,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_Playlists"
+            android:id="@+id/tv_playlists"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"

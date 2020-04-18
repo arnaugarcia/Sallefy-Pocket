@@ -29,7 +29,8 @@ public class PlaylistListAdapter extends RecyclerView.Adapter<PlaylistListAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.playlist_item, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.playlist_item, parent, false);
         return new PlaylistListAdapter.ViewHolder(itemView);
     }
 
@@ -52,7 +53,7 @@ public class PlaylistListAdapter extends RecyclerView.Adapter<PlaylistListAdapte
 
     @Override
     public int getItemCount() {
-        return 0;
+        return playlists.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -65,7 +66,7 @@ public class PlaylistListAdapter extends RecyclerView.Adapter<PlaylistListAdapte
             super(itemView);
 
             ivThumbnail = itemView.findViewById(R.id.iv_thumbnail);
-            tvPlaylistTitle = itemView.findViewById(R.id.tv_Playlists);
+            tvPlaylistTitle = itemView.findViewById(R.id.tv_title);
             tvNumSongs = itemView.findViewById(R.id.tv_songs_number);
         }
     }
