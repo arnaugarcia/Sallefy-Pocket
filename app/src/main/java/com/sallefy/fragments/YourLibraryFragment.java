@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
@@ -33,6 +34,7 @@ public class YourLibraryFragment extends Fragment
     private static YourLibraryFragment instance;
     private Context context;
 
+    private ImageButton ibSettings;
     private ViewPager2 viewPager;
     private TabLayout tabLayout;
     private YourLibraryAdapter yourLibraryAdapter;
@@ -64,8 +66,12 @@ public class YourLibraryFragment extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
-        viewPager.setAdapter(yourLibraryAdapter);
 
+        ibSettings.setOnClickListener(view1 -> {
+            openProfileFragment();
+        });
+
+        viewPager.setAdapter(yourLibraryAdapter);
         tabLayout.setSelectedTabIndicatorColor(ResourcesCompat.getColor(getResources(), R.color.colorAccent, null));
         tabLayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#ffffff"));
         new TabLayoutMediator(tabLayout, viewPager,
@@ -84,6 +90,7 @@ public class YourLibraryFragment extends Fragment
     }
 
     private void initViews(View view) {
+        ibSettings = view.findViewById(R.id.ib_settings);
         viewPager = view.findViewById(R.id.view_pager);
         tabLayout = view.findViewById(R.id.tab_layout);
     }
@@ -94,6 +101,14 @@ public class YourLibraryFragment extends Fragment
 
     private void getMyTracks() {
         TrackManager.getInstance().getMyTracks(context, this);
+    }
+
+    private void openProfileFragment() {
+        ProfileFragment nextFrag = new ProfileFragment();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(((ViewGroup) getView().getParent()).getId(), nextFrag, "profileFragment")
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override
