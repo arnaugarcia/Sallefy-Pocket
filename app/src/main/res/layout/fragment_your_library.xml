@@ -33,21 +33,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_playlists"
-            android:layout_width="wrap_content"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:fontFamily="@font/poppins_black"
-            android:text="@string/playlists_title"
-            android:textColor="@android:color/white"
-            android:textSize="26sp" />
+            app:tabTextAppearance="@style/TabLayoutTextStyle"/>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
     </LinearLayout>
 
 </LinearLayout>

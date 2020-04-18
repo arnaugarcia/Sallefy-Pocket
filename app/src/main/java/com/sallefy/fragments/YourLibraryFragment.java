@@ -1,12 +1,15 @@
 package com.sallefy.fragments;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.sallefy.R;
 import com.sallefy.adapters.YourLibraryAdapter;
 import com.sallefy.managers.playlists.PlaylistCallback;
@@ -20,6 +23,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -30,6 +34,7 @@ public class YourLibraryFragment extends Fragment
     private Context context;
 
     private ViewPager2 viewPager;
+    private TabLayout tabLayout;
     private YourLibraryAdapter yourLibraryAdapter;
 
     public YourLibraryFragment(Context context) {
@@ -59,6 +64,13 @@ public class YourLibraryFragment extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
+        viewPager.setAdapter(yourLibraryAdapter);
+
+        tabLayout.setSelectedTabIndicatorColor(ResourcesCompat.getColor(getResources(), R.color.colorAccent, null));
+        tabLayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#ffffff"));
+        new TabLayoutMediator(tabLayout, viewPager,
+                ((tab, position) -> tab.setText((position == 0) ? "Playlists" : "Tracks"))
+        ).attach();
     }
 
     @Override
@@ -73,6 +85,7 @@ public class YourLibraryFragment extends Fragment
 
     private void initViews(View view) {
         viewPager = view.findViewById(R.id.view_pager);
+        tabLayout = view.findViewById(R.id.tab_layout);
     }
 
     private void getMyPlaylists() {
