@@ -17,9 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class YourLibraryAdapter extends RecyclerView.Adapter<YourLibraryAdapter.ViewHolder> {
 
-    public static int PLAYLISTS = 0;
-    public static int TRACKS = 1;
-
     private Context context;
 
     private List<Playlist> playlists;
@@ -53,8 +50,8 @@ public class YourLibraryAdapter extends RecyclerView.Adapter<YourLibraryAdapter.
         RecyclerView.Adapter adapter = null;
 
         if (position == 0) {
-            if (this.playlists != null)
-                adapter = new PlaylistListAdapter(context, this.playlists);
+            if (playlists != null)
+                adapter = new PlaylistListAdapter(context, playlists);
         } else if (position == 1) {
             if (this.tracks != null)
                 adapter = new TrackListAdapter(context, this.tracks);
