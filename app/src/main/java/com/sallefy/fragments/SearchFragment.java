@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.sallefy.R;
 public class SearchFragment extends Fragment {
     private TextView mSearchTitleTextView;
     private SearchView mSearchView;
+    private RecyclerView mGenreRecyclerView;
 
     public SearchFragment() {
     }
@@ -49,13 +51,16 @@ public class SearchFragment extends Fragment {
     }
 
     private void initViews(View view) {
-        mSearchTitleTextView = (TextView) view.findViewById(R.id.tv_search_title);
-        mSearchView = (SearchView) view.findViewById(R.id.search_view);
-
+        mSearchTitleTextView = view.findViewById(R.id.tv_search_title);
         Shader shader = new LinearGradient(0,0,0, mSearchTitleTextView.getLineHeight(),
                 ContextCompat.getColor(view.getContext(), R.color.gradientStart),
                 ContextCompat.getColor(view.getContext(), R.color.gradientEnd),
                 Shader.TileMode.MIRROR);
         mSearchTitleTextView.getPaint().setShader(shader);
+
+        mGenreRecyclerView = view.findViewById(R.id.genre_recycle_view);
+
+
+
     }
 }
