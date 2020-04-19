@@ -10,6 +10,11 @@ import android.os.IBinder;
 
 import androidx.annotation.Nullable;
 
+import com.sallefy.model.Playlist;
+import com.sallefy.model.Track;
+
+import java.util.List;
+
 import static android.net.wifi.WifiManager.WIFI_MODE_FULL_LOW_LATENCY;
 import static android.os.PowerManager.PARTIAL_WAKE_LOCK;
 
@@ -39,6 +44,18 @@ public class PlayerService extends Service implements MediaPlayer.OnPreparedList
             wifiLock.acquire();
         }
         return START_REDELIVER_INTENT;
+    }
+
+    public void play(Track track) {
+
+    }
+
+    public void play(List<Track> tracks) {
+
+    }
+
+    public void play(Playlist playlist) {
+
     }
 
     @Nullable
