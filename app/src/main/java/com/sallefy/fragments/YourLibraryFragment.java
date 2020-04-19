@@ -1,10 +1,14 @@
 package com.sallefy.fragments;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +27,7 @@ import com.sallefy.managers.tracks.TrackCallback;
 import com.sallefy.managers.tracks.TrackManager;
 import com.sallefy.model.Playlist;
 import com.sallefy.model.Track;
+import com.sallefy.services.player.PlayerService;
 
 import java.util.List;
 
@@ -47,6 +52,8 @@ public class YourLibraryFragment extends Fragment
     private YourLibraryAdapter yourLibraryAdapter;
     private TextView mLibraryTitleTextView;
 
+    private PlayerService mBoundService;
+
     public YourLibraryFragment(Context context, FragmentManager fragmentManager) {
         this.context = context;
         this.fragmentManager = fragmentManager;
@@ -63,6 +70,8 @@ public class YourLibraryFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = new Intent(getContext(), PlayerService.class);
+        getActivity().bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
     }
 
     @Override
@@ -152,11 +161,27 @@ public class YourLibraryFragment extends Fragment
 
     @Override
     public void onTrackSelected(Track track) {
-        Toast.makeText(context, track.getName(), Toast.LENGTH_SHORT).show();
+        mBoundService.play(track);
     }
 
     @Override
     public void onTrackLiked(Track track) {
 
     }
+
+    private ServiceConnection mServiceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            PlayerService.PlayerBinder binder = (PlayerService.PlayerBinder)service;
+            mBoundService = binder.getService();
+            //mBoundService.setCallback(SongsFragment.this);
+            //mServiceBound = true;
+            //updateSeekBar();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            //mServiceBound = false;
+        }
+    };
 }
