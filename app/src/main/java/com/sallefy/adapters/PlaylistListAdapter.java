@@ -11,12 +11,15 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.sallefy.R;
 import com.sallefy.activity.CreatePlaylistActivity;
+import com.sallefy.fragments.PlaylistFragment;
 import com.sallefy.model.Playlist;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import static android.view.View.GONE;
@@ -24,12 +27,15 @@ import static android.view.View.VISIBLE;
 
 public class PlaylistListAdapter extends RecyclerView.Adapter<PlaylistListAdapter.ViewHolder> {
 
+    private FragmentManager fragmentManager;
     private Context context;
+
     private List<Playlist> playlists;
 
-    public PlaylistListAdapter(Context context, List<Playlist> playlists) {
+    public PlaylistListAdapter(Context context, List<Playlist> playlists, FragmentManager fragmentManager) {
         this.context = context;
         this.playlists = playlists;
+        this.fragmentManager = fragmentManager;
     }
 
     @NonNull
@@ -46,8 +52,8 @@ public class PlaylistListAdapter extends RecyclerView.Adapter<PlaylistListAdapte
         if (position == 0) {
             holder.makeFirstItem();
         } else {
-            holder.makeOtherItems();
-            Playlist playlist = playlists.get(position);
+            holder.makeOtherItems(position - 1);
+            Playlist playlist = playlists.get(position - 1);
 
             holder.tvPlaylistTitle.setText(playlist.getName());
             int numSongs = playlist.getTracks().size();
@@ -65,12 +71,13 @@ public class PlaylistListAdapter extends RecyclerView.Adapter<PlaylistListAdapte
 
     @Override
     public int getItemCount() {
-        return playlists.size();
+        return playlists.size() + 1;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ConstraintLayout createPlaylistLayout;
+        ConstraintLayout playlistLayout;
 
         ImageView ivThumbnail;
         TextView tvPlaylistTitle;
@@ -80,6 +87,7 @@ public class PlaylistListAdapter extends RecyclerView.Adapter<PlaylistListAdapte
             super(itemView);
 
             createPlaylistLayout = itemView.findViewById(R.id.create_layout);
+            playlistLayout = itemView.findViewById(R.id.playlist_layout);
 
             ivThumbnail = itemView.findViewById(R.id.iv_thumbnail);
             tvPlaylistTitle = itemView.findViewById(R.id.tv_title);
@@ -88,9 +96,7 @@ public class PlaylistListAdapter extends RecyclerView.Adapter<PlaylistListAdapte
 
         public void makeFirstItem() {
             createPlaylistLayout.setVisibility(VISIBLE);
-            ivThumbnail.setVisibility(GONE);
-            tvPlaylistTitle.setVisibility(GONE);
-            tvNumSongs.setVisibility(GONE);
+            playlistLayout.setVisibility(GONE);
 
             createPlaylistLayout.setOnClickListener(layoutView -> {
                 Intent intent = new Intent(context, CreatePlaylistActivity.class);
@@ -98,11 +104,14 @@ public class PlaylistListAdapter extends RecyclerView.Adapter<PlaylistListAdapte
             });
         }
 
-        public void makeOtherItems() {
+        public void makeOtherItems(int position) {
             createPlaylistLayout.setVisibility(GONE);
-            ivThumbnail.setVisibility(VISIBLE);
-            tvPlaylistTitle.setVisibility(VISIBLE);
-            tvNumSongs.setVisibility(VISIBLE);
+            playlistLayout.setVisibility(VISIBLE);
+
+            playlistLayout.setOnClickListener(layoutView -> fragmentManager.beginTransaction()
+                    .replace(R.id.fragment_manager, new PlaylistFragment(context, playlists.get(position), fragmentManager))
+                    .addToBackStack(null)
+                    .commit());
         }
     }
 }

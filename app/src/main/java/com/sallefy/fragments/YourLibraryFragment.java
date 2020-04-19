@@ -26,12 +26,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 public class YourLibraryFragment extends Fragment
         implements MyPlaylistsCallback, TrackCallback {
 
     private static YourLibraryFragment instance;
+    private FragmentManager fragmentManager;
     private Context context;
 
     private ImageButton ibSettings;
@@ -39,15 +41,16 @@ public class YourLibraryFragment extends Fragment
     private TabLayout tabLayout;
     private YourLibraryAdapter yourLibraryAdapter;
 
-    public YourLibraryFragment(Context context) {
+    public YourLibraryFragment(Context context, FragmentManager fragmentManager) {
         this.context = context;
-        yourLibraryAdapter = new YourLibraryAdapter(context);
+        this.fragmentManager = fragmentManager;
+        this.yourLibraryAdapter = new YourLibraryAdapter(context, fragmentManager);
         getMyPlaylists();
         getMyTracks();
     }
 
-    public static YourLibraryFragment getInstance(Context context) {
-        if (instance == null) instance = new YourLibraryFragment(context);
+    public static YourLibraryFragment getInstance(Context context, FragmentManager fragmentManager) {
+        if (instance == null) instance = new YourLibraryFragment(context, fragmentManager);
         return instance;
     }
 
@@ -107,7 +110,7 @@ public class YourLibraryFragment extends Fragment
 
     private void openProfileFragment() {
         ProfileFragment profileFragment = new ProfileFragment(context);
-        getActivity().getSupportFragmentManager().beginTransaction()
+        fragmentManager.beginTransaction()
                 .replace(((ViewGroup) getView().getParent()).getId(), profileFragment, "profileFragment")
                 .addToBackStack(null)
                 .commit();
