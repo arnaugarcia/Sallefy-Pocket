@@ -2,11 +2,14 @@ package com.sallefy.fragments;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
@@ -24,6 +27,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -40,6 +44,7 @@ public class YourLibraryFragment extends Fragment
     private ViewPager2 viewPager;
     private TabLayout tabLayout;
     private YourLibraryAdapter yourLibraryAdapter;
+    private TextView mLibraryTitleTextView;
 
     public YourLibraryFragment(Context context, FragmentManager fragmentManager) {
         this.context = context;
@@ -98,6 +103,12 @@ public class YourLibraryFragment extends Fragment
         ibSettings = view.findViewById(R.id.ib_settings);
         viewPager = view.findViewById(R.id.view_pager);
         tabLayout = view.findViewById(R.id.tab_layout);
+        mLibraryTitleTextView = view.findViewById(R.id.tv_your_library_title);
+        Shader shader = new LinearGradient(0,0,0, mLibraryTitleTextView.getLineHeight(),
+                ContextCompat.getColor(view.getContext(), R.color.gradientStart),
+                ContextCompat.getColor(view.getContext(), R.color.gradientEnd),
+                Shader.TileMode.MIRROR);
+        mLibraryTitleTextView.getPaint().setShader(shader);
     }
 
     private void getMyPlaylists() {

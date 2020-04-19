@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
+    android:background="@color/backgroundDefault"
     tools:context=".fragments.ProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -105,7 +105,7 @@
             app:civ_border_width="4dp"
             app:civ_shadow="true"
             app:civ_shadow_color="#8BC34A"
-            app:civ_shadow_radius="10"
+            app:civ_shadow_radius="10dp"
             app:layout_constraintBottom_toTopOf="@+id/tv_login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
