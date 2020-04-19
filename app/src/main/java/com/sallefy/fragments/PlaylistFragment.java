@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.sallefy.R;
+import com.sallefy.adapters.PlaylistTrackListAdapter;
 import com.sallefy.adapters.TrackListAdapter;
 import com.sallefy.managers.playlists.PlaylistManager;
 import com.sallefy.model.Playlist;
@@ -36,9 +37,6 @@ public class PlaylistFragment extends Fragment {
 
     private ImageButton ibBack;
     private ImageButton ibOptions;
-    private CircularImageView ivThumbnail;
-    private TextView tvTitle;
-    private TextView tvDescription;
     private RecyclerView rvSongs;
 
     public PlaylistFragment() {
@@ -73,28 +71,15 @@ public class PlaylistFragment extends Fragment {
             fragmentManager.popBackStack();
         });
 
-        tvTitle.setText(playlist.getName());
-        tvDescription.setText(playlist.getDescription());
-        if (playlist.getThumbnail() != null) {
-            Glide.with(context)
-                    .asBitmap()
-                    .placeholder(R.drawable.application_logo)
-                    .load(playlist.getThumbnail())
-                    .into(ivThumbnail);
-        }
-
         LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
         rvSongs.setLayoutManager(manager);
-        TrackListAdapter adapter = new TrackListAdapter(context, playlist.getTracks());
+        PlaylistTrackListAdapter adapter = new PlaylistTrackListAdapter(fragmentManager, context, playlist);
         rvSongs.setAdapter(adapter);
     }
 
     private void initViews(View view) {
         ibBack = view.findViewById(R.id.ib_back);
         ibOptions = view.findViewById(R.id.ib_options);
-        ivThumbnail = view.findViewById(R.id.iv_playlist_thumbnail);
-        tvTitle = view.findViewById(R.id.tv_playlist_title);
-        tvDescription = view.findViewById(R.id.tv_playlist_description);
         rvSongs = view.findViewById(R.id.rv_songs);
     }
 }

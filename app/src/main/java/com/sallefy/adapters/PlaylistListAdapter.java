@@ -108,12 +108,10 @@ public class PlaylistListAdapter extends RecyclerView.Adapter<PlaylistListAdapte
             createPlaylistLayout.setVisibility(GONE);
             playlistLayout.setVisibility(VISIBLE);
 
-            playlistLayout.setOnClickListener(layoutView -> {
-                fragmentManager.beginTransaction()
-                        .replace(R.id.fragment_manager, new PlaylistFragment(context, playlists.get(position), fragmentManager))
-                        .addToBackStack(null)
-                        .commit();
-            });
+            playlistLayout.setOnClickListener(layoutView -> fragmentManager.beginTransaction()
+                    .replace(R.id.fragment_manager, new PlaylistFragment(context, playlists.get(position), fragmentManager))
+                    .addToBackStack(null)
+                    .commit());
         }
     }
 }
