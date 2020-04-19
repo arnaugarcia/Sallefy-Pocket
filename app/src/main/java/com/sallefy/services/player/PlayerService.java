@@ -42,4 +42,12 @@ public class PlayerService extends Service implements MediaPlayer.OnPreparedList
     public void onPrepared(MediaPlayer player) {
         player.start();
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mediaPlayer != null) mediaPlayer.release();
+    }
+
+
 }
