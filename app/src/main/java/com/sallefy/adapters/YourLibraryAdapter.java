@@ -12,18 +12,21 @@ import com.sallefy.model.Track;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class YourLibraryAdapter extends RecyclerView.Adapter<YourLibraryAdapter.ViewHolder> {
 
+    private FragmentManager fragmentManager;
     private Context context;
 
     private List<Playlist> playlists;
     private List<Track> tracks;
 
-    public YourLibraryAdapter(Context context) {
+    public YourLibraryAdapter(Context context, FragmentManager fragmentManager) {
         this.context = context;
+        this.fragmentManager = fragmentManager;
     }
 
     public void setPlaylists(List<Playlist> playlists) {
@@ -51,7 +54,7 @@ public class YourLibraryAdapter extends RecyclerView.Adapter<YourLibraryAdapter.
 
         if (position == 0) {
             if (playlists != null)
-                adapter = new PlaylistListAdapter(context, playlists);
+                adapter = new PlaylistListAdapter(context, playlists, fragmentManager);
         } else if (position == 1) {
             if (this.tracks != null)
                 adapter = new TrackListAdapter(context, this.tracks);
