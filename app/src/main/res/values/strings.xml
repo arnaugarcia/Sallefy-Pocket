@@ -43,4 +43,5 @@
     <string name="playlist_description_placeholder">Playlist description placeholder</string>
     <string name="search_title">Search</string>
     <string name="search_hint">Artists, songs</string>
+    <string name="genre_item_placeholder">Genre</string>
 </resources>
