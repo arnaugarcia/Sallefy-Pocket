@@ -42,5 +42,5 @@
     <string name="create_playlist_title">Create playlist</string>
     <string name="playlist_description_placeholder">Playlist description placeholder</string>
     <string name="search_title">Search</string>
-    <string name="search_hint">song name...</string>
+    <string name="search_hint">Artists, songs</string>
 </resources>

@@ -4,6 +4,7 @@ import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -16,6 +17,7 @@ import com.sallefy.R;
 
 public class SearchFragment extends Fragment {
     private TextView mSearchTitleTextView;
+    private SearchView mSearchView;
 
     public SearchFragment() {
     }
@@ -48,6 +50,7 @@ public class SearchFragment extends Fragment {
 
     private void initViews(View view) {
         mSearchTitleTextView = (TextView) view.findViewById(R.id.tv_search_title);
+        mSearchView = (SearchView) view.findViewById(R.id.search_view);
 
         Shader shader = new LinearGradient(0,0,0, mSearchTitleTextView.getLineHeight(),
                 ContextCompat.getColor(view.getContext(), R.color.gradientStart),
