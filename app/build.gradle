@@ -58,5 +58,5 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.1.0-alpha01'
 
     // Circular Image View
-    implementation 'com.mikhaellopez:circularimageview:3.2.0'
+    implementation 'com.mikhaellopez:circularimageview:4.2.0'
 }

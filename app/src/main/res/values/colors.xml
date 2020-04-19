@@ -9,5 +9,7 @@
     <color name="gradientStart">#EE0979</color>
     <color name="gradientEnd">#FF6A00</color>
 
+    <color name="backgroundDefault">#341931</color>
+
     <color name="colorTextPrimary">#FFFFFFFF</color>
 </resources>
