@@ -1,12 +1,16 @@
 package com.sallefy.fragments;
 
 import android.content.Context;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +33,7 @@ public class ProfileFragment extends Fragment implements UserCallback {
 
     private Context context;
 
+    private TextView tvProfileTitle;
     private CircularImageView ivProfilePic;
     private TextView tvUsername;
     private TextView tvFirstName;
@@ -93,9 +98,18 @@ public class ProfileFragment extends Fragment implements UserCallback {
         super.onViewCreated(view, savedInstanceState);
 
         initViews(view);
+
+        TextPaint paint = tvProfileTitle.getPaint();
+        float width = paint.measureText(tvProfileTitle.getText().toString());
+        Shader shader = new LinearGradient(0, 0, width, 0,
+                ContextCompat.getColor(view.getContext(), R.color.gradientStart),
+                ContextCompat.getColor(view.getContext(), R.color.gradientEnd),
+                Shader.TileMode.MIRROR);
+        tvProfileTitle.getPaint().setShader(shader);
     }
 
     private void initViews(View view) {
+        tvProfileTitle = view.findViewById(R.id.tv_profile_title);
         ivProfilePic = view.findViewById(R.id.iv_profile_pic);
         tvUsername = view.findViewById(R.id.tv_login);
         tvFirstName = view.findViewById(R.id.tv_first_name);
