@@ -3,15 +3,15 @@
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="colorTextPrimary">#FFFFFFFF</color>
+    <color name="backgroundDefault">#341931</color>
+
+    <color name="transparent">#00FFFFFF</color>
 
     //Item colors
     <color name="ButtonNavigationView">#111625</color>
     <color name="gradientStart">#EE0979</color>
     <color name="gradientEnd">#FF6A00</color>
-
-    <color name="backgroundDefault">#341931</color>
-
-    <color name="colorTextPrimary">#FFFFFFFF</color>
 
     //Genre colors
     <color name="genrePink">#D70060</color>

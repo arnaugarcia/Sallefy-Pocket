@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="70dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorPrimaryDark">
+    android:background="@drawable/round_empty_bg">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_genre"
@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_black"
         android:text="@string/genre_item_placeholder"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
