@@ -1,6 +1,9 @@
 package com.sallefy.adapters;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +14,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.sallefy.R;
 import com.sallefy.model.Track;
+import com.sallefy.services.player.PlayerService;
 
 import java.util.List;
 
@@ -25,6 +29,9 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
 
     private Context context;
     private List<Track> tracks;
+    // Service
+    private PlayerService mBoundService;
+    private boolean mServiceBound = false;
 
     public TrackListAdapter(Context context, List<Track> tracks) {
         this.context = context;
@@ -81,4 +88,20 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
     private View.OnClickListener playTrack() {
         return v -> makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
     }
+
+    private ServiceConnection mServiceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            PlayerService.PlayerBinder binder = (PlayerService.PlayerBinder)service;
+            mBoundService = binder.getService();
+            // mBoundService.setCallback(SongsFragment.this);
+            mServiceBound = true;
+            // updateSeekBar();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            mServiceBound = false;
+        }
+    };
 }

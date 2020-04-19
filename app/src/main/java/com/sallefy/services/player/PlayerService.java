@@ -3,10 +3,12 @@ package com.sallefy.services.player;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.IBinder;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -47,7 +49,36 @@ public class PlayerService extends Service implements MediaPlayer.OnPreparedList
     }
 
     public void play(Track track) {
+        if (mediaPlayer != null) {
+            try {
+                mediaPlayer.stop();
+            } catch(Exception e) {
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+            mediaPlayer = null;
+        }
 
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mediaPlayer.setOnCompletionListener(mp -> {
+            // updateTrack(1);
+        });
+
+        try {
+            mediaPlayer.setDataSource(track.getUrl());
+            mediaPlayer.prepare();
+            mediaPlayer.setOnPreparedListener(mp -> {
+                mediaPlayer.start();
+                System.out.println("Entra en el prepared");
+
+                /*if (mCallback != null) {
+                    System.out.println("Entra en el callback");
+                    mCallback.onMusicPlayerPrepared();
+                }*/
+            });
+        } catch(Exception e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void play(List<Track> tracks) {
