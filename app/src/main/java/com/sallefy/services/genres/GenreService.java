@@ -10,6 +10,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 
 public interface GenreService {
-    @GET("/genres")
+    @GET("genres")
     Call<List<Genre>> getAllGenres(@Header("Authorization") String userToken);
 }

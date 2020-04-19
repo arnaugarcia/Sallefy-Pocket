@@ -11,6 +11,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.TextPaint;
@@ -28,7 +29,7 @@ import com.sallefy.model.Genre;
 
 import java.util.List;
 
-public class SearchFragment extends Fragment implements GenresCallback{
+public class SearchFragment extends Fragment implements GenresCallback {
 
     private static SearchFragment instance;
 
@@ -66,9 +67,10 @@ public class SearchFragment extends Fragment implements GenresCallback{
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
 
-        mGenreListAdapter = new GenreListAdapter(getContext(), null);
         mGenreRecyclerView = view.findViewById(R.id.genre_recycle_view);
-        mGenreRecyclerView.setAdapter(mGenreListAdapter);
+        mGenreListAdapter = new GenreListAdapter(getContext(), null);
+        LinearLayoutManager manager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false);
+        mGenreRecyclerView.setLayoutManager(manager);
     }
 
     @Override
@@ -97,7 +99,7 @@ public class SearchFragment extends Fragment implements GenresCallback{
     }
 
     private void getAllGenres() {
-        GenreManager.getInstance().getAllGenres(mContext, (GenresCallback) this);
+        GenreManager.getInstance().getAllGenres(mContext, this);
     }
 
     @Override
