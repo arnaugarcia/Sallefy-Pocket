@@ -16,6 +16,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.sallefy.R;
 import com.sallefy.adapters.YourLibraryAdapter;
+import com.sallefy.adapters.callbacks.TrackListCallback;
 import com.sallefy.managers.playlists.MyPlaylistsCallback;
 import com.sallefy.managers.playlists.PlaylistManager;
 import com.sallefy.managers.tracks.TrackCallback;
@@ -34,7 +35,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 public class YourLibraryFragment extends Fragment
-        implements MyPlaylistsCallback, TrackCallback {
+        implements MyPlaylistsCallback, TrackCallback, TrackListCallback {
 
     private static YourLibraryFragment instance;
     private FragmentManager fragmentManager;
@@ -49,7 +50,7 @@ public class YourLibraryFragment extends Fragment
     public YourLibraryFragment(Context context, FragmentManager fragmentManager) {
         this.context = context;
         this.fragmentManager = fragmentManager;
-        this.yourLibraryAdapter = new YourLibraryAdapter(context, fragmentManager);
+        this.yourLibraryAdapter = new YourLibraryAdapter(this, context, fragmentManager);
         getMyPlaylists();
         getMyTracks();
     }
@@ -147,5 +148,15 @@ public class YourLibraryFragment extends Fragment
     @Override
     public void onMyTracksFailure(Throwable throwable) {
         Toast.makeText(context, "Error receiving tracks", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onTrackSelected(Track track) {
+        Toast.makeText(context, track.getName(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onTrackLiked(Track track) {
+
     }
 }

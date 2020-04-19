@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sallefy.R;
+import com.sallefy.adapters.callbacks.TrackListCallback;
 import com.sallefy.model.Playlist;
 import com.sallefy.model.Track;
 
@@ -23,8 +24,10 @@ public class YourLibraryAdapter extends RecyclerView.Adapter<YourLibraryAdapter.
 
     private List<Playlist> playlists;
     private List<Track> tracks;
+    private TrackListCallback trackListCallback;
 
-    public YourLibraryAdapter(Context context, FragmentManager fragmentManager) {
+    public YourLibraryAdapter(TrackListCallback trackListCallback, Context context, FragmentManager fragmentManager) {
+        this.trackListCallback = trackListCallback;
         this.context = context;
         this.fragmentManager = fragmentManager;
     }
@@ -57,7 +60,7 @@ public class YourLibraryAdapter extends RecyclerView.Adapter<YourLibraryAdapter.
                 adapter = new PlaylistListAdapter(context, playlists, fragmentManager);
         } else if (position == 1) {
             if (this.tracks != null)
-                adapter = new TrackListAdapter(context, this.tracks);
+                adapter = new TrackListAdapter(trackListCallback, context, this.tracks);
         }
         if (adapter != null) holder.rvYourLibrary.setAdapter(adapter);
     }

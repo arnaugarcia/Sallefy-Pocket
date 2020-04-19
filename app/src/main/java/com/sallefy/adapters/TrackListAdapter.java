@@ -1,41 +1,32 @@
 package com.sallefy.adapters;
 
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.ServiceConnection;
-import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-import com.sallefy.R;
-import com.sallefy.model.Track;
-import com.sallefy.services.player.PlayerService;
-
-import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.jetbrains.annotations.NotNull;
+import com.bumptech.glide.Glide;
+import com.sallefy.R;
+import com.sallefy.adapters.callbacks.TrackListCallback;
+import com.sallefy.model.Track;
 
-import static android.widget.Toast.makeText;
+import java.util.List;
 
 public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.ViewHolder> {
 
     private Context context;
     private List<Track> tracks;
-    // Service
-    private PlayerService mBoundService;
-    private boolean mServiceBound = false;
+    private TrackListCallback trackCallback;
 
-    public TrackListAdapter(Context context, List<Track> tracks) {
+    public TrackListAdapter(TrackListCallback trackCallback, Context context, List<Track> tracks) {
         this.context = context;
         this.tracks = tracks;
+        this.trackCallback = trackCallback;
     }
 
     @NonNull
@@ -60,6 +51,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
                     .load(track.getThumbnail())
                     .into(holder.ivThumbnail);
         }
+        holder.itemView.setOnClickListener(listener -> trackCallback.onTrackSelected(track));
     }
 
     @Override
@@ -80,28 +72,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
             tvTrackTitle = itemView.findViewById(R.id.tv_track_title);
             tvOwner = itemView.findViewById(R.id.tv_owner);
 
-            itemView.setOnClickListener(playTrack());
         }
     }
 
-    @NotNull
-    private View.OnClickListener playTrack() {
-        return v -> makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
-    }
-
-    private ServiceConnection mServiceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            PlayerService.PlayerBinder binder = (PlayerService.PlayerBinder)service;
-            mBoundService = binder.getService();
-            // mBoundService.setCallback(SongsFragment.this);
-            mServiceBound = true;
-            // updateSeekBar();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            mServiceBound = false;
-        }
-    };
 }
