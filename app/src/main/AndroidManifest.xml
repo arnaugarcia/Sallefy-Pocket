@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
+        <service
+            android:name=".services.player.PlayerService"
+            android:enabled="true"
+            android:exported="true" />
+
         <activity
             android:name=".activity.CreatePlaylistActivity"
             android:label="@string/create_a_playlist"
