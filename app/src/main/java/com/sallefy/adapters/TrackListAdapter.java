@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.sallefy.R;
@@ -15,6 +16,10 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.jetbrains.annotations.NotNull;
+
+import static android.widget.Toast.makeText;
 
 public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.ViewHolder> {
 
@@ -67,6 +72,13 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
             ivThumbnail = itemView.findViewById(R.id.iv_thumbnail);
             tvTrackTitle = itemView.findViewById(R.id.tv_track_title);
             tvOwner = itemView.findViewById(R.id.tv_owner);
+
+            itemView.setOnClickListener(playTrack());
         }
+    }
+
+    @NotNull
+    private View.OnClickListener playTrack() {
+        return v -> makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
     }
 }
