@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +53,10 @@ public class SearchFragment extends Fragment {
 
     private void initViews(View view) {
         mSearchTitleTextView = view.findViewById(R.id.tv_search_title);
-        Shader shader = new LinearGradient(0,0,0, mSearchTitleTextView.getLineHeight(),
+
+        TextPaint paint = mSearchTitleTextView.getPaint();
+        float width = paint.measureText(mSearchTitleTextView.getText().toString());
+        Shader shader = new LinearGradient(0, 0, width, 0,
                 ContextCompat.getColor(view.getContext(), R.color.gradientStart),
                 ContextCompat.getColor(view.getContext(), R.color.gradientEnd),
                 Shader.TileMode.MIRROR);

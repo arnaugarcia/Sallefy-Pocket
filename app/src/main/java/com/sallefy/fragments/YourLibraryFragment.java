@@ -1,10 +1,10 @@
 package com.sallefy.fragments;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.os.Bundle;
+import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,15 +75,17 @@ public class YourLibraryFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
 
-        ibSettings.setOnClickListener(view1 -> {
-            openProfileFragment();
-        });
+        ibSettings.setOnClickListener(view1 -> openProfileFragment());
 
         viewPager.setAdapter(yourLibraryAdapter);
-        tabLayout.setSelectedTabIndicatorColor(ResourcesCompat.getColor(getResources(), R.color.colorAccent, null));
-        tabLayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#ffffff"));
+        int gradientEnd = ResourcesCompat.getColor(getResources(), R.color.gradientEnd, null);
+        int white = ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null);
+        tabLayout.setSelectedTabIndicatorColor(gradientEnd);
+        tabLayout.setTabTextColors(white, gradientEnd);
         new TabLayoutMediator(tabLayout, viewPager,
-                ((tab, position) -> tab.setText((position == 0) ? "Playlists" : "Tracks"))
+                ((tab, position) -> {
+                    tab.setText((position == 0) ? "Playlists" : "Tracks");
+                })
         ).attach();
     }
 
@@ -104,7 +106,10 @@ public class YourLibraryFragment extends Fragment
         viewPager = view.findViewById(R.id.view_pager);
         tabLayout = view.findViewById(R.id.tab_layout);
         mLibraryTitleTextView = view.findViewById(R.id.tv_your_library_title);
-        Shader shader = new LinearGradient(0,0,0, mLibraryTitleTextView.getLineHeight(),
+
+        TextPaint paint = mLibraryTitleTextView.getPaint();
+        float width = paint.measureText(mLibraryTitleTextView.getText().toString());
+        Shader shader = new LinearGradient(0, 0, width, 0,
                 ContextCompat.getColor(view.getContext(), R.color.gradientStart),
                 ContextCompat.getColor(view.getContext(), R.color.gradientEnd),
                 Shader.TileMode.MIRROR);
