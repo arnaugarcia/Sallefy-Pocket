@@ -52,8 +52,8 @@ public class PlaylistListAdapter extends RecyclerView.Adapter<PlaylistListAdapte
         if (position == 0) {
             holder.makeFirstItem();
         } else {
-            holder.makeOtherItems(position);
-            Playlist playlist = playlists.get(position);
+            holder.makeOtherItems(position - 1);
+            Playlist playlist = playlists.get(position - 1);
 
             holder.tvPlaylistTitle.setText(playlist.getName());
             int numSongs = playlist.getTracks().size();
@@ -71,7 +71,7 @@ public class PlaylistListAdapter extends RecyclerView.Adapter<PlaylistListAdapte
 
     @Override
     public int getItemCount() {
-        return playlists.size();
+        return playlists.size() + 1;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -45,13 +45,13 @@ public class PlaylistTrackListAdapter
         if (position == 0) {
             holder.makeFirstItem();
         } else {
-            holder.makeOtherItems(playlist.getTracks().get(position));
+            holder.makeOtherItems(playlist.getTracks().get(position - 1));
         }
     }
 
     @Override
     public int getItemCount() {
-        return playlist.getTracks().size();
+        return playlist.getTracks().size() + 1;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
