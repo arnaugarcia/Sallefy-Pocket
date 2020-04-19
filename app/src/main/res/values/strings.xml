@@ -42,4 +42,6 @@
     <string name="create_playlist_title">Create playlist</string>
     <string name="playlist_description_placeholder">Playlist description placeholder</string>
     <string name="search_title">Search</string>
+    <string name="play_image">Play image</string>
+    <string name="duration_placeholder">00:00</string>
 </resources>

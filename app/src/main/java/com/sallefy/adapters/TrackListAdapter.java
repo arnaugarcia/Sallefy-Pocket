@@ -14,6 +14,7 @@ import com.sallefy.model.Track;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.ViewHolder> {
@@ -40,6 +41,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
 
         holder.tvTrackTitle.setText(track.getName());
         holder.tvOwner.setText(track.getUser().getLogin());
+        holder.tvDuration.setText(String.valueOf(track.getDuration()));
 
         if (track.getThumbnail() != null) {
             Glide.with(context)
@@ -60,6 +62,8 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
         ImageView ivThumbnail;
         TextView tvTrackTitle;
         TextView tvOwner;
+        TextView tvDuration;
+        AppCompatImageButton ibFavourite;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -67,6 +71,8 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
             ivThumbnail = itemView.findViewById(R.id.iv_thumbnail);
             tvTrackTitle = itemView.findViewById(R.id.tv_track_title);
             tvOwner = itemView.findViewById(R.id.tv_owner);
+            tvDuration = itemView.findViewById(R.id.tv_duration);
+            ibFavourite = itemView.findViewById(R.id.ib_favourite);
         }
     }
 }
