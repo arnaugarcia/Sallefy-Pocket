@@ -29,13 +29,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <searchable
-            android:label="@string/app_name"
-            android:hint="@string/search_hint"
+        <androidx.appcompat.widget.SearchView
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_title"/>
+            app:layout_constraintTop_toBottomOf="@+id/search_title"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
