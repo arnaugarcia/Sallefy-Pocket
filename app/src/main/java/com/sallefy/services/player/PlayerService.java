@@ -16,6 +16,7 @@ import static android.os.PowerManager.PARTIAL_WAKE_LOCK;
 public class PlayerService extends Service implements MediaPlayer.OnPreparedListener {
 
     private static final String ACTION_PLAY = "com.example.action.PLAY";
+    private final IBinder mBinder = new PlayerBinder();
     MediaPlayer mediaPlayer = null;
 
     public class PlayerBinder extends Binder {
@@ -43,7 +44,7 @@ public class PlayerService extends Service implements MediaPlayer.OnPreparedList
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return mBinder;
     }
 
     /**
