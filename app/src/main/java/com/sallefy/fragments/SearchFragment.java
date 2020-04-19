@@ -86,6 +86,9 @@ public class SearchFragment extends Fragment implements GenresCallback {
 
     private void initViews(View view) {
         mSearchTitleTextView = view.findViewById(R.id.tv_search_title);
+        mSearchView = view.findViewById(R.id.search_view);
+        mSearchView.setIconified(false);
+        mSearchView.clearFocus();
 
         TextPaint paint = mSearchTitleTextView.getPaint();
         float width = paint.measureText(mSearchTitleTextView.getText().toString());
