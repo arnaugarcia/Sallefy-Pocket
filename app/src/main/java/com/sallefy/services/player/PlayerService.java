@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.wifi.WifiManager;
+import android.os.Binder;
 import android.os.IBinder;
 
 import androidx.annotation.Nullable;
@@ -13,8 +14,15 @@ import static android.net.wifi.WifiManager.WIFI_MODE_FULL_LOW_LATENCY;
 import static android.os.PowerManager.PARTIAL_WAKE_LOCK;
 
 public class PlayerService extends Service implements MediaPlayer.OnPreparedListener {
+
     private static final String ACTION_PLAY = "com.example.action.PLAY";
     MediaPlayer mediaPlayer = null;
+
+    public class PlayerBinder extends Binder {
+        public PlayerService getService() {
+            return PlayerService.this;
+        }
+    }
 
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent.getAction().equals(ACTION_PLAY)) {
@@ -38,7 +46,9 @@ public class PlayerService extends Service implements MediaPlayer.OnPreparedList
         return null;
     }
 
-    /** Called when MediaPlayer is ready */
+    /**
+     * Called when MediaPlayer is ready
+     */
     public void onPrepared(MediaPlayer player) {
         player.start();
     }
