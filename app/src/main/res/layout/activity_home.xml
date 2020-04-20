@@ -23,10 +23,12 @@
         android:background="@color/ButtonNavigationView"
         app:itemIconTint="@color/colorPrimary"
         app:itemTextColor="@color/colorPrimary"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_manager"
-        app:menu="@menu/menu_home_items" />
+        app:menu="@menu/menu_home_items"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
