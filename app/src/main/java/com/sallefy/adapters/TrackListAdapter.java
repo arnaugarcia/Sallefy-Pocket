@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.sallefy.R;
 import com.sallefy.model.Track;
 
@@ -52,8 +54,15 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
                     .asBitmap()
                     .placeholder(R.drawable.application_logo)
                     .load(track.getThumbnail())
+                    .apply(RequestOptions.bitmapTransform(new GranularRoundedCorners(20,
+                            0,
+                            0,
+                            20))
+                    )
                     .into(holder.ivSelectedThumbnail);
         }
+
+        holder.unselectedLayout.setOnClickListener(v -> holder.showSelected());
     }
 
     @Override
@@ -94,6 +103,9 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
             tvSelectedOwner = itemView.findViewById(R.id.tv_selected_owner);
             tvSelectedDuration = itemView.findViewById(R.id.tv_selected_duration);
             ibSelectedFavourite = itemView.findViewById(R.id.ib_selected_favourite);
+
+            if (itemView.isSelected()) showSelected();
+            else showUnselected();
         }
 
         public void showSelected() {
