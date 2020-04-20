@@ -50,6 +50,7 @@ public class GenreListAdapter extends RecyclerView.Adapter<GenreListAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvGenre;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 

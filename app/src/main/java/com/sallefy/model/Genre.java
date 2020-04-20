@@ -38,5 +38,4 @@ public class Genre implements Serializable {
     public void setPopularity(Integer popularity) {
         this.popularity = popularity;
     }
-
 }

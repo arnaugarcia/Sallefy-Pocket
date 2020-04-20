@@ -36,7 +36,8 @@
             android:src="@drawable/outline_arrow_back_24"
             android:tint="@android:color/white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/back_button" />
 
         <ImageButton
             android:id="@+id/ib_options"
@@ -45,12 +46,14 @@
             android:layout_marginTop="5dp"
             android:adjustViewBounds="true"
             android:background="@null"
+            android:contentDescription="@string/option_button"
             android:gravity="end"
             android:scaleType="center"
             android:src="@drawable/outline_settings_24"
             android:tint="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@
         android:layout_width="60dp"
         android:layout_height="match_parent"
         android:layout_margin="5dp"
+        android:contentDescription="@string/track_thumbnail"
         android:src="@drawable/application_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/info"

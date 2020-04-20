@@ -4,9 +4,9 @@
     android:id="@+id/genreConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="70dp"
-    android:layout_marginBottom="20dp"
-    android:layout_marginRight="20dp"
     android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginBottom="20dp"
     android:background="@drawable/round_empty_bg">
 
     <com.google.android.material.textview.MaterialTextView

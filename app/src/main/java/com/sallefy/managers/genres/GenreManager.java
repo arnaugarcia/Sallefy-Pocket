@@ -9,7 +9,6 @@ import com.sallefy.model.Genre;
 import com.sallefy.services.authentication.AuthenticationUtils;
 import com.sallefy.services.genres.GenreService;
 
-import java.io.IOError;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -33,12 +32,12 @@ public class GenreManager extends BaseManager {
         genreService = retrofit.create(GenreService.class);
     }
 
-    public static GenreManager getInstance(){
+    public static GenreManager getInstance() {
         if (instance == null) instance = new GenreManager();
         return instance;
     }
 
-    public synchronized void getAllGenres(Context context, final GenresCallback genresCallback){
+    public synchronized void getAllGenres(Context context, final GenresCallback genresCallback) {
         String userToken = AuthenticationUtils.getToken(context);
 
         Call<List<Genre>> call = genreService.getAllGenres("Bearer " + userToken);
@@ -47,13 +46,13 @@ public class GenreManager extends BaseManager {
             public void onResponse(Call<List<Genre>> call, Response<List<Genre>> response) {
                 int code = response.code();
 
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     genresCallback.onGetAllGenresReceived(response.body());
-                }else {
+                } else {
                     Log.d(ApplicationConstants.LOGCAT_ID, "Error GetAllGenres not successful: " + response.toString());
-                    try{
+                    try {
                         genresCallback.onGetAllGenresFailure(new Throwable("Error " + code + ", " + response.errorBody().string()));
-                    } catch (IOException e){
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
