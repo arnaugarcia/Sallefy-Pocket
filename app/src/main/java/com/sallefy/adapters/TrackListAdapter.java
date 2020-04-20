@@ -25,6 +25,8 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
     private Context context;
     private List<Track> tracks;
 
+    private int selectedItem = RecyclerView.NO_POSITION;
+
     public TrackListAdapter(Context context, List<Track> tracks) {
         this.context = context;
         this.tracks = tracks;
@@ -42,10 +44,32 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Track track = tracks.get(position);
 
+        holder.itemView.setOnClickListener(v -> {
+            selectedItem = position;
+            notifyItemRangeChanged(0, tracks.size());
+        });
+
+        if (selectedItem == position) {
+            holder.showSelected();
+            setTextsSelected(holder, track);
+        } else {
+            holder.showUnselected();
+            setTextsUnselected(holder, track);
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return tracks.size();
+    }
+
+    private void setTextsUnselected(ViewHolder holder, Track track) {
         holder.tvTrackTitle.setText(track.getName());
         holder.tvOwner.setText(track.getUser().getLogin());
         holder.tvDuration.setText(String.valueOf(track.getDuration()));
+    }
 
+    private void setTextsSelected(ViewHolder holder, Track track) {
         holder.tvSelectedTrackTitle.setText(track.getName());
         holder.tvSelectedOwner.setText(track.getUser().getLogin());
         holder.tvSelectedDuration.setText(String.valueOf(track.getDuration()));
@@ -61,16 +85,9 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
                     )
                     .into(holder.ivSelectedThumbnail);
         }
-
-        holder.unselectedLayout.setOnClickListener(v -> holder.showSelected());
     }
 
-    @Override
-    public int getItemCount() {
-        return tracks.size();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         ConstraintLayout unselectedLayout;
         TextView tvTrackTitle;
@@ -85,7 +102,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
         TextView tvSelectedOwner;
         TextView tvSelectedDuration;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             unselectedLayout = itemView.findViewById(R.id.unselected_track);
@@ -103,17 +120,14 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
             tvSelectedOwner = itemView.findViewById(R.id.tv_selected_owner);
             tvSelectedDuration = itemView.findViewById(R.id.tv_selected_duration);
             ibSelectedFavourite = itemView.findViewById(R.id.ib_selected_favourite);
-
-            if (itemView.isSelected()) showSelected();
-            else showUnselected();
         }
 
-        public void showSelected() {
+        void showSelected() {
             unselectedLayout.setVisibility(View.GONE);
             selectedLayout.setVisibility(View.VISIBLE);
         }
 
-        public void showUnselected() {
+        void showUnselected() {
             unselectedLayout.setVisibility(View.VISIBLE);
             selectedLayout.setVisibility(View.GONE);
         }
