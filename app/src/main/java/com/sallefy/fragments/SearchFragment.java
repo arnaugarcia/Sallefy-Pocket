@@ -88,7 +88,6 @@ public class SearchFragment extends Fragment implements GenresCallback {
         mSearchView = view.findViewById(R.id.search_view);
         mSearchView.setIconified(false);
         mSearchView.clearFocus();
-
         TextPaint paint = mSearchTitleTextView.getPaint();
         float width = paint.measureText(mSearchTitleTextView.getText().toString());
         Shader shader = new LinearGradient(0, 0, width, 0,
@@ -98,6 +97,7 @@ public class SearchFragment extends Fragment implements GenresCallback {
         mSearchTitleTextView.getPaint().setShader(shader);
 
         mGenreRecyclerView = view.findViewById(R.id.genre_recycle_view);
+        //mGenreRecyclerView.setOnClickListener(v -> );
     }
 
     private void getAllGenres() {

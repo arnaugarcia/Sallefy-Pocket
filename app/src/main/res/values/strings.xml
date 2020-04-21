@@ -50,4 +50,6 @@
     <string name="playlist_thumbnail">Playlist Thumbnail</string>
     <string name="create_playlist_button">Create playlist button</string>
     <string name="track_thumbnail">Track thumbnail</string>
+    <string name="genre_title_placeholder">Genre Title</string>
+
 </resources>

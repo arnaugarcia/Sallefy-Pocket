@@ -13,29 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.sallefy.R;
 import com.sallefy.model.Genre;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 public class GenreListAdapter extends RecyclerView.Adapter<GenreListAdapter.ViewHolder> {
 
     private Context context;
     private List<Genre> genres;
-    Queue<Integer> genreColorsQueue;
 
     public GenreListAdapter(Context context, List<Genre> genres) {
         this.context = context;
         this.genres = genres;
         int[] genreColors = context.getResources().getIntArray(R.array.genreColors);
 
-        ArrayList<Integer> genreColorsList = new ArrayList<>();
-
-        for (int i: genreColors) {
-            genreColorsList.add(i);
-        }
-
-        genreColorsQueue = new LinkedList<>(genreColorsList);
 
     }
 
@@ -56,10 +45,7 @@ public class GenreListAdapter extends RecyclerView.Adapter<GenreListAdapter.View
         Genre genre = genres.get(position);
         holder.tvGenre.setText(genre.getName());
 
-        Integer currentColor = genreColorsQueue.remove();
-        holder.drawable.setTint(currentColor);
-        genreColorsQueue.offer(currentColor);
-
+        //holder.drawable.setTint(color);
     }
 
     @Override
