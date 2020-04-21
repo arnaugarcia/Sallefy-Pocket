@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.textview.MaterialTextView;
 import com.sallefy.R;
 import com.sallefy.fragments.GenreFragment;
 import com.sallefy.model.Genre;
@@ -50,6 +51,7 @@ public class GenreListAdapter extends RecyclerView.Adapter<GenreListAdapter.View
         //holder.drawable.setTint(color);
 
         holder.itemView.setOnClickListener(v -> {
+
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.fragment_manager,

@@ -10,16 +10,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.material.textview.MaterialTextView;
 import com.sallefy.R;
-import com.sallefy.constants.ApplicationConstants;
-import com.sallefy.managers.genres.GenreManager;
+import com.sallefy.adapters.TrackListAdapter;
 import com.sallefy.managers.tracks.TrackManager;
 import com.sallefy.managers.tracks.TracksByGenreCallback;
 import com.sallefy.model.Genre;
@@ -37,6 +37,9 @@ public class GenreFragment extends Fragment implements TracksByGenreCallback {
 
     private ImageButton ibBack;
     private RecyclerView rvSongs;
+    private MaterialTextView genreTitle;
+
+    private TrackListAdapter trackListAdapter;
 
     private List<Track> tracks;
 
@@ -47,7 +50,6 @@ public class GenreFragment extends Fragment implements TracksByGenreCallback {
         this.fragmentManager = fragmentManager;
         this.context = context;
         this.genre = genre;
-        getTracksByGenre(genre.getName());
     }
 
     @Override
@@ -67,11 +69,16 @@ public class GenreFragment extends Fragment implements TracksByGenreCallback {
         LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
         rvSongs.setLayoutManager(manager);
 
+        trackListAdapter = new TrackListAdapter(context, tracks);
+
+        getTracksByGenre(genre.getName());
+        genreTitle.setText(genre.getName());
     }
 
     private void initViews(View view) {
         ibBack = view.findViewById(R.id.genre_ib_back);
         rvSongs = view.findViewById(R.id.genre_rv_songs);
+        genreTitle = view.findViewById(R.id.tv_genre_title);
     }
 
     private void getTracksByGenre(String genre) {
@@ -81,7 +88,9 @@ public class GenreFragment extends Fragment implements TracksByGenreCallback {
     @Override
     public void onTracksByGenreReceived(List<Track> tracks) {
         this.tracks = tracks;
-        Log.d(ApplicationConstants.LOGCAT_ID, "Tracks: " + tracks);
+        trackListAdapter.setTracks(tracks);
+        rvSongs.setAdapter(trackListAdapter);
+        //Log.d(ApplicationConstants.LOGCAT_ID, "Tracks: " + tracks);
     }
 
     @Override
