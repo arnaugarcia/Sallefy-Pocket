@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sallefy.R;
+import com.sallefy.adapters.PlaylistTrackListAdapter;
 import com.sallefy.adapters.TrackListAdapter;
 import com.sallefy.adapters.callbacks.TrackListCallback;
 import com.sallefy.model.Playlist;
@@ -78,7 +79,7 @@ public class PlaylistFragment extends Fragment implements TrackListCallback {
 
         LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
         rvSongs.setLayoutManager(manager);
-        TrackListAdapter adapter = new TrackListAdapter(this, context, playlist.getTracks());
+        PlaylistTrackListAdapter adapter = new PlaylistTrackListAdapter(fragmentManager, context, playlist);
         rvSongs.setAdapter(adapter);
     }
 
