@@ -8,12 +8,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.sallefy.R;
 import com.sallefy.model.Playlist;
 import com.sallefy.model.Track;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +28,8 @@ public class PlaylistTrackListAdapter
     private Context context;
 
     private Playlist playlist;
+
+    private int selectedItem = RecyclerView.NO_POSITION;
 
     public PlaylistTrackListAdapter(FragmentManager fragmentManager, Context context, Playlist playlist) {
         this.fragmentManager = fragmentManager;
@@ -46,12 +51,51 @@ public class PlaylistTrackListAdapter
             holder.makeFirstItem();
         } else {
             holder.makeOtherItems(playlist.getTracks().get(position - 1));
+            holder.itemView.setOnClickListener(v -> {
+                selectedItem = position;
+                notifyItemRangeChanged(1, playlist.getTracks().size() + 1);
+                System.out.println("Track index: " + (position - 1));
+            });
+
+            if (!playlist.getTracks().isEmpty()) {
+                if (selectedItem == position) {
+                    holder.showSelected();
+                    setTextsSelected(holder, playlist.getTracks().get(position - 1));
+                } else {
+                    holder.showUnselected();
+                    setTextsUnselected(holder, playlist.getTracks().get(position - 1));
+                }
+            }
         }
     }
 
     @Override
     public int getItemCount() {
-        return playlist.getTracks().size() + 1;
+        return (playlist.getTracks().isEmpty()) ? 1 : playlist.getTracks().size() + 1;
+    }
+
+    private void setTextsUnselected(ViewHolder holder, Track track) {
+        holder.tvTrackTitle.setText(track.getName());
+        holder.tvOwner.setText(track.getUser().getLogin());
+        holder.tvDuration.setText(String.valueOf(track.getDuration()));
+    }
+
+    private void setTextsSelected(ViewHolder holder, Track track) {
+        holder.tvSelectedTrackTitle.setText(track.getName());
+        holder.tvSelectedOwner.setText(track.getUser().getLogin());
+        holder.tvSelectedDuration.setText(String.valueOf(track.getDuration()));
+        if (track.getThumbnail() != null) {
+            Glide.with(context)
+                    .asBitmap()
+                    .placeholder(R.drawable.application_logo)
+                    .load(track.getThumbnail())
+                    .apply(RequestOptions.bitmapTransform(new GranularRoundedCorners(20,
+                            0,
+                            0,
+                            20))
+                    )
+                    .into(holder.ivSelectedThumbnail);
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -61,10 +105,20 @@ public class PlaylistTrackListAdapter
         TextView tvPlaylistDescription;
         CircularImageView ivPlaylistThumbnail;
 
+
         ConstraintLayout trackItemLayout;
-        ImageView ivTrackThumbnail;
+        ConstraintLayout unselectedLayout;
         TextView tvTrackTitle;
-        TextView tvTrackOwner;
+        TextView tvOwner;
+        TextView tvDuration;
+        AppCompatImageButton ibFavourite;
+
+        ConstraintLayout selectedLayout;
+        ImageView ivSelectedThumbnail;
+        AppCompatImageButton ibSelectedFavourite;
+        TextView tvSelectedTrackTitle;
+        TextView tvSelectedOwner;
+        TextView tvSelectedDuration;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -75,9 +129,18 @@ public class PlaylistTrackListAdapter
             tvPlaylistDescription = itemView.findViewById(R.id.tv_playlist_description);
 
             trackItemLayout = itemView.findViewById(R.id.track_layout);
-            ivTrackThumbnail = itemView.findViewById(R.id.iv_thumbnail);
+            unselectedLayout = itemView.findViewById(R.id.unselected_track);
             tvTrackTitle = itemView.findViewById(R.id.tv_track_title);
-            tvTrackOwner = itemView.findViewById(R.id.tv_owner);
+            tvOwner = itemView.findViewById(R.id.tv_owner);
+            tvDuration = itemView.findViewById(R.id.tv_duration);
+            ibFavourite = itemView.findViewById(R.id.ib_favourite);
+
+            selectedLayout = itemView.findViewById(R.id.selected_track);
+            ivSelectedThumbnail = itemView.findViewById(R.id.iv_selected_thumbnail);
+            tvSelectedTrackTitle = itemView.findViewById(R.id.tv_selected_track_title);
+            tvSelectedOwner = itemView.findViewById(R.id.tv_selected_owner);
+            tvSelectedDuration = itemView.findViewById(R.id.tv_selected_duration);
+            ibSelectedFavourite = itemView.findViewById(R.id.ib_selected_favourite);
         }
 
         public void makeFirstItem() {
@@ -98,16 +161,16 @@ public class PlaylistTrackListAdapter
         public void makeOtherItems(Track track) {
             playlistDataLayout.setVisibility(View.GONE);
             trackItemLayout.setVisibility(View.VISIBLE);
+        }
 
-            tvTrackTitle.setText(track.getName());
-            tvTrackOwner.setText(track.getUserLogin());
-            if (track.getThumbnail() != null) {
-                Glide.with(context)
-                        .asBitmap()
-                        .placeholder(R.drawable.application_logo)
-                        .load(track.getThumbnail())
-                        .into(ivTrackThumbnail);
-            }
+        void showSelected() {
+            unselectedLayout.setVisibility(View.GONE);
+            selectedLayout.setVisibility(View.VISIBLE);
+        }
+
+        void showUnselected() {
+            unselectedLayout.setVisibility(View.VISIBLE);
+            selectedLayout.setVisibility(View.GONE);
         }
     }
 }

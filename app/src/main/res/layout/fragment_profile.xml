@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tv_login_title"
+            android:id="@+id/tv_profile_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -99,7 +99,6 @@
             android:id="@+id/iv_profile_pic"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:background="@android:color/black"
             android:src="@drawable/application_logo"
             app:civ_border_color="#EEEEEE"
             app:civ_border_width="4dp"
