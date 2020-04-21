@@ -64,7 +64,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
 
     @Override
     public int getItemCount() {
-        return tracks.size();
+        return (tracks != null) ? tracks.size() : 0;
     }
 
     private void setTextsUnselected(ViewHolder holder, Track track) {
@@ -89,11 +89,6 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
                     )
                     .into(holder.ivSelectedThumbnail);
         }
-    }
-
-    @Override
-    public int getItemCount() {
-        return (tracks != null) ? tracks.size() : 0;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
