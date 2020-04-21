@@ -31,7 +31,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:adjustViewBounds="true"
-            android:background="@null"
+            android:background="@color/transparent"
             android:gravity="end"
             android:scaleType="center"
             android:src="@drawable/ic_profile"
