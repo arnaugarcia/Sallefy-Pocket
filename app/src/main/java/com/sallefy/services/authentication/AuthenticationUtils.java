@@ -54,4 +54,9 @@ public class AuthenticationUtils {
         prefsEditor.putString(KEY_USER, null);
         prefsEditor.apply();
     }
+
+    public static void logout(Context context) {
+        resetValues(context);
+        TokenStoreManager.getInstance().setToken(null);
+    }
 }

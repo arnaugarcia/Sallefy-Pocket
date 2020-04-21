@@ -1,6 +1,7 @@
 package com.sallefy.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.os.Bundle;
@@ -16,9 +17,11 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.sallefy.R;
+import com.sallefy.activity.MainActivity;
 import com.sallefy.managers.user.UserCallback;
 import com.sallefy.managers.user.UserManager;
 import com.sallefy.model.User;
+import com.sallefy.services.authentication.AuthenticationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -76,7 +79,10 @@ public class ProfileFragment extends Fragment implements UserCallback {
                 .setTitle("Logout")
                 .setMessage("Are you sure you want to logout?")
                 .setNegativeButton("No, take me back", (dialog, i) -> Toast.makeText(context, "Not logging out", Toast.LENGTH_SHORT).show())
-                .setPositiveButton("Yes, please", (dialog, i) -> Toast.makeText(context, "Logging out", Toast.LENGTH_SHORT).show())
+                .setPositiveButton("Yes, please", (dialog, i) -> {
+                    logout();
+                    Toast.makeText(context, "Logged out", Toast.LENGTH_SHORT).show();
+                })
                 .show());
     }
 
@@ -99,6 +105,13 @@ public class ProfileFragment extends Fragment implements UserCallback {
 
     private void getUserData() {
         UserManager.getInstance().getUserData(context, this);
+    }
+
+    private void logout() {
+        AuthenticationUtils.logout(context);
+        Intent intent = new Intent(context, MainActivity.class);
+        startActivity(intent);
+        requireActivity().finish();
     }
 
     @Override
