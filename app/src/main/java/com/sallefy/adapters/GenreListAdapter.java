@@ -8,24 +8,26 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sallefy.R;
+import com.sallefy.fragments.GenreFragment;
 import com.sallefy.model.Genre;
 
 import java.util.List;
 
 public class GenreListAdapter extends RecyclerView.Adapter<GenreListAdapter.ViewHolder> {
 
+    private FragmentManager fragmentManager;
     private Context context;
     private List<Genre> genres;
 
-    public GenreListAdapter(Context context, List<Genre> genres) {
+    public GenreListAdapter(Context context, List<Genre> genres, FragmentManager fragmentManager) {
         this.context = context;
         this.genres = genres;
-        int[] genreColors = context.getResources().getIntArray(R.array.genreColors);
-
-
+        this.fragmentManager = fragmentManager;
+//        int[] genreColors = context.getResources().getIntArray(R.array.genreColors);
     }
 
     public void setGenres(List<Genre> genres) {
@@ -46,6 +48,15 @@ public class GenreListAdapter extends RecyclerView.Adapter<GenreListAdapter.View
         holder.tvGenre.setText(genre.getName());
 
         //holder.drawable.setTint(color);
+
+        holder.itemView.setOnClickListener(v -> {
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment_manager,
+                            new GenreFragment(fragmentManager, context, genres.get(position)))
+                    .addToBackStack(null)
+                    .commit();
+        });
     }
 
     @Override
@@ -56,6 +67,7 @@ public class GenreListAdapter extends RecyclerView.Adapter<GenreListAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvGenre;
         Drawable drawable;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvGenre = itemView.findViewById(R.id.tv_genre);

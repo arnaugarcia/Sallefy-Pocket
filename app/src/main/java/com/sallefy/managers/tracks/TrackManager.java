@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.sallefy.constants.ApplicationConstants;
 import com.sallefy.managers.BaseManager;
-import com.sallefy.model.Genre;
 import com.sallefy.model.Track;
 import com.sallefy.services.authentication.AuthenticationUtils;
 import com.sallefy.services.tracks.TrackService;
@@ -40,7 +39,7 @@ public class TrackManager extends BaseManager {
         return instance;
     }
 
-    public synchronized void getMyTracks(Context context, final TrackCallback trackCallback) {
+    public synchronized void getMyTracks(Context context, final MyTracksCallback myTracksCallback) {
         String userToken = AuthenticationUtils.getToken(context);
 
         Call<List<Track>> call = trackService.getMyTracks("Bearer " + userToken);
@@ -50,12 +49,12 @@ public class TrackManager extends BaseManager {
                 int code = response.code();
 
                 if (response.isSuccessful()) {
-                    trackCallback.onMyTracksReceived(response.body());
+                    myTracksCallback.onMyTracksReceived(response.body());
                 } else {
                     Log.d(ApplicationConstants.LOGCAT_ID, "Error MyTracks not successful: " + response.toString());
 
                     try {
-                        trackCallback.onMyTracksFailure(new Throwable("Error " + code + ", " + response.errorBody().string()));
+                        myTracksCallback.onMyTracksFailure(new Throwable("Error " + code + ", " + response.errorBody().string()));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -65,27 +64,27 @@ public class TrackManager extends BaseManager {
             @Override
             public void onFailure(Call<List<Track>> call, Throwable t) {
                 Log.d(ApplicationConstants.LOGCAT_ID, "Error MyTracks not successful: " + Arrays.toString(t.getStackTrace()));
-                trackCallback.onMyTracksFailure(new Throwable("Error " + Arrays.toString(t.getStackTrace())));
+                myTracksCallback.onMyTracksFailure(new Throwable("Error " + Arrays.toString(t.getStackTrace())));
             }
         });
     }
 
-    public synchronized void getTracksByGenre(Context context, String genre, final TrackCallback trackCallback){
+    public synchronized void getTracksByGenre(Context context, String genre, final TracksByGenreCallback tracksByGenreCallback) {
         String userToken = AuthenticationUtils.getToken(context);
 
-        Call<List<Track>> call = trackService.getMyTracks("Bearer " + userToken + genre);
+        Call<List<Track>> call = trackService.getTracksByGenre("Bearer " + userToken, genre);
         call.enqueue(new Callback<List<Track>>() {
             @Override
             public void onResponse(Call<List<Track>> call, Response<List<Track>> response) {
                 int code = response.code();
 
                 if (response.isSuccessful()) {
-                    trackCallback.onMyTracksReceived(response.body());
+                    tracksByGenreCallback.onTracksByGenreReceived(response.body());
                 } else {
-                    Log.d(ApplicationConstants.LOGCAT_ID, "Error MyTracks not successful: " + response.toString());
+                    Log.d(ApplicationConstants.LOGCAT_ID, "Error TracksByGenre not successful: " + response.toString());
 
                     try {
-                        trackCallback.onMyTracksFailure(new Throwable("Error " + code + ", " + response.errorBody().string()));
+                        tracksByGenreCallback.onTracksByGenreFailure(new Throwable("Error " + code + ", " + response.errorBody().string()));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -94,8 +93,8 @@ public class TrackManager extends BaseManager {
 
             @Override
             public void onFailure(Call<List<Track>> call, Throwable t) {
-                Log.d(ApplicationConstants.LOGCAT_ID, "Error MyTracks not successful: " + Arrays.toString(t.getStackTrace()));
-                trackCallback.onMyTracksFailure(new Throwable("Error " + Arrays.toString(t.getStackTrace())));
+                Log.d(ApplicationConstants.LOGCAT_ID, "Error TracksByGenre not successful: " + Arrays.toString(t.getStackTrace()));
+                tracksByGenreCallback.onTracksByGenreFailure(new Throwable("Error " + Arrays.toString(t.getStackTrace())));
             }
         });
 

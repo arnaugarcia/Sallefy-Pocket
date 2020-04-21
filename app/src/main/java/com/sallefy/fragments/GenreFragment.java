@@ -10,18 +10,25 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.sallefy.R;
+import com.sallefy.constants.ApplicationConstants;
 import com.sallefy.managers.genres.GenreManager;
 import com.sallefy.managers.tracks.TrackManager;
+import com.sallefy.managers.tracks.TracksByGenreCallback;
 import com.sallefy.model.Genre;
+import com.sallefy.model.Track;
+
+import java.util.List;
 
 
-public class GenreFragment extends Fragment {
+public class GenreFragment extends Fragment implements TracksByGenreCallback {
 
     private FragmentManager fragmentManager;
     private Context context;
@@ -30,6 +37,8 @@ public class GenreFragment extends Fragment {
 
     private ImageButton ibBack;
     private RecyclerView rvSongs;
+
+    private List<Track> tracks;
 
     public GenreFragment() {
     }
@@ -65,7 +74,18 @@ public class GenreFragment extends Fragment {
         rvSongs = view.findViewById(R.id.genre_rv_songs);
     }
 
-    private  void getTracksByGenre(String genre){
-        TrackManager.getInstance().getTracksByGenre(context, genre, null);
+    private void getTracksByGenre(String genre) {
+        TrackManager.getInstance().getTracksByGenre(context, genre, this);
+    }
+
+    @Override
+    public void onTracksByGenreReceived(List<Track> tracks) {
+        this.tracks = tracks;
+        Log.d(ApplicationConstants.LOGCAT_ID, "Tracks: " + tracks);
+    }
+
+    @Override
+    public void onTracksByGenreFailure(Throwable throwable) {
+        Toast.makeText(context, "Error: No tracks received", Toast.LENGTH_SHORT).show();
     }
 }
