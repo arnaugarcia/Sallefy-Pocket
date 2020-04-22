@@ -8,6 +8,6 @@ import retrofit2.http.Header;
 
 public interface UserService {
 
-    @GET("api/account")
+    @GET("account")
     Call<User> getUserData(@Header("Authorization") String userToken);
 }
