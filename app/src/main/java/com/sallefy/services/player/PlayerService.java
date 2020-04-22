@@ -48,6 +48,10 @@ public class PlayerService extends Service implements MediaPlayer.OnPreparedList
         return START_REDELIVER_INTENT;
     }
 
+    public boolean isPlaying() {
+        return mediaPlayer != null && mediaPlayer.isPlaying();
+    }
+
     public void play(Track track) {
         if (mediaPlayer != null) {
             try {

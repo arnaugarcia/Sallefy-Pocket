@@ -1,20 +1,18 @@
 package com.sallefy.activity;
 
-import androidx.annotation.NonNull;
+import android.content.Context;
+import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.view.MenuItem;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sallefy.R;
 import com.sallefy.fragments.HomeFragment;
-import com.sallefy.fragments.YourLibraryFragment;
 import com.sallefy.fragments.SearchFragment;
+import com.sallefy.fragments.YourLibraryFragment;
 
 
 public class HomeActivity extends FragmentActivity {
@@ -39,24 +37,21 @@ public class HomeActivity extends FragmentActivity {
         mTransaction = mFragmentManager.beginTransaction();
 
         mBottomNavigationView = findViewById(R.id.bottom_navigation);
-        mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment = null;
-                switch (item.getItemId()) {
-                    case R.id.action_home:
-                        fragment = HomeFragment.getInstance();
-                        break;
-                    case R.id.action_search:
-                        fragment = SearchFragment.getInstance();
-                        break;
-                    case R.id.action_your_library:
-                        fragment = YourLibraryFragment.getInstance(context, mFragmentManager);
-                        break;
-                }
-                changeFragment(fragment);
-                return true;
+        mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            Fragment fragment = null;
+            switch (item.getItemId()) {
+                case R.id.action_home:
+                    fragment = HomeFragment.getInstance();
+                    break;
+                case R.id.action_search:
+                    fragment = SearchFragment.getInstance();
+                    break;
+                case R.id.action_your_library:
+                    fragment = YourLibraryFragment.getInstance(context, mFragmentManager);
+                    break;
             }
+            changeFragment(fragment);
+            return true;
         });
     }
 
