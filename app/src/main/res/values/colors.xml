@@ -13,5 +13,7 @@
 
     <color name="colorTextPrimary">#FFFFFFFF</color>
 
+    <color name="music_nav_default">#111625</color>
+
     <color name="transparent">#00FFFFFF</color>
 </resources>

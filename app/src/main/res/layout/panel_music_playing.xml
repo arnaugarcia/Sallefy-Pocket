@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/item_max_height"
-    android:background="@color/backgroundDefault"
+    android:layout_height="@dimen/music_nav_height"
+    android:background="@color/music_nav_default"
     android:gravity="center_vertical">
 
     <ImageView
@@ -12,7 +12,8 @@
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:src="@drawable/ic_star"/>
+        android:tint="@android:color/white"
+        android:src="@drawable/outline_favorite_border_24"/>
 
     <TextView
         android:id="@+id/music_pl_title"
