@@ -94,8 +94,8 @@
         android:layout_height="100dp"
         android:background="@drawable/track_card_view_background"
         android:elevation="2dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/unselected_track"
+        app:layout_constraintStart_toStartOf="@id/unselected_track"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -120,7 +120,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
+        <!--
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_selected_duration"
             android:layout_width="wrap_content"
@@ -133,7 +133,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/tv_selected_track_title"
             app:layout_constraintStart_toEndOf="@+id/tv_selected_track_title"
             app:layout_constraintTop_toTopOf="@+id/tv_selected_track_title" />
-
+        -->
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_selected_owner"
             android:layout_width="wrap_content"
@@ -157,12 +157,15 @@
             android:text="@string/track_title_placeholder"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"
-            android:ellipsize="end"
-            android:maxLines="1"
+            android:ellipsize="marquee"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constrainedWidth="true"
             android:scrollHorizontally="true"
             app:layout_constraintBottom_toTopOf="@+id/tv_selected_owner"
             app:layout_constraintStart_toEndOf="@+id/iv_selected_thumbnail"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ib_selected_favourite"
+            android:singleLine="true" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

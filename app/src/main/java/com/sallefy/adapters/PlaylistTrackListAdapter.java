@@ -77,13 +77,14 @@ public class PlaylistTrackListAdapter
     private void setTextsUnselected(ViewHolder holder, Track track) {
         holder.tvTrackTitle.setText(track.getName());
         holder.tvOwner.setText(track.getUser().getLogin());
-        holder.tvDuration.setText(String.valueOf(track.getDuration()));
+        //holder.tvDuration.setText(String.valueOf(track.getDuration()));
     }
 
     private void setTextsSelected(ViewHolder holder, Track track) {
         holder.tvSelectedTrackTitle.setText(track.getName());
+        holder.tvSelectedTrackTitle.setSelected(true);
         holder.tvSelectedOwner.setText(track.getUser().getLogin());
-        holder.tvSelectedDuration.setText(String.valueOf(track.getDuration()));
+        //holder.tvSelectedDuration.setText(String.valueOf(track.getDuration()));
         if (track.getThumbnail() != null) {
             Glide.with(context)
                     .asBitmap()
@@ -139,7 +140,7 @@ public class PlaylistTrackListAdapter
             ivSelectedThumbnail = itemView.findViewById(R.id.iv_selected_thumbnail);
             tvSelectedTrackTitle = itemView.findViewById(R.id.tv_selected_track_title);
             tvSelectedOwner = itemView.findViewById(R.id.tv_selected_owner);
-            tvSelectedDuration = itemView.findViewById(R.id.tv_selected_duration);
+            //tvSelectedDuration = itemView.findViewById(R.id.tv_selected_duration);
             ibSelectedFavourite = itemView.findViewById(R.id.ib_selected_favourite);
         }
 

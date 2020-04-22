@@ -75,6 +75,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
 
     private void setTextsSelected(ViewHolder holder, Track track) {
         holder.tvSelectedTrackTitle.setText(track.getName());
+        holder.tvSelectedTrackTitle.setSelected(true);
         holder.tvSelectedOwner.setText(track.getUser().getLogin());
         //holder.tvSelectedDuration.setText(String.valueOf(track.getDuration()));
         if (track.getThumbnail() != null) {
@@ -122,7 +123,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
             ivSelectedThumbnail = itemView.findViewById(R.id.iv_selected_thumbnail);
             tvSelectedTrackTitle = itemView.findViewById(R.id.tv_selected_track_title);
             tvSelectedOwner = itemView.findViewById(R.id.tv_selected_owner);
-            tvSelectedDuration = itemView.findViewById(R.id.tv_selected_duration);
+            //tvSelectedDuration = itemView.findViewById(R.id.tv_selected_duration);
             ibSelectedFavourite = itemView.findViewById(R.id.ib_selected_favourite);
         }
 
