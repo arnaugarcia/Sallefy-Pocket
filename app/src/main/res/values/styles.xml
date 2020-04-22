@@ -65,8 +65,8 @@
     </style>
 
     <style name="Headline5" parent="TextAppearance.MaterialComponents.Headline5">
-        <item name="fontFamily">@font/poppins_black</item>
-        <item name="android:fontFamily">@font/poppins_black</item>
+        <item name="fontFamily">@font/poppins_bold</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
         <item name="android:textColor">@color/colorTextPrimary</item>
         <item name="android:textSize">@dimen/heading5TextSize</item>
     </style>
