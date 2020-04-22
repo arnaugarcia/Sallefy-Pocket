@@ -132,7 +132,7 @@ public class PlaylistTrackListAdapter
             unselectedLayout = itemView.findViewById(R.id.unselected_track);
             tvTrackTitle = itemView.findViewById(R.id.tv_track_title);
             tvOwner = itemView.findViewById(R.id.tv_owner);
-            tvDuration = itemView.findViewById(R.id.tv_duration);
+            //tvDuration = itemView.findViewById(R.id.tv_duration);
             ibFavourite = itemView.findViewById(R.id.ib_favourite);
 
             selectedLayout = itemView.findViewById(R.id.selected_track);

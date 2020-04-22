@@ -70,13 +70,13 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
     private void setTextsUnselected(ViewHolder holder, Track track) {
         holder.tvTrackTitle.setText(track.getName());
         holder.tvOwner.setText(track.getUser().getLogin());
-        holder.tvDuration.setText(String.valueOf(track.getDuration()));
+        //holder.tvDuration.setText(String.valueOf(track.getDuration()));
     }
 
     private void setTextsSelected(ViewHolder holder, Track track) {
         holder.tvSelectedTrackTitle.setText(track.getName());
         holder.tvSelectedOwner.setText(track.getUser().getLogin());
-        holder.tvSelectedDuration.setText(String.valueOf(track.getDuration()));
+        //holder.tvSelectedDuration.setText(String.valueOf(track.getDuration()));
         if (track.getThumbnail() != null) {
             Glide.with(context)
                     .asBitmap()
@@ -96,7 +96,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
         ConstraintLayout unselectedLayout;
         TextView tvTrackTitle;
         TextView tvOwner;
-        TextView tvDuration;
+        //TextView tvDuration;
         AppCompatImageButton ibFavourite;
 
         ConstraintLayout selectedLayout;
@@ -113,7 +113,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
 
             tvTrackTitle = itemView.findViewById(R.id.tv_track_title);
             tvOwner = itemView.findViewById(R.id.tv_owner);
-            tvDuration = itemView.findViewById(R.id.tv_duration);
+            //tvDuration = itemView.findViewById(R.id.tv_duration);
             ibFavourite = itemView.findViewById(R.id.ib_favourite);
 
 
