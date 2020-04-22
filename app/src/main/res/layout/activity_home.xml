@@ -9,18 +9,22 @@
     <FrameLayout
         android:id="@+id/fragment_manager"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_above="@id/music_nav"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/music_nav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <include
-        layout="@layout/panel_music_playing"
         android:id="@+id/music_nav"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        layout="@layout/panel_music_playing"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/music_nav_height"
         app:layout_constraintBottom_toBottomOf="@id/fragment_manager"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation" />
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

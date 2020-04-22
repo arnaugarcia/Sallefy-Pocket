@@ -1,4 +1,5 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="item_max_height">70dp</dimen>
+    <dimen name="music_nav_height">70dp</dimen>
 </resources>
