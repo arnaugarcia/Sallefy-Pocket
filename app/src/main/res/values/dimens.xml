@@ -1,3 +1,9 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
+    <!-- Headings -->
+    <dimen name="heading1TextSize">36sp</dimen>
+    <dimen name="heading2TextSize">33sp</dimen>
+    <dimen name="heading3TextSize">23sp</dimen>
+    <dimen name="heading4TextSize">19sp</dimen>
+    <dimen name="heading5TextSize">16sp</dimen>
+    <dimen name="heading6TextSize">14sp</dimen>
 </resources>

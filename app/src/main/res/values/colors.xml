@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FFFFFF</color>
-    <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#03DAC5</color>
+    <!-- Primary-->
+    <color name="colorPrimary">#341931</color>
+    <color name="colorPrimaryLight">#5E415A</color>
+    <color name="colorPrimaryDark">#110009</color>
 
-    //Item colors
-    <color name="ButtonNavigationView">#111625</color>
+    <!-- Secondary-->
+    <color name="colorSecondary">#EE0979</color>
+    <color name="colorSecondaryLight">#FF5BA8</color>
+    <color name="colorSecondaryDark">#B5004E</color>
+
+    <!-- Accent -->
+    <color name="colorAccent">#FF6A00</color>
+
+    <!-- Text-->
+    <color name="colorTextPrimary">#FFFFFF</color>
+    <color name="colorTextSecondary">#000000</color>
+
+    <!-- Gradient -->
     <color name="gradientStart">#EE0979</color>
     <color name="gradientEnd">#FF6A00</color>
 
+    <!-- Authentication (Login - Register) -->
+    <color name="colorBackgroundAuth">#000000</color>
+    <color name="buttonStrokeColor">#FFFFFF</color>
+
+    <!-- Item colors -->
+    <color name="buttonNavigationViewBackground">#111625</color>
     <color name="backgroundDefault">#341931</color>
-
-    <color name="colorTextPrimary">#FFFFFFFF</color>
-
     <color name="transparent">#00FFFFFF</color>
 </resources>
