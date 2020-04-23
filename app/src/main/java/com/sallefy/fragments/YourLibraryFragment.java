@@ -18,7 +18,7 @@ import com.sallefy.R;
 import com.sallefy.adapters.YourLibraryAdapter;
 import com.sallefy.managers.playlists.MyPlaylistsCallback;
 import com.sallefy.managers.playlists.PlaylistManager;
-import com.sallefy.managers.tracks.TrackCallback;
+import com.sallefy.managers.tracks.MyTracksCallback;
 import com.sallefy.managers.tracks.TrackManager;
 import com.sallefy.model.Playlist;
 import com.sallefy.model.Track;
@@ -34,7 +34,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 public class YourLibraryFragment extends Fragment
-        implements MyPlaylistsCallback, TrackCallback {
+        implements MyPlaylistsCallback, MyTracksCallback {
 
     private static YourLibraryFragment instance;
     private FragmentManager fragmentManager;
@@ -67,7 +67,6 @@ public class YourLibraryFragment extends Fragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_your_library, container, false);
     }
 
@@ -84,9 +83,7 @@ public class YourLibraryFragment extends Fragment
         tabLayout.setSelectedTabIndicatorColor(gradientEnd);
         tabLayout.setTabTextColors(white, gradientEnd);
         new TabLayoutMediator(tabLayout, viewPager,
-                ((tab, position) -> {
-                    tab.setText((position == 0) ? "Playlists" : "Tracks");
-                })
+                ((tab, position) -> tab.setText((position == 0) ? "Playlists" : "Tracks"))
         ).attach();
     }
 

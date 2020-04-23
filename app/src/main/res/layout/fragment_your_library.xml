@@ -32,14 +32,15 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:background="@color/transparent"
-            android:contentDescription="@string/profile"
+            android:gravity="end"
             android:scaleType="center"
             android:layout_marginEnd="20dp"
             android:src="@drawable/ic_profile"
-            android:tint="@color/colorPrimary"
+            android:tint="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/action_settings" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -53,7 +54,7 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabTextAppearance="@style/TabLayoutTextStyle"/>
+            app:tabTextAppearance="@style/TabLayoutTextStyle" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager"

@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Sallefy</string>
     <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
@@ -42,9 +41,19 @@
     <string name="create_playlist_title">Create playlist</string>
     <string name="playlist_description_placeholder">Playlist description placeholder</string>
     <string name="search_title">Search</string>
+    <string name="search_hint">Search</string>
+    <string name="genre_item_placeholder">Genre</string>
+    <string name="playlist_description">Playlist Description</string>
+    <string name="splash_screen">Splash Screen</string>
+    <string name="back_button">Back button</string>
+    <string name="option_button">Option button</string>
+    <string name="playlist_thumbnail">Playlist Thumbnail</string>
+    <string name="create_playlist_button">Create playlist button</string>
+    <string name="track_thumbnail">Track thumbnail</string>
+    <string name="genre_title_placeholder">Genre Title</string>
     <string name="play_image">Play image</string>
     <string name="duration_placeholder">00:00</string>
-    <string name="track_thumbnail">Track thumbnail</string>
     <string name="logout">Logout</string>
     <string name="profile">Profile</string>
+    <string name="search_search_bar">Users, songs or playlists</string>
 </resources>

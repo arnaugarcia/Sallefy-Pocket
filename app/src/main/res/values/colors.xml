@@ -3,15 +3,48 @@
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="colorTextPrimary">#FFFFFFFF</color>
+    <color name="backgroundDefault">#341931</color>
+
+    <color name="transparent">#00FFFFFF</color>
 
     //Item colors
     <color name="ButtonNavigationView">#111625</color>
     <color name="gradientStart">#EE0979</color>
     <color name="gradientEnd">#FF6A00</color>
 
-    <color name="backgroundDefault">#341931</color>
+    //Genre colors
+    <color name="rosewood">#5B000A</color>
+    <color name="dogwoodRose">#D70060</color>
+    <color name="persianPink">#F386C6</color>
+    <color name="burntSienna">#EF7758</color>
+    <color name="cinnabar">#E54028</color>
+    <color name="burntUmber">#853023</color>
+    <color name="carrotOrange">#F18D05</color>
+    <color name="orangeYellow">#F2BC06</color>
+    <color name="green">#5EB11C</color>
+    <color name="slimyGreen">#51982D</color>
+    <color name="fernGreen">#3A7634</color>
+    <color name="maximumBlueGreen">#0ABEBE</color>
+    <color name="cerulean">#00A1CB</color>
+    <color name="dazzledBlue">#115793</color>
+    <color name="royalBlue">#051D54</color>
 
-    <color name="colorTextPrimary">#FFFFFFFF</color>
-
-    <color name="transparent">#00FFFFFF</color>
+    <array name="genreColors">
+        <item>@color/rosewood</item>
+        <item>@color/dogwoodRose</item>
+        <item>@color/persianPink</item>
+        <item>@color/burntSienna</item>
+        <item>@color/cinnabar</item>
+        <item>@color/burntUmber</item>
+        <item>@color/carrotOrange</item>
+        <item>@color/orangeYellow</item>
+        <item>@color/green</item>
+        <item>@color/slimyGreen</item>
+        <item>@color/fernGreen</item>
+        <item>@color/maximumBlueGreen</item>
+        <item>@color/cerulean</item>
+        <item>@color/dazzledBlue</item>
+        <item>@color/royalBlue</item>
+    </array>
 </resources>

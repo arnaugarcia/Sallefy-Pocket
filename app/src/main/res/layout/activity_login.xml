@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@android:color/black"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/login_title"
@@ -18,14 +18,15 @@
             android:id="@+id/tv_login_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_black"
             android:layout_marginStart="20dp"
+            android:fontFamily="@font/poppins_black"
             android:text="@string/login_title"
             android:textColor="@android:color/white"
             android:textSize="36sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -56,8 +57,11 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="200dp"
+            android:autofillHints="username"
             android:background="@drawable/edit_text_bottom_line"
             android:fontFamily="@font/poppins_regular"
+            android:hint="@string/enter_username_placeholder"
+            android:inputType="text"
             android:textColor="@color/colorTextPrimary"
             android:textColorHint="@color/colorTextPrimary"
             android:textColorLink="@color/colorTextPrimary"
@@ -66,17 +70,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/enter_username_placeholder"
-            android:autofillHints="username"
-            android:inputType="text"
-            android:hint="@string/enter_username_placeholder"/>
+            tools:text="@string/enter_username_placeholder" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:fontFamily="@font/poppins_bold"
             android:layout_marginBottom="15dp"
+            android:fontFamily="@font/poppins_bold"
             android:text="@string/password_title"
             android:textColor="@color/colorTextPrimary"
             android:textSize="15sp"
@@ -90,8 +91,10 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="50dp"
+            android:autofillHints="password"
             android:background="@drawable/edit_text_bottom_line"
             android:fontFamily="@font/poppins_regular"
+            android:hint="@string/enter_password_placeholder"
             android:inputType="textPassword"
             android:textColor="@color/colorTextPrimary"
             android:textColorHint="@color/colorTextPrimary"
@@ -101,9 +104,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_login_username"
-            tools:text="@string/enter_password_placeholder"
-            android:autofillHints="password"
-            android:hint="@string/enter_password_placeholder"/>
+            tools:text="@string/enter_password_placeholder" />
 
         <Button
             android:id="@+id/bt_login"
@@ -124,8 +125,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/poppins_regular"
-            android:textColor="@color/colorPrimary"
             android:text="@string/no_account_register"
+            android:textColor="@color/colorPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bt_login" />
 

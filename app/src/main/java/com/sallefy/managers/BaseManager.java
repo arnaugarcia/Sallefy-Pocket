@@ -44,7 +44,6 @@ public abstract class BaseManager {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client)
                 .build();
-
     }
 
     private Interceptor tokenInterceptor() {
@@ -68,13 +67,13 @@ public abstract class BaseManager {
 
     private Interceptor forbiddenInterceptor() {
         return chain -> {
-                    Request request = chain.request();
-                    Response response = chain.proceed(request);
-                    if (response.code() == HTTP_FORBIDDEN) {
-                        goToLogin();
-                    }
-                    return response;
-                };
+            Request request = chain.request();
+            Response response = chain.proceed(request);
+            if (response.code() == HTTP_FORBIDDEN) {
+                goToLogin();
+            }
+            return response;
+        };
     }
 
     private void goToLogin() {

@@ -5,6 +5,12 @@ import android.content.Intent;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+
 import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,11 +29,6 @@ import com.sallefy.managers.user.UserManager;
 import com.sallefy.model.User;
 import com.sallefy.services.authentication.AuthenticationUtils;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-
 public class ProfileFragment extends Fragment implements UserCallback {
 
     private Context context;
@@ -39,6 +40,7 @@ public class ProfileFragment extends Fragment implements UserCallback {
     private TextView tvLastName;
     private TextView tvEmail;
     private TextView tvDateCreated;
+
     private ImageButton ibLogout;
 
     public ProfileFragment() {
@@ -55,9 +57,7 @@ public class ProfileFragment extends Fragment implements UserCallback {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
