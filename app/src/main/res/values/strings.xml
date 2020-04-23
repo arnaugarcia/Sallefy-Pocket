@@ -47,4 +47,5 @@
     <string name="track_thumbnail">Track thumbnail</string>
     <string name="logout">Logout</string>
     <string name="profile">Profile</string>
+    <string name="create_button">Create button</string>
 </resources>

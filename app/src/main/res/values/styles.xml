@@ -78,25 +78,18 @@
         <item name="android:textSize">19sp</item>
     </style>
 
-    <style name="Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
-        <item name="fontFamily">@font/poppins_regular</item>
-        <item name="android:fontFamily">@font/poppins_regular</item>
+    <style name="Item.Title" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/poppins_black</item>
+        <item name="android:fontFamily">@font/poppins_black</item>
         <item name="android:textColor">@color/colorTextPrimary</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">@dimen/itemTitle</item>
     </style>
 
-    <style name="Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
+    <style name="Item.Subtitle" parent="TextAppearance.MaterialComponents.Body1">
         <item name="fontFamily">@font/poppins_regular</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
         <item name="android:textColor">@color/colorTextPrimary</item>
-        <item name="android:textSize">13sp</item>
-    </style>
-
-    <style name="Body1" parent="TextAppearance.MaterialComponents.Body1">
-        <item name="fontFamily">@font/poppins_regular</item>
-        <item name="android:fontFamily">@font/poppins_regular</item>
-        <item name="android:textColor">@color/colorTextPrimary</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">@dimen/itemSubtitle</item>
     </style>
 
     <style name="Body2" parent="TextAppearance.MaterialComponents.Body2">

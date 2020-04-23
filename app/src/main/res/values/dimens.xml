@@ -6,4 +6,8 @@
     <dimen name="heading4TextSize">19sp</dimen>
     <dimen name="heading5TextSize">16sp</dimen>
     <dimen name="heading6TextSize">14sp</dimen>
+
+    <!-- Body -->
+    <dimen name="itemTitle">15sp</dimen>
+    <dimen name="itemSubtitle">12sp</dimen>
 </resources>
