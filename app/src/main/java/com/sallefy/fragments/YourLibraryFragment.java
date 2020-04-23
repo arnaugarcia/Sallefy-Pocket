@@ -1,10 +1,7 @@
 package com.sallefy.fragments;
 
 import android.content.Context;
-import android.graphics.LinearGradient;
-import android.graphics.Shader;
 import android.os.Bundle;
-import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +24,6 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -79,14 +75,12 @@ public class YourLibraryFragment extends Fragment
         ibSettings.setOnClickListener(view1 -> openProfileFragment());
 
         viewPager.setAdapter(yourLibraryAdapter);
-        int gradientEnd = ResourcesCompat.getColor(getResources(), R.color.gradientEnd, null);
-        int white = ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null);
-        tabLayout.setSelectedTabIndicatorColor(gradientEnd);
-        tabLayout.setTabTextColors(white, gradientEnd);
+        int colorAccent = ResourcesCompat.getColor(getResources(), R.color.colorAccent, null);
+        int colorTextPrimaryVariant = ResourcesCompat.getColor(getResources(), R.color.colorTextPrimaryVariant, null);
+        tabLayout.setSelectedTabIndicatorColor(colorAccent);
+        tabLayout.setTabTextColors(colorTextPrimaryVariant, colorAccent);
         new TabLayoutMediator(tabLayout, viewPager,
-                ((tab, position) -> {
-                    tab.setText((position == 0) ? "Playlists" : "Tracks");
-                })
+                ((tab, position) -> tab.setText((position == 0) ? "Playlists" : "Tracks"))
         ).attach();
     }
 
@@ -107,14 +101,6 @@ public class YourLibraryFragment extends Fragment
         viewPager = view.findViewById(R.id.view_pager);
         tabLayout = view.findViewById(R.id.tab_layout);
         mLibraryTitleTextView = view.findViewById(R.id.tv_your_library_title);
-
-        TextPaint paint = mLibraryTitleTextView.getPaint();
-        float width = paint.measureText(mLibraryTitleTextView.getText().toString());
-        Shader shader = new LinearGradient(0, 0, width, 0,
-                ContextCompat.getColor(view.getContext(), R.color.gradientStart),
-                ContextCompat.getColor(view.getContext(), R.color.gradientEnd),
-                Shader.TileMode.MIRROR);
-        mLibraryTitleTextView.getPaint().setShader(shader);
     }
 
     private void getMyPlaylists() {

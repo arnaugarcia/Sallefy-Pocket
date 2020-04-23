@@ -67,14 +67,6 @@ public class ProfileFragment extends Fragment implements UserCallback {
 
         initViews(view);
 
-        TextPaint paint = tvProfileTitle.getPaint();
-        float width = paint.measureText(tvProfileTitle.getText().toString());
-        Shader shader = new LinearGradient(0, 0, width, 0,
-                ContextCompat.getColor(view.getContext(), R.color.gradientStart),
-                ContextCompat.getColor(view.getContext(), R.color.gradientEnd),
-                Shader.TileMode.MIRROR);
-        tvProfileTitle.getPaint().setShader(shader);
-
         ibLogout.setOnClickListener(v -> new MaterialAlertDialogBuilder(context, R.style.Dialog_Logout)
                 .setTitle("Logout")
                 .setMessage("Are you sure you want to logout?")
