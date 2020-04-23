@@ -75,7 +75,7 @@ public class ProfileFragment extends Fragment implements UserCallback {
                 Shader.TileMode.MIRROR);
         tvProfileTitle.getPaint().setShader(shader);
 
-        ibLogout.setOnClickListener(v -> new MaterialAlertDialogBuilder(context)
+        ibLogout.setOnClickListener(v -> new MaterialAlertDialogBuilder(context, R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog)
                 .setTitle("Logout")
                 .setMessage("Are you sure you want to logout?")
                 .setNegativeButton("No, take me back", (dialog, i) -> Toast.makeText(context, "Not logging out", Toast.LENGTH_SHORT).show())
@@ -84,6 +84,13 @@ public class ProfileFragment extends Fragment implements UserCallback {
                     Toast.makeText(context, "Logged out", Toast.LENGTH_SHORT).show();
                 })
                 .show());
+
+//        new LogoutDialog(context)
+//                .setPositiveButton("Yes, please", (dialog, i) -> {
+//                    logout();
+//                    Toast.makeText(context, "Logged out", Toast.LENGTH_SHORT).show();
+//                })
+//                .show()
     }
 
     @Override

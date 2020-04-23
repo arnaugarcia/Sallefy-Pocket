@@ -24,6 +24,23 @@
         <item name="backgroundTint">@color/transparent</item>
     </style>
 
+    <!-- Sallefy Dialog -->
+    <style name="Dialog.Logout" parent="MaterialAlertDialog.MaterialComponents.Title.Icon">
+        <item name="materialAlertDialogTitlePanelStyle">@style/Dialog.Logout.Title</item>
+<!--        <item name="materialAlertDialogTitleTextStyle">@style/Body2</item>-->
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Dialog.Logout.Title" parent="Headline3">
+        <item name="android:textColor">@color/colorTextSecondary</item>
+        <item name="fontFamily">@font/poppins_black</item>
+    </style>
+
+<!--    <style name="Dialog.Logout.B" parent="Headline3">-->
+<!--        <item name="android:textColor">@color/colorTextSecondary</item>-->
+<!--    </style>-->
+
     <!-- Bottom Navigation View -->
     <style name="TabLayoutTextStyle" parent="Widget.Design.BottomNavigationView">
         <item name="android:textSize">20sp</item>
