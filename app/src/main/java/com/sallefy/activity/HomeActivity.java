@@ -16,7 +16,6 @@ import com.sallefy.fragments.HomeFragment;
 import com.sallefy.fragments.YourLibraryFragment;
 import com.sallefy.fragments.SearchFragment;
 
-
 public class HomeActivity extends FragmentActivity {
 
     private Context context;
@@ -29,14 +28,14 @@ public class HomeActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        this.context = getApplicationContext();
+        mFragmentManager = getSupportFragmentManager();
+        mTransaction = mFragmentManager.beginTransaction();
         initViews();
         setInitialFragment();
-        this.context = getApplicationContext();
     }
 
     private void initViews() {
-        mFragmentManager = getSupportFragmentManager();
-        mTransaction = mFragmentManager.beginTransaction();
 
         mBottomNavigationView = findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -84,12 +83,10 @@ public class HomeActivity extends FragmentActivity {
         } catch (IllegalStateException e) {
             e.printStackTrace();
         }
-
     }
 
     private void setInitialFragment() {
         mTransaction.add(R.id.fragment_manager, HomeFragment.getInstance());
         mTransaction.commit();
     }
-
 }

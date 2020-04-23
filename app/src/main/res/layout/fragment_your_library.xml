@@ -28,12 +28,13 @@
 
         <ImageButton
             android:id="@+id/ib_settings"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:background="@color/transparent"
             android:gravity="end"
             android:scaleType="center"
+            android:layout_marginEnd="20dp"
             android:src="@drawable/ic_profile"
             android:tint="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -56,6 +56,7 @@ public class YourLibraryFragment extends Fragment
 
     public static YourLibraryFragment getInstance(Context context, FragmentManager fragmentManager) {
         if (instance == null) instance = new YourLibraryFragment(context, fragmentManager);
+        if (instance.fragmentManager != fragmentManager) instance.fragmentManager = fragmentManager;
         return instance;
     }
 
@@ -124,7 +125,7 @@ public class YourLibraryFragment extends Fragment
     private void openProfileFragment() {
         ProfileFragment profileFragment = new ProfileFragment(context);
         fragmentManager.beginTransaction()
-                .replace(((ViewGroup) getView().getParent()).getId(), profileFragment, "profileFragment")
+                .replace(R.id.fragment_manager, profileFragment, "profileFragment")
                 .addToBackStack(null)
                 .commit();
     }

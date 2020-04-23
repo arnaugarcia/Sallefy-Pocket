@@ -1,6 +1,7 @@
 package com.sallefy.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.os.Bundle;
@@ -14,15 +15,19 @@ import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.sallefy.R;
+import com.sallefy.activity.MainActivity;
 import com.sallefy.managers.user.UserCallback;
 import com.sallefy.managers.user.UserManager;
 import com.sallefy.model.User;
+import com.sallefy.services.authentication.AuthenticationUtils;
 
 public class ProfileFragment extends Fragment implements UserCallback {
 
@@ -35,6 +40,8 @@ public class ProfileFragment extends Fragment implements UserCallback {
     private TextView tvLastName;
     private TextView tvEmail;
     private TextView tvDateCreated;
+
+    private ImageButton ibLogout;
 
     public ProfileFragment() {
     }
@@ -50,8 +57,7 @@ public class ProfileFragment extends Fragment implements UserCallback {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
@@ -68,6 +74,22 @@ public class ProfileFragment extends Fragment implements UserCallback {
                 ContextCompat.getColor(view.getContext(), R.color.gradientEnd),
                 Shader.TileMode.MIRROR);
         tvProfileTitle.getPaint().setShader(shader);
+
+        ibLogout.setOnClickListener(v -> new MaterialAlertDialogBuilder(context)
+                .setTitle("Logout")
+                .setMessage("Are you sure you want to logout?")
+                .setNegativeButton("No, take me back", (dialog, i) -> Toast.makeText(context, "Not logging out", Toast.LENGTH_SHORT).show())
+                .setPositiveButton("Yes, please", (dialog, i) -> {
+                    logout();
+                    Toast.makeText(context, "Logged out", Toast.LENGTH_SHORT).show();
+                })
+                .show());
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
     }
 
     private void initViews(View view) {
@@ -78,10 +100,18 @@ public class ProfileFragment extends Fragment implements UserCallback {
         tvLastName = view.findViewById(R.id.tv_last_name);
         tvEmail = view.findViewById(R.id.tv_email);
         tvDateCreated = view.findViewById(R.id.tv_date_created);
+        ibLogout = view.findViewById(R.id.ib_logout);
     }
 
     private void getUserData() {
         UserManager.getInstance().getUserData(context, this);
+    }
+
+    private void logout() {
+        AuthenticationUtils.logout(context);
+        Intent intent = new Intent(context, MainActivity.class);
+        startActivity(intent);
+        requireActivity().finish();
     }
 
     @Override
