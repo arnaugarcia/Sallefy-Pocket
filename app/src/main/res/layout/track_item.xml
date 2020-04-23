@@ -42,17 +42,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_duration"
-            style="@style/Item.Subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="@string/duration_placeholder"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_track_title"
-            app:layout_constraintStart_toEndOf="@+id/tv_track_title"
-            app:layout_constraintTop_toTopOf="@+id/tv_track_title" />
-
-        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_owner"
             style="@style/Item.Subtitle"
             android:layout_width="wrap_content"
@@ -111,25 +100,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_selected_duration"
-            style="@style/Item.Subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="@string/duration_placeholder"
-            android:textColor="@color/colorTextSecondary"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_selected_track_title"
-            app:layout_constraintStart_toEndOf="@+id/tv_selected_track_title"
-            app:layout_constraintTop_toTopOf="@+id/tv_selected_track_title" />
-
-        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_selected_owner"
             style="@style/Item.Subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="@string/owner_login_placeholder"
-            android:textColor="@color/colorTextSecondary"
+            android:textColor="@color/colorTextPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_selected_track_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_selected_track_title" />
@@ -142,7 +119,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:text="@string/track_title_placeholder"
-            android:textColor="@color/colorTextSecondary"
+            android:textColor="@color/colorTextPrimary"
             app:layout_constraintBottom_toTopOf="@+id/tv_selected_owner"
             app:layout_constraintStart_toEndOf="@+id/iv_selected_thumbnail"
             app:layout_constraintTop_toTopOf="parent" />
