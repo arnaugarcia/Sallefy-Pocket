@@ -56,7 +56,7 @@ public class PlayerService extends Service implements MediaPlayer.OnPreparedList
         if (mediaPlayer != null) {
             try {
                 mediaPlayer.stop();
-            } catch(Exception e) {
+            } catch (Exception e) {
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
             mediaPlayer = null;
@@ -80,7 +80,7 @@ public class PlayerService extends Service implements MediaPlayer.OnPreparedList
                     mCallback.onMusicPlayerPrepared();
                 }*/
             });
-        } catch(Exception e) {
+        } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
@@ -91,6 +91,14 @@ public class PlayerService extends Service implements MediaPlayer.OnPreparedList
 
     public void play(Playlist playlist) {
 
+    }
+
+    public int getMaxDuration() {
+        return mediaPlayer.getDuration();
+    }
+
+    public int getCurrentPosition() {
+        return mediaPlayer.getCurrentPosition();
     }
 
     @Nullable

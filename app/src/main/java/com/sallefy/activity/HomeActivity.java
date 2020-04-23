@@ -38,7 +38,7 @@ public class HomeActivity extends FragmentActivity {
 
     private void initMusicNavView() {
         tvMusicNav = findViewById(R.id.music_nav_title);
-        tvMusicNav.setOnClickListener(v -> startActivity(new Intent(this, SongActivity.class)));
+        tvMusicNav.setOnClickListener(v -> startActivity(new Intent(this, TrackActivity.class)));
     }
 
     private void initViews() {

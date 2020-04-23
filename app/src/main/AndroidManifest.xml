@@ -40,7 +40,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.SongActivity"
+            android:name=".activity.TrackActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
