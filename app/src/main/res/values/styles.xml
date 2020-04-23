@@ -25,21 +25,21 @@
     </style>
 
     <!-- Sallefy Dialog -->
-    <style name="Dialog.Logout" parent="MaterialAlertDialog.MaterialComponents.Title.Icon">
-        <item name="materialAlertDialogTitlePanelStyle">@style/Dialog.Logout.Title</item>
-<!--        <item name="materialAlertDialogTitleTextStyle">@style/Body2</item>-->
+    <style name="Dialog.Logout" parent="MaterialAlertDialog.MaterialComponents">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/Dialog.Logout.Title</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/Dialog.Logout.Body</item>
+        <item name="colorPrimary">@color/colorSecondary</item>
     </style>
 
-    <style name="Dialog.Logout.Title" parent="Headline3">
+    <style name="Dialog.Logout.Title" parent="Headline4">
         <item name="android:textColor">@color/colorTextSecondary</item>
-        <item name="fontFamily">@font/poppins_black</item>
     </style>
 
-<!--    <style name="Dialog.Logout.B" parent="Headline3">-->
-<!--        <item name="android:textColor">@color/colorTextSecondary</item>-->
-<!--    </style>-->
+    <style name="Dialog.Logout.Body" parent="Body2">
+        <item name="android:textColor">@color/colorTextSecondaryVariant</item>
+    </style>
 
     <!-- Bottom Navigation View -->
     <style name="TabLayoutTextStyle" parent="Widget.Design.BottomNavigationView">
