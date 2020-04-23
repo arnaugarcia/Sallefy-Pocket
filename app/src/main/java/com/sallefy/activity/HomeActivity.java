@@ -1,7 +1,9 @@
 package com.sallefy.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -22,14 +24,21 @@ public class HomeActivity extends FragmentActivity {
     private BottomNavigationView mBottomNavigationView;
     private FragmentTransaction mTransaction;
     private FragmentManager mFragmentManager;
+    private TextView tvMusicNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         initViews();
+        initMusicNavView();
         setInitialFragment();
         this.context = getApplicationContext();
+    }
+
+    private void initMusicNavView() {
+        tvMusicNav = findViewById(R.id.music_nav_title);
+        tvMusicNav.setOnClickListener(v -> startActivity(new Intent(this, SongActivity.class)));
     }
 
     private void initViews() {
