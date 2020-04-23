@@ -1,9 +1,13 @@
 package com.sallefy.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sallefy.R;
 import com.sallefy.adapters.GenreListAdapter;
@@ -15,17 +19,12 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class SearchFragment extends Fragment implements GenresCallback {
-
-import androidx.fragment.app.Fragment;
-
-public class SearchFragment extends Fragment {
     private static SearchFragment instance;
 
     private Context mContext;
@@ -61,14 +60,6 @@ public class SearchFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
 
-        TextPaint paint = mSearchTitleTextView.getPaint();
-        float width = paint.measureText(mSearchTitleTextView.getText().toString());
-        Shader shader = new LinearGradient(0, 0, width, 0,
-                ContextCompat.getColor(view.getContext(), R.color.gradientStart),
-                ContextCompat.getColor(view.getContext(), R.color.gradientEnd),
-                Shader.TileMode.MIRROR);
-        mSearchTitleTextView.getPaint().setShader(shader);
-
         mSearchBarButton.setOnClickListener(v -> openSearchResponseFragment());
 
         mGenreListAdapter = new GenreListAdapter(getContext(), null, mFragmentManager);
@@ -93,7 +84,7 @@ public class SearchFragment extends Fragment {
         mGenreRecyclerView = view.findViewById(R.id.genre_recycle_view);
     }
 
-    private void openSearchResponseFragment(){
+    private void openSearchResponseFragment() {
         SearchResponseFragment searchResponseFragment = new SearchResponseFragment(mContext, mFragmentManager);
         mFragmentManager.beginTransaction()
                 .replace(((ViewGroup) getView().getParent()).getId(), searchResponseFragment, "searchResponseFragment")

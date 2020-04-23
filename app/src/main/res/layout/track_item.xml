@@ -58,15 +58,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/track_title_placeholder"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp"
             android:ellipsize="end"
             android:maxLines="1"
-            app:layout_constraintHorizontal_bias="0"
+            android:text="@string/track_title_placeholder"
             app:layout_constrainedWidth="true"
-            app:layout_constraintEnd_toStartOf="@id/ib_favourite"
             app:layout_constraintBottom_toTopOf="@+id/tv_owner"
+            app:layout_constraintEnd_toStartOf="@id/ib_favourite"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@+id/iv_play"
             app:layout_constraintTop_toTopOf="parent" />
 
