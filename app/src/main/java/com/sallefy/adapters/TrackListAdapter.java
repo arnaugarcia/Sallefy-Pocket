@@ -66,13 +66,13 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
     private void setTextsUnselected(ViewHolder holder, Track track) {
         holder.tvTrackTitle.setText(track.getName());
         holder.tvOwner.setText(track.getUser().getLogin());
-        holder.tvDuration.setText(String.valueOf(track.getDuration()));
+        holder.tvDuration.setText((track.getDuration() == null) ? "00:00" : String.valueOf(track.getDuration()));
     }
 
     private void setTextsSelected(ViewHolder holder, Track track) {
         holder.tvSelectedTrackTitle.setText(track.getName());
         holder.tvSelectedOwner.setText(track.getUser().getLogin());
-        holder.tvSelectedDuration.setText(String.valueOf(track.getDuration()));
+        holder.tvSelectedDuration.setText((track.getDuration() == null) ? "00:00" : String.valueOf(track.getDuration()));
         if (track.getThumbnail() != null) {
             Glide.with(context)
                     .asBitmap()

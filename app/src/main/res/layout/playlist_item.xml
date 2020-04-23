@@ -74,12 +74,10 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_create_title"
+            style="@style/Item.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_black"
             android:text="@string/create_a_playlist"
-            android:textColor="@color/colorPrimary"
-            android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ib_create"
             app:layout_constraintTop_toTopOf="parent" />
