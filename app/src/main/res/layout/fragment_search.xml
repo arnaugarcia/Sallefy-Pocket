@@ -28,21 +28,23 @@
 
     <Button
         android:id="@+id/b_search_search_bar"
+        style="@style/Body2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:background="@color/colorPrimary"
-        android:text="@string/search_search_bar"
-        android:textSize="15sp"
-        android:fontFamily="@font/poppins_regular"
+        android:backgroundTint="@color/colorSurface"
         android:drawableStart="@drawable/ic_search"
         android:drawableTint="@color/colorPrimaryDark"
+        android:fontFamily="@font/poppins_regular"
         android:paddingStart="60dp"
         android:paddingEnd="60dp"
+        android:text="@string/search_search_bar"
+        android:textAllCaps="true"
+        android:textColor="@color/colorTextSecondaryVariant"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_title"/>
+        app:layout_constraintTop_toBottomOf="@+id/search_title" />
 
 
     <androidx.recyclerview.widget.RecyclerView
