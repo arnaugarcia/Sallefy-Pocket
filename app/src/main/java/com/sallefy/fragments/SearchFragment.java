@@ -4,18 +4,7 @@ import android.content.Context;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.TextPaint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +12,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.button.MaterialButton;
 import com.sallefy.R;
 import com.sallefy.adapters.GenreListAdapter;
 import com.sallefy.managers.genres.GenreManager;
@@ -31,6 +19,14 @@ import com.sallefy.managers.genres.GenresCallback;
 import com.sallefy.model.Genre;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class SearchFragment extends Fragment implements GenresCallback {
 
@@ -123,5 +119,4 @@ public class SearchFragment extends Fragment implements GenresCallback {
     public void onGetAllGenresFailure(Throwable throwable) {
         Toast.makeText(mContext, "Error receiving genres", Toast.LENGTH_SHORT).show();
     }
-
 }

@@ -59,14 +59,13 @@ public class SearchResponseFragment extends Fragment implements SearchResponseCa
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                //Toast.makeText(mContext, query, Toast.LENGTH_SHORT).show();
                 getTracksBySearchQuery(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                return false;
+                return false; // No queremos saturar el backend
             }
         });
 
@@ -75,17 +74,14 @@ public class SearchResponseFragment extends Fragment implements SearchResponseCa
         LinearLayoutManager manager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false);
         mTrackRecyclerView.setLayoutManager(manager);
         mTrackListAdapter = new TrackListAdapter(mContext, null);
-
     }
 
     private void initViews(View view) {
         mSearchView = view.findViewById(R.id.search_view);
         mSearchView.setIconified(false);
-        mSearchView.clearFocus();
 
         mImageButtonBack = view.findViewById(R.id.ib_search_response_back);
         mTrackRecyclerView = view.findViewById(R.id.rv_search_response_tracks);
-
     }
 
     private void getTracksBySearchQuery(String keyword){
