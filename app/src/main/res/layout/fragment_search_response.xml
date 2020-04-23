@@ -5,19 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundDefault"
-    tools:context=".fragments.PlaylistFragment">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_songs"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".fragments.SearchResponseFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/navigation"
+        android:id="@+id/cl_search_response_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/ib_back"
+            android:id="@+id/ib_search_response_back"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
@@ -38,22 +29,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="@string/back_button" />
-
-        <ImageButton
-            android:id="@+id/ib_options"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="5dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:contentDescription="@string/option_button"
-            android:gravity="end"
-            android:scaleType="center"
-            android:src="@drawable/outline_settings_24"
-            android:tint="@android:color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_search_response_navigation"
+        app:layout_constraintBottom_toTopOf="@id/rv_search_response_tracks"
+        app:queryHint="@string/search_hint"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_search_response_tracks"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_view"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

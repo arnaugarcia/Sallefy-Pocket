@@ -32,7 +32,6 @@ public class TokenStoreManager {
     public void setContext(Context context) {
         this.context = context;
     }
-
 }
 
 

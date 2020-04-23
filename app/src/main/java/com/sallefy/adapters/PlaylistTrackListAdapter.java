@@ -81,6 +81,7 @@ public class PlaylistTrackListAdapter
 
     private void setTextsSelected(ViewHolder holder, Track track) {
         holder.tvSelectedTrackTitle.setText(track.getName());
+        holder.tvSelectedTrackTitle.setSelected(true);
         holder.tvSelectedOwner.setText(track.getUser().getLogin());
         if (track.getThumbnail() != null) {
             Glide.with(context)

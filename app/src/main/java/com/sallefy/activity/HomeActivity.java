@@ -47,7 +47,7 @@ public class HomeActivity extends FragmentActivity {
                         fragment = HomeFragment.getInstance();
                         break;
                     case R.id.action_search:
-                        fragment = SearchFragment.getInstance();
+                        fragment = SearchFragment.getInstance(context, mFragmentManager);
                         break;
                     case R.id.action_your_library:
                         fragment = YourLibraryFragment.getInstance(context, mFragmentManager);

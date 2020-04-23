@@ -19,8 +19,8 @@
             android:id="@+id/tv_login_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_black"
             android:layout_marginStart="20dp"
+            android:fontFamily="@font/poppins_black"
             android:text="@string/create_a_playlist"
             android:textColor="@android:color/white"
             android:textSize="36sp"
@@ -42,14 +42,14 @@
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/iv_playlist_thumbnail"
-            android:src="@drawable/application_logo"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginTop="100dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/application_logo"
+            app:layout_constraintBottom_toTopOf="@+id/tv_name"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/tv_name"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_name"
@@ -62,9 +62,9 @@
             android:textColor="@color/colorTextPrimary"
             android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/iv_playlist_thumbnail"
             app:layout_constraintBottom_toTopOf="@+id/et_playlist_name"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_playlist_thumbnail" />
 
         <EditText
             android:id="@+id/et_playlist_name"
@@ -83,7 +83,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_name"
-            tools:text="@string/enter_playlist_name_placeholder"/>
+            tools:text="@string/enter_playlist_name_placeholder" />
 
         <TextView
             android:id="@+id/tv_email"
@@ -107,6 +107,7 @@
             android:autofillHints="playlist_description"
             android:background="@drawable/edit_text_bottom_line"
             android:fontFamily="@font/poppins_regular"
+            android:hint="@string/playlist_description"
             android:inputType="textMultiLine"
             android:textColor="@color/colorTextPrimary"
             app:layout_constraintEnd_toEndOf="parent"
@@ -124,9 +125,9 @@
             android:textColor="@color/colorTextPrimary"
             android:textSize="15sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/switch_private"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_playlist_description"
-            app:layout_constraintEnd_toStartOf="@+id/switch_private"/>
+            app:layout_constraintTop_toBottomOf="@+id/et_playlist_description" />
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/switch_private"
@@ -143,9 +144,9 @@
             android:id="@+id/btn_create"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:fontFamily="@font/poppins_bold"
             android:layout_marginTop="60dp"
             android:background="@drawable/button_login_register"
+            android:fontFamily="@font/poppins_bold"
             android:text="@string/create_playlist_title"
             android:textColor="@color/colorTextPrimary"
             app:layout_constraintEnd_toEndOf="parent"

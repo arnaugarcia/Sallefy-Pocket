@@ -32,6 +32,10 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
         this.tracks = tracks;
     }
 
+    public void setTracks(List<Track> tracks) {
+        this.tracks = tracks;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -60,7 +64,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
 
     @Override
     public int getItemCount() {
-        return tracks.size();
+        return (tracks != null) ? tracks.size() : 0;
     }
 
     private void setTextsUnselected(ViewHolder holder, Track track) {
@@ -70,6 +74,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
 
     private void setTextsSelected(ViewHolder holder, Track track) {
         holder.tvSelectedTrackTitle.setText(track.getName());
+        holder.tvSelectedTrackTitle.setSelected(true);
         holder.tvSelectedOwner.setText(track.getUser().getLogin());
         if (track.getThumbnail() != null) {
             Glide.with(context)

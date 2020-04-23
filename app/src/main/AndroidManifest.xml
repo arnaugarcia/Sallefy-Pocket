@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
+
         <activity
             android:name=".activity.CreatePlaylistActivity"
             android:label="@string/create_a_playlist" />
@@ -32,6 +33,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

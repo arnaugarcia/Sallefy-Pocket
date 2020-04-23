@@ -4,7 +4,7 @@ import com.sallefy.model.Track;
 
 import java.util.List;
 
-public interface TrackCallback {
+public interface MyTracksCallback {
     void onMyTracksReceived(List<Track> tracks);
     void onMyTracksFailure(Throwable throwable);
 }

@@ -30,5 +30,4 @@ public class UserCredentials {
     public boolean isRememberMe() {
         return rememberMe;
     }
-
 }
