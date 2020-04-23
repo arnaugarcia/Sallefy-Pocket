@@ -30,17 +30,24 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search_view"
+    <Button
+        android:id="@+id/b_search_search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:background="@color/colorPrimary"
+        android:text="@string/search_search_bar"
+        android:textSize="15sp"
+        android:fontFamily="@font/poppins_regular"
+        android:drawableStart="@drawable/ic_search"
+        android:drawableTint="@color/colorPrimaryDark"
+        android:paddingStart="60dp"
+        android:paddingEnd="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_title"
-        app:queryHint="@string/search_hint" />
+        app:layout_constraintTop_toBottomOf="@+id/search_title"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/genre_recycle_view"
@@ -54,6 +61,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_view" />
+        app:layout_constraintTop_toBottomOf="@id/b_search_search_bar"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

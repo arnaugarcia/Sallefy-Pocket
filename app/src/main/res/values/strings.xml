@@ -41,7 +41,7 @@
     <string name="create_playlist_title">Create playlist</string>
     <string name="playlist_description_placeholder">Playlist description placeholder</string>
     <string name="search_title">Search</string>
-    <string name="search_hint">Artists, songs</string>
+    <string name="search_hint">Search</string>
     <string name="genre_item_placeholder">Genre</string>
     <string name="playlist_description">Playlist Description</string>
     <string name="splash_screen">Splash Screen</string>
@@ -53,4 +53,5 @@
     <string name="genre_title_placeholder">Genre Title</string>
     <string name="play_image">Play image</string>
     <string name="duration_placeholder">00:00</string>
+    <string name="search_search_bar">Users, songs or playlists</string>
 </resources>
