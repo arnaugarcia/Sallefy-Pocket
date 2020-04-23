@@ -16,4 +16,5 @@ public interface TrackService {
 
     @GET("tracks")
     Call<List<Track>> getTracksByGenre(@Header("Authorization") String userToken, @Query("genre") String genre);
+
 }
