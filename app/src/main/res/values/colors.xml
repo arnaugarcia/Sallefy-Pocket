@@ -10,6 +10,8 @@
     <color name="colorSecondaryLight">#FF5BA8</color>
     <color name="colorSecondaryDark">#B5004E</color>
 
+    <color name="colorSurface">#FFFFFF</color>
+
     <!-- Accent -->
     <color name="colorAccent">#FF6A00</color>
 

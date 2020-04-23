@@ -48,4 +48,8 @@
     <string name="logout">Logout</string>
     <string name="profile">Profile</string>
     <string name="create_button">Create button</string>
+    <string name="first_name_placeholder">First name</string>
+    <string name="last_name_placeholder">Last name</string>
+    <string name="email_placeholder">login@students.salle.url.edu</string>
+    <string name="date_placeholder">1970-01-01T00:00:00Z</string>
 </resources>

@@ -15,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <com.sallefy.custom_views.GradientHeadline1
             android:id="@+id/tv_profile_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
             android:background="@color/transparent"
             android:contentDescription="@string/logout"
             android:src="@drawable/outline_exit_to_app_24"
-            android:tint="@color/colorPrimary"
+            android:tint="@color/colorTextPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -54,57 +54,54 @@
         app:layout_constraintTop_toBottomOf="@+id/profile_title"
         app:layout_constraintVertical_bias="1.0">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_login"
+            style="@style/Headline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:fontFamily="@font/poppins_bold"
             android:text="@string/username_title"
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="20sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/tv_first_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_first_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
-            android:text="First name"
+            android:text="@string/first_name_placeholder"
             android:textColor="@color/colorTextPrimary"
             app:layout_constraintBottom_toTopOf="@+id/tv_last_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_login"/>
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_last_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
-            android:text="Last name"
+            android:text="@string/last_name_placeholder"
             android:textColor="@color/colorTextPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_first_name" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
-            android:text="login@students.salle.url.edu"
+            android:text="@string/email_placeholder"
             android:textColor="@color/colorTextPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_last_name" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_date_created"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
-            android:text="1970-01-01T00:00:00Z"
+            android:text="@string/date_placeholder"
             android:textColor="@color/colorTextPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_email" />
@@ -115,10 +112,10 @@
             android:layout_height="150dp"
             android:src="@drawable/application_logo"
             app:civ_border_color="#EEEEEE"
-            app:civ_border_width="4dp"
+            app:civ_border_width="3dp"
             app:civ_shadow="true"
-            app:civ_shadow_color="#8BC34A"
-            app:civ_shadow_radius="10dp"
+            app:civ_shadow_color="@color/colorPrimaryDark"
+            app:civ_shadow_radius="6dp"
             app:layout_constraintBottom_toTopOf="@+id/tv_login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
