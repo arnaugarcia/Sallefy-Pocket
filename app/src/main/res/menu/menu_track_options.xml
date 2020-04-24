@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_track_like"
+        android:icon="@drawable/outline_favorite_24"
+        android:title="@string/menu_track_like" />
+    <item
+        android:id="@+id/menu_track_add_to_playlist"
+        android:icon="@drawable/outline_playlist_add_24"
+        android:title="@string/menu_track_add_to_playlist" />
+    <item
+        android:id="@+id/menu_track_share"
+        android:icon="@drawable/baseline_share_24"
+        android:title="@string/menu_track_share"/>
+    <item
+        android:id="@+id/menu_track_owner"
+        android:icon="@drawable/artist_profile"
+        android:title="@string/menu_track_owner"/>
+</menu>

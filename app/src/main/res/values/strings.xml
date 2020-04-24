@@ -62,4 +62,8 @@
     <string name="date_placeholder">1970–01–01T00:00:00Z</string>
     <string name="search_search_bar">Users, songs or playlists</string>
     <string name="search_results_title">Search Results</string>
+    <string name="menu_track_like">Like</string>
+    <string name="menu_track_add_to_playlist">Add to playlist</string>
+    <string name="menu_track_share">Share</string>
+    <string name="menu_track_owner">Go to Artist</string>
 </resources>
