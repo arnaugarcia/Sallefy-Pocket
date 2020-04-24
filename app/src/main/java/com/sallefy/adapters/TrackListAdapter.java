@@ -15,6 +15,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.sallefy.R;
+import com.sallefy.managers.tracks.TrackManager;
+import com.sallefy.managers.tracks.UpdateTrackLikedCallback;
 import com.sallefy.model.Track;
 
 import java.util.List;
@@ -24,7 +26,9 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.ViewHolder> {
+import okhttp3.ResponseBody;
+
+public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.ViewHolder> implements UpdateTrackLikedCallback {
 
     private Context context;
     private List<Track> tracks;
@@ -69,12 +73,12 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
 
 
         holder.itemView.setOnLongClickListener(v -> {
-            processOptions(holder);
+            processOptions(holder, track);
             return false;
         });
 
         ibMore.setOnClickListener(v -> {
-            processOptions(holder);
+            processOptions(holder, track);
         });
     }
 
@@ -83,7 +87,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
         return (tracks != null) ? tracks.size() : 0;
     }
 
-    private void processOptions(ViewHolder holder){
+    private void processOptions(ViewHolder holder, Track track){
         PopupMenu popupMenu = new PopupMenu(context, holder.itemView);
         popupMenu.inflate(R.menu.menu_track_options);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -95,6 +99,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
             switch (item.getItemId()){
                 case R.id.menu_track_like:
                     Toast.makeText(context, "like!", Toast.LENGTH_SHORT).show();
+
                     break;
                 case R.id.menu_track_add_to_playlist:
                     Toast.makeText(context, "add to playlist!", Toast.LENGTH_SHORT).show();
@@ -112,6 +117,20 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
         });
 
         popupMenu.show();
+    }
+
+    private void updateTrackLiked(String trackId){
+        TrackManager.getInstance().updateTrackLiked(context, trackId, this);
+    }
+
+    @Override
+    public void onMyTracksSuccess(ResponseBody responseBody) {
+
+    }
+
+    @Override
+    public void onMyTracksFailure(Throwable throwable) {
+
     }
 
     private void setTextsUnselected(ViewHolder holder, Track track) {

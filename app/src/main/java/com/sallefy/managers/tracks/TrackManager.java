@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.sallefy.constants.ApplicationConstants;
 import com.sallefy.managers.BaseManager;
+import com.sallefy.model.LikedDTO;
 import com.sallefy.model.Track;
 import com.sallefy.services.authentication.AuthenticationUtils;
 import com.sallefy.services.tracks.TrackService;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -98,5 +100,31 @@ public class TrackManager extends BaseManager {
             }
         });
 
+    }
+
+    public synchronized void updateTrackLiked(Context context, String id, final UpdateTrackLikedCallback callback){
+        String userToken = AuthenticationUtils.getToken(context);
+
+        Call<LikedDTO> call = trackService.updateTrackLiked("Bearer " + userToken, id);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                int code = response.code();
+
+                if (response.isSuccessful()) {
+                    callback.onMyTracksSuccess(response.body());
+                } else {
+                    Log.d(ApplicationConstants.LOGCAT_ID, "Error  like not successful: " + response.toString());
+                    callback.onMyTracksFailure(new Throwable("Error " + code + ", " + response.errorBody()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(ApplicationConstants.LOGCAT_ID, "Error  like not successful: " + Arrays.toString(t.getStackTrace()));
+                callback.onMyTracksFailure(new Throwable("Error " + Arrays.toString(t.getStackTrace())));
+
+            }
+        });
     }
 }
