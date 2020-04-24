@@ -8,28 +8,27 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
 
         <activity
             android:name=".activity.CreatePlaylistActivity"
-            android:label="@string/create_a_playlist"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/create_a_playlist" />
         <activity
             android:name=".activity.HomeActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AuthenticationTheme" />
         <activity
             android:name=".activity.RegisterActivity"
             android:label="@string/register_title"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AuthenticationTheme" />
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AuthenticationTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

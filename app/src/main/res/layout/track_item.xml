@@ -39,50 +39,34 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-<!--
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@string/duration_placeholder"
-            android:textColor="@color/colorPrimary"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_track_title"
-            app:layout_constraintStart_toEndOf="@+id/tv_track_title"
-            app:layout_constraintTop_toTopOf="@+id/tv_track_title"
-            app:layout_constraintEnd_toStartOf="@id/ib_favourite"/>
--->
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_owner"
+            style="@style/Item.Subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:fontFamily="@font/poppins_regular"
             android:text="@string/owner_login_placeholder"
-            android:textColor="@color/colorPrimary"
-            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_track_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_track_title" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_track_title"
+            style="@style/Item.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:fontFamily="@font/poppins_black"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
             android:text="@string/track_title_placeholder"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            app:layout_constraintHorizontal_bias="0"
             app:layout_constrainedWidth="true"
-            app:layout_constraintEnd_toStartOf="@id/ib_favourite"
             app:layout_constraintBottom_toTopOf="@+id/tv_owner"
+            app:layout_constraintEnd_toStartOf="@id/ib_favourite"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@+id/iv_play"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -94,8 +78,8 @@
         android:layout_height="100dp"
         android:background="@drawable/track_card_view_background"
         android:elevation="2dp"
-        app:layout_constraintEnd_toEndOf="@id/unselected_track"
-        app:layout_constraintStart_toStartOf="@id/unselected_track"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -120,52 +104,39 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-        <!--
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_selected_duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@string/duration_placeholder"
-            android:textColor="@color/colorPrimary"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_selected_track_title"
-            app:layout_constraintStart_toEndOf="@+id/tv_selected_track_title"
-            app:layout_constraintTop_toTopOf="@+id/tv_selected_track_title" />
-        -->
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_selected_owner"
+            style="@style/Item.Subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:fontFamily="@font/poppins_regular"
             android:text="@string/owner_login_placeholder"
-            android:textColor="@color/colorPrimary"
-            android:textSize="14sp"
+            android:textColor="@color/colorTextPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_selected_track_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_selected_track_title" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_selected_track_title"
+            style="@style/Item.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:fontFamily="@font/poppins_black"
-            android:text="@string/track_title_placeholder"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp"
             android:ellipsize="marquee"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constrainedWidth="true"
+            android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:text="@string/track_title_placeholder"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="16sp"
+            app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toTopOf="@+id/tv_selected_owner"
-            app:layout_constraintStart_toEndOf="@+id/iv_selected_thumbnail"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@id/ib_selected_favourite"
-            android:singleLine="true" />
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@+id/iv_selected_thumbnail"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

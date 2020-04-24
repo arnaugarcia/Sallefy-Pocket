@@ -50,7 +50,7 @@ public class PlaylistTrackListAdapter
         if (position == 0) {
             holder.makeFirstItem();
         } else {
-            holder.makeOtherItems(playlist.getTracks().get(position - 1));
+            holder.makeOtherItems();
             holder.itemView.setOnClickListener(v -> {
                 selectedItem = position;
                 notifyItemRangeChanged(1, playlist.getTracks().size() + 1);
@@ -76,15 +76,14 @@ public class PlaylistTrackListAdapter
 
     private void setTextsUnselected(ViewHolder holder, Track track) {
         holder.tvTrackTitle.setText(track.getName());
+        holder.tvTrackTitle.setSelected(true);
         holder.tvOwner.setText(track.getUser().getLogin());
-        //holder.tvDuration.setText(String.valueOf(track.getDuration()));
     }
 
     private void setTextsSelected(ViewHolder holder, Track track) {
         holder.tvSelectedTrackTitle.setText(track.getName());
         holder.tvSelectedTrackTitle.setSelected(true);
         holder.tvSelectedOwner.setText(track.getUser().getLogin());
-        //holder.tvSelectedDuration.setText(String.valueOf(track.getDuration()));
         if (track.getThumbnail() != null) {
             Glide.with(context)
                     .asBitmap()
@@ -111,7 +110,6 @@ public class PlaylistTrackListAdapter
         ConstraintLayout unselectedLayout;
         TextView tvTrackTitle;
         TextView tvOwner;
-        TextView tvDuration;
         AppCompatImageButton ibFavourite;
 
         ConstraintLayout selectedLayout;
@@ -119,7 +117,6 @@ public class PlaylistTrackListAdapter
         AppCompatImageButton ibSelectedFavourite;
         TextView tvSelectedTrackTitle;
         TextView tvSelectedOwner;
-        TextView tvSelectedDuration;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -133,14 +130,12 @@ public class PlaylistTrackListAdapter
             unselectedLayout = itemView.findViewById(R.id.unselected_track);
             tvTrackTitle = itemView.findViewById(R.id.tv_track_title);
             tvOwner = itemView.findViewById(R.id.tv_owner);
-            //tvDuration = itemView.findViewById(R.id.tv_duration);
             ibFavourite = itemView.findViewById(R.id.ib_favourite);
 
             selectedLayout = itemView.findViewById(R.id.selected_track);
             ivSelectedThumbnail = itemView.findViewById(R.id.iv_selected_thumbnail);
             tvSelectedTrackTitle = itemView.findViewById(R.id.tv_selected_track_title);
             tvSelectedOwner = itemView.findViewById(R.id.tv_selected_owner);
-            //tvSelectedDuration = itemView.findViewById(R.id.tv_selected_duration);
             ibSelectedFavourite = itemView.findViewById(R.id.ib_selected_favourite);
         }
 
@@ -159,7 +154,7 @@ public class PlaylistTrackListAdapter
             }
         }
 
-        public void makeOtherItems(Track track) {
+        void makeOtherItems() {
             playlistDataLayout.setVisibility(View.GONE);
             trackItemLayout.setVisibility(View.VISIBLE);
         }

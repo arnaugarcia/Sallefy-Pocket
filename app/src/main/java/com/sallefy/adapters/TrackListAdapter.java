@@ -69,15 +69,14 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
 
     private void setTextsUnselected(ViewHolder holder, Track track) {
         holder.tvTrackTitle.setText(track.getName());
+        holder.tvTrackTitle.setSelected(true);
         holder.tvOwner.setText(track.getUser().getLogin());
-        //holder.tvDuration.setText(String.valueOf(track.getDuration()));
     }
 
     private void setTextsSelected(ViewHolder holder, Track track) {
         holder.tvSelectedTrackTitle.setText(track.getName());
         holder.tvSelectedTrackTitle.setSelected(true);
         holder.tvSelectedOwner.setText(track.getUser().getLogin());
-        //holder.tvSelectedDuration.setText(String.valueOf(track.getDuration()));
         if (track.getThumbnail() != null) {
             Glide.with(context)
                     .asBitmap()
@@ -97,7 +96,6 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
         ConstraintLayout unselectedLayout;
         TextView tvTrackTitle;
         TextView tvOwner;
-        //TextView tvDuration;
         AppCompatImageButton ibFavourite;
 
         ConstraintLayout selectedLayout;
@@ -105,7 +103,6 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
         AppCompatImageButton ibSelectedFavourite;
         TextView tvSelectedTrackTitle;
         TextView tvSelectedOwner;
-        TextView tvSelectedDuration;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -114,7 +111,6 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
 
             tvTrackTitle = itemView.findViewById(R.id.tv_track_title);
             tvOwner = itemView.findViewById(R.id.tv_owner);
-            //tvDuration = itemView.findViewById(R.id.tv_duration);
             ibFavourite = itemView.findViewById(R.id.ib_favourite);
 
 
@@ -123,7 +119,6 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
             ivSelectedThumbnail = itemView.findViewById(R.id.iv_selected_thumbnail);
             tvSelectedTrackTitle = itemView.findViewById(R.id.tv_selected_track_title);
             tvSelectedOwner = itemView.findViewById(R.id.tv_selected_owner);
-            //tvSelectedDuration = itemView.findViewById(R.id.tv_selected_duration);
             ibSelectedFavourite = itemView.findViewById(R.id.ib_selected_favourite);
         }
 

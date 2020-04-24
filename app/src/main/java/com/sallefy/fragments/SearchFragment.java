@@ -1,10 +1,7 @@
 package com.sallefy.fragments;
 
 import android.content.Context;
-import android.graphics.LinearGradient;
-import android.graphics.Shader;
 import android.os.Bundle;
-import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,14 +19,12 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class SearchFragment extends Fragment implements GenresCallback {
-
     private static SearchFragment instance;
 
     private Context mContext;
@@ -65,14 +60,6 @@ public class SearchFragment extends Fragment implements GenresCallback {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
 
-        TextPaint paint = mSearchTitleTextView.getPaint();
-        float width = paint.measureText(mSearchTitleTextView.getText().toString());
-        Shader shader = new LinearGradient(0, 0, width, 0,
-                ContextCompat.getColor(view.getContext(), R.color.gradientStart),
-                ContextCompat.getColor(view.getContext(), R.color.gradientEnd),
-                Shader.TileMode.MIRROR);
-        mSearchTitleTextView.getPaint().setShader(shader);
-
         mSearchBarButton.setOnClickListener(v -> openSearchResponseFragment());
 
         mGenreListAdapter = new GenreListAdapter(getContext(), null, mFragmentManager);
@@ -97,7 +84,7 @@ public class SearchFragment extends Fragment implements GenresCallback {
         mGenreRecyclerView = view.findViewById(R.id.genre_recycle_view);
     }
 
-    private void openSearchResponseFragment(){
+    private void openSearchResponseFragment() {
         SearchResponseFragment searchResponseFragment = new SearchResponseFragment(mContext, mFragmentManager);
         mFragmentManager.beginTransaction()
                 .replace(((ViewGroup) getView().getParent()).getId(), searchResponseFragment, "searchResponseFragment")

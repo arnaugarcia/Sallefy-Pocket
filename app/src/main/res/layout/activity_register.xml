@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorBackgroundAuth"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/black">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/register_title"
@@ -14,15 +14,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_register_title"
+            style="@style/Headline1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:fontFamily="@font/poppins_black"
             android:text="@string/register_title"
-            android:textColor="@android:color/white"
-            android:textSize="36sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -40,19 +38,16 @@
         app:layout_constraintTop_toBottomOf="@+id/register_title"
         app:layout_constraintVertical_bias="1.0">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/Headline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:fontFamily="@font/poppins_bold"
             android:text="@string/username_title"
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="15sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/et_register_username"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_register_username"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -70,23 +65,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/enter_username_placeholder" />
+            tools:text="@string/enter_username_placeholder"/>
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/Headline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
-            android:fontFamily="@font/poppins_bold"
             android:text="@string/email_title"
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="15sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/et_register_email"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_register_username" />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_register_email"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -106,21 +98,18 @@
             app:layout_constraintTop_toBottomOf="@+id/et_register_username"
             tools:text="@string/enter_email_placeholder" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/Headline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
-            android:fontFamily="@font/poppins_bold"
             android:text="@string/password_title"
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="15sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/et_register_password"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_register_email" />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_register_password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -140,27 +129,24 @@
             app:layout_constraintTop_toBottomOf="@+id/et_register_email"
             tools:text="@string/enter_password_placeholder" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_register"
+            style="@style/AuthenticationTheme.Button"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="60dp"
-            android:background="@drawable/button_login_register"
-            android:fontFamily="@font/poppins_bold"
             android:text="@string/register_title"
-            android:textColor="@color/colorTextPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_register_password" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_register_login"
+            style="@style/Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:fontFamily="@font/poppins_regular"
             android:text="@string/already_registered"
-            android:textColor="@color/colorPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_register" />
 

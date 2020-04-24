@@ -38,21 +38,17 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_title"
+                style="@style/Item.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_black"
-                android:text="@string/playlist_title_placeholder"
-                android:textColor="@color/colorPrimary"
-                android:textSize="15sp" />
+                android:text="@string/playlist_title_placeholder" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_songs_number"
+                style="@style/Item.Subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:text="@string/default_num_songs"
-                android:textColor="@color/colorPrimary"
-                android:textSize="12sp" />
+                android:text="@string/default_num_songs" />
 
         </LinearLayout>
 
@@ -84,23 +80,15 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_create_title"
+            style="@style/Item.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:fontFamily="@font/poppins_black"
             android:text="@string/create_a_playlist"
-            android:textColor="@color/colorPrimary"
-            android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ib_create"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="20dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

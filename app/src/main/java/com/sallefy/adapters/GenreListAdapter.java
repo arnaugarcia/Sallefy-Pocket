@@ -49,15 +49,12 @@ public class GenreListAdapter extends RecyclerView.Adapter<GenreListAdapter.View
 
         //holder.drawable.setTint(color);
 
-        holder.itemView.setOnClickListener(v -> {
-
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.fragment_manager,
-                            new GenreFragment(fragmentManager, context, genres.get(position)))
-                    .addToBackStack(null)
-                    .commit();
-        });
+        holder.itemView.setOnClickListener(v -> fragmentManager.beginTransaction()
+                .replace(R.id.fragment_manager,
+                        new GenreFragment(fragmentManager, context, genres.get(position))
+                )
+                .addToBackStack(null)
+                .commit());
     }
 
     @Override
