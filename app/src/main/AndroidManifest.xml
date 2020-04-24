@@ -12,7 +12,7 @@
         android:usesCleartextTraffic="true">
 
         <service
-            android:name=".services.player.PlayerService"
+            android:name=".services.player.MediaPlayerService"
             android:enabled="true"
             android:exported="true" />
 

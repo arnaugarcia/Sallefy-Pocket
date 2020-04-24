@@ -20,7 +20,7 @@ import com.sallefy.R;
 import com.sallefy.fragments.HomeFragment;
 import com.sallefy.fragments.SearchFragment;
 import com.sallefy.fragments.YourLibraryFragment;
-import com.sallefy.services.player.PlayerService;
+import com.sallefy.services.player.MediaPlayerService;
 
 import static android.widget.Toast.makeText;
 
@@ -35,12 +35,12 @@ public class HomeActivity extends FragmentActivity {
     private TextView tvMusicNav;
     private ImageView playButton;
 
-    private PlayerService playerService;
+    private MediaPlayerService playerService;
 
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            PlayerService.PlayerBinder binder = (PlayerService.PlayerBinder)service;
+            MediaPlayerService.LocalBinder binder = (MediaPlayerService.LocalBinder)service;
             playerService = binder.getService();
         }
 
@@ -77,12 +77,12 @@ public class HomeActivity extends FragmentActivity {
         playButton = findViewById(R.id.music_nav_play);
         playButton.setOnClickListener(listener -> {
             makeText(context, "Toggle track", Toast.LENGTH_SHORT).show();
-            playerService.togglePlayer();
-            if (playerService.isPlaying()) {
+            //playerService.togglePlayer();
+            /*if (playerService.isPlaying()) {
                 playButton.setImageResource(R.drawable.ic_pause);
             } else {
                 playButton.setImageResource(R.drawable.ic_play);
-            }
+            }*/
         });
     }
 

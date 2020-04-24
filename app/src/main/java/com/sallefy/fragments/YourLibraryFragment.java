@@ -27,7 +27,7 @@ import com.sallefy.managers.tracks.TrackCallback;
 import com.sallefy.managers.tracks.TrackManager;
 import com.sallefy.model.Playlist;
 import com.sallefy.model.Track;
-import com.sallefy.services.player.PlayerService;
+import com.sallefy.services.player.MediaPlayerService;
 
 import java.util.List;
 
@@ -52,7 +52,8 @@ public class YourLibraryFragment extends Fragment
     private YourLibraryAdapter yourLibraryAdapter;
     private TextView mLibraryTitleTextView;
 
-    private PlayerService mBoundService;
+    private MediaPlayerService mBoundService;
+    private boolean mServiceBound = false;
 
     public YourLibraryFragment(Context context, FragmentManager fragmentManager) {
         this.context = context;
@@ -70,7 +71,7 @@ public class YourLibraryFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = new Intent(getContext(), PlayerService.class);
+        Intent intent = new Intent(getContext(), MediaPlayerService.class);
         getActivity().bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
     }
 
@@ -166,7 +167,7 @@ public class YourLibraryFragment extends Fragment
 
     @Override
     public void onTrackSelected(Track track) {
-        mBoundService.play(track);
+        mBoundService.playStream(track);
     }
 
     @Override
@@ -177,16 +178,16 @@ public class YourLibraryFragment extends Fragment
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            PlayerService.PlayerBinder binder = (PlayerService.PlayerBinder)service;
+            MediaPlayerService.LocalBinder binder = (MediaPlayerService.LocalBinder)service;
             mBoundService = binder.getService();
-            //mBoundService.setCallback(SongsFragment.this);
-            //mServiceBound = true;
-            //updateSeekBar();
+            // mBoundService.setCallback(SongsFragment.this);
+            mServiceBound = true;
+            // updateSeekBar();
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            //mServiceBound = false;
+            mServiceBound = false;
         }
     };
 }
