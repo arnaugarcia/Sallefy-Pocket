@@ -71,7 +71,7 @@ public class UserManager extends BaseManager {
     public synchronized void getPopularUsers(Context context, final PopularUsersCallback popularUsersCallback) {
         String userToken = AuthenticationUtils.getToken(context);
 
-        Call<List<User>> call = userService.getPopularUsers("Bearer " + userToken, true, "followers,asc");
+        Call<List<User>> call = userService.getPopularUsers("Bearer " + userToken, true, "followers,desc");
         call.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
