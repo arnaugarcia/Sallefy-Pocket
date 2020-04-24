@@ -1,6 +1,8 @@
 package com.sallefy.adapters;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Build;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,6 +19,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.sallefy.R;
 import com.sallefy.managers.tracks.TrackManager;
 import com.sallefy.managers.tracks.UpdateTrackLikedCallback;
+import com.sallefy.model.LikedDTO;
 import com.sallefy.model.Track;
 
 import java.util.List;
@@ -24,6 +27,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import okhttp3.ResponseBody;
@@ -94,12 +98,13 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
             popupMenu.setForceShowIcon(true);
         }
         popupMenu.setGravity(Gravity.END);
-
+        if (track.isLiked()){
+            ContextCompat.getDrawable(context, R.drawable.outline_favorite_border_24).setTint(Color.GREEN);
+        }
         popupMenu.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()){
                 case R.id.menu_track_like:
-                    Toast.makeText(context, "like!", Toast.LENGTH_SHORT).show();
-
+                    updateTrackLiked(track.getId().toString());
                     break;
                 case R.id.menu_track_add_to_playlist:
                     Toast.makeText(context, "add to playlist!", Toast.LENGTH_SHORT).show();
@@ -124,13 +129,17 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
     }
 
     @Override
-    public void onMyTracksSuccess(ResponseBody responseBody) {
-
+    public void onMyTracksSuccess(LikedDTO liked) {
+        if (liked.isLiked()){
+            Toast.makeText(context, "Added to liked tracks", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Removed from liked tracks", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void onMyTracksFailure(Throwable throwable) {
-
+        Toast.makeText(context, "Error: Unable to like track", Toast.LENGTH_SHORT).show();
     }
 
     private void setTextsUnselected(ViewHolder holder, Track track) {

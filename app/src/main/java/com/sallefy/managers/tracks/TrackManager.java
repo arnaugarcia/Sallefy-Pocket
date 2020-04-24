@@ -106,9 +106,9 @@ public class TrackManager extends BaseManager {
         String userToken = AuthenticationUtils.getToken(context);
 
         Call<LikedDTO> call = trackService.updateTrackLiked("Bearer " + userToken, id);
-        call.enqueue(new Callback<ResponseBody>() {
+        call.enqueue(new Callback<LikedDTO>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<LikedDTO> call, Response<LikedDTO> response) {
                 int code = response.code();
 
                 if (response.isSuccessful()) {
@@ -120,7 +120,7 @@ public class TrackManager extends BaseManager {
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<LikedDTO> call, Throwable t) {
                 Log.d(ApplicationConstants.LOGCAT_ID, "Error  like not successful: " + Arrays.toString(t.getStackTrace()));
                 callback.onMyTracksFailure(new Throwable("Error " + Arrays.toString(t.getStackTrace())));
 
