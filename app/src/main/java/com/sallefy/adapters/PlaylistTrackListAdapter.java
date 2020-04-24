@@ -76,6 +76,7 @@ public class PlaylistTrackListAdapter
 
     private void setTextsUnselected(ViewHolder holder, Track track) {
         holder.tvTrackTitle.setText(track.getName());
+        holder.tvTrackTitle.setSelected(true);
         holder.tvOwner.setText(track.getUser().getLogin());
     }
 
