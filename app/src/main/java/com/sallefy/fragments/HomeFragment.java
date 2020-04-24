@@ -1,5 +1,6 @@
 package com.sallefy.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,29 +8,43 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.sallefy.R;
+import com.sallefy.managers.user.PopularUsersCallback;
+import com.sallefy.managers.user.UserManager;
+import com.sallefy.model.User;
 
-public class HomeFragment extends Fragment {
+import java.util.List;
+
+public class HomeFragment extends Fragment implements PopularUsersCallback {
+
+    private static HomeFragment instance;
+    private Context context;
+
+    private static final String TAG = "HomeFragment";
 
     private RecyclerView rvArtists;
     private RecyclerView rvPlaylists;
     private RecyclerView rvTracks;
 
-    public HomeFragment() {
+    public HomeFragment(Context context) {
+        this.context = context;
     }
 
-    public static HomeFragment getInstance() {
-        return new HomeFragment();
+    public static HomeFragment getInstance(Context context) {
+        if (instance == null) instance = new HomeFragment(context);
+        return instance;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        getPopularUsers();
     }
 
     @Override
@@ -58,5 +73,19 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    private void getPopularUsers() {
+        UserManager.getInstance().getPopularUsers(getContext(), this);
+    }
+
+    @Override
+    public void onPopularUsersSuccess(List<User> users) {
+        Log.d(TAG, "onPopularUsersSuccess: " + users);
+    }
+
+    @Override
+    public void onPopularUsersFailure(Throwable throwable) {
+        Log.d(TAG, "onPopularUsersFailure: " + throwable.getMessage());
     }
 }

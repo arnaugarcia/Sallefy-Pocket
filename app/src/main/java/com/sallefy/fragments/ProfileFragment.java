@@ -2,16 +2,12 @@ package com.sallefy.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.LinearGradient;
-import android.graphics.Shader;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,12 +20,12 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.sallefy.R;
 import com.sallefy.activity.MainActivity;
-import com.sallefy.managers.user.UserCallback;
+import com.sallefy.managers.user.UserDataCallback;
 import com.sallefy.managers.user.UserManager;
 import com.sallefy.model.User;
 import com.sallefy.services.authentication.AuthenticationUtils;
 
-public class ProfileFragment extends Fragment implements UserCallback {
+public class ProfileFragment extends Fragment implements UserDataCallback {
 
     private Context context;
 
@@ -107,7 +103,7 @@ public class ProfileFragment extends Fragment implements UserCallback {
     }
 
     @Override
-    public void onUserDataReceived(User user) {
+    public void onUserDataSuccess(User user) {
         tvUsername.setText(user.getLogin());
         tvFirstName.setText(user.getFirstName());
         tvLastName.setText(user.getLastName());
