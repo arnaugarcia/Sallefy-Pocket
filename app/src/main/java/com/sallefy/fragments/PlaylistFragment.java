@@ -19,17 +19,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sallefy.R;
-import com.sallefy.adapters.PlaylistTrackListAdapter;
 import com.sallefy.adapters.TrackListAdapter;
 import com.sallefy.adapters.callbacks.TrackListCallback;
 import com.sallefy.model.Playlist;
 import com.sallefy.model.Track;
 import com.sallefy.services.player.PlayerService;
 
-/**
- * A simple {@link Fragment} subclass.
- * create an instance of this fragment.
- */
 public class PlaylistFragment extends Fragment implements TrackListCallback {
 
     private FragmentManager fragmentManager;
@@ -44,7 +39,6 @@ public class PlaylistFragment extends Fragment implements TrackListCallback {
     private PlayerService mBoundService;
 
     public PlaylistFragment() {
-        // Required empty public constructor
     }
 
     public PlaylistFragment(Context context, Playlist playlist, FragmentManager fragmentManager) {
@@ -63,7 +57,6 @@ public class PlaylistFragment extends Fragment implements TrackListCallback {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_playlist, container, false);
     }
 
@@ -73,13 +66,11 @@ public class PlaylistFragment extends Fragment implements TrackListCallback {
 
         initViews(view);
 
-        ibBack.setOnClickListener(view1 -> {
-            fragmentManager.popBackStack();
-        });
+        ibBack.setOnClickListener(view1 -> fragmentManager.popBackStack());
 
         LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
         rvSongs.setLayoutManager(manager);
-        PlaylistTrackListAdapter adapter = new PlaylistTrackListAdapter(fragmentManager, context, playlist);
+        TrackListAdapter adapter = new TrackListAdapter(this, context, playlist);
         rvSongs.setAdapter(adapter);
     }
 
