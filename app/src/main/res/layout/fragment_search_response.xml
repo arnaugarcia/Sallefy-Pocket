@@ -22,27 +22,43 @@
             android:layout_marginTop="5dp"
             android:adjustViewBounds="true"
             android:background="@null"
+            android:contentDescription="@string/back_button"
             android:gravity="end"
             android:scaleType="center"
             android:src="@drawable/outline_arrow_back_24"
             android:tint="@android:color/white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/back_button" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.sallefy.custom_views.GradientHeadline1
+            android:id="@+id/tv_search_title"
+            style="@style/Headline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_results_title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ib_search_response_back"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_view"
+        style="@style/Body2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorSurface"
+        android:backgroundTint="@color/colorSurface"
+        android:drawableStart="@drawable/ic_search"
+        android:drawableTint="@color/colorPrimaryDark"
+        android:textColor="@color/colorTextSecondaryVariant"
+        app:layout_constraintBottom_toTopOf="@id/rv_search_response_tracks"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cl_search_response_navigation"
-        app:layout_constraintBottom_toTopOf="@id/rv_search_response_tracks"
-        app:queryHint="@string/search_hint"/>
+        app:queryHint="@string/search_hint" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_search_response_tracks"
@@ -51,6 +67,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_view"/>
+        app:layout_constraintTop_toBottomOf="@id/search_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
