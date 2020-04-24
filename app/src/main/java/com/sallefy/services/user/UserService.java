@@ -15,5 +15,7 @@ public interface UserService {
     Call<User> getUserData(@Header("Authorization") String userToken);
 
     @GET("users")
-    Call<List<User>> getPopularUsers(@Header("Authorization") String userToken);
+    Call<List<User>> getPopularUsers(@Header("Authorization") String userToken,
+                                     @Query("popular") boolean popular,
+                                     @Query("sort") String sortByFollowers);
 }
