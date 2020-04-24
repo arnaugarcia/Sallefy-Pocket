@@ -8,9 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sallefy.R;
-import com.sallefy.adapters.UserListAdapter;
+import com.sallefy.adapters.FeaturedPlaylistListAdapter;
+import com.sallefy.adapters.FeaturedUserListAdapter;
+import com.sallefy.managers.playlists.MostFollowedPlaylistsCallback;
+import com.sallefy.managers.playlists.PlaylistManager;
 import com.sallefy.managers.user.MostFollowedUsersCallback;
 import com.sallefy.managers.user.UserManager;
+import com.sallefy.model.Playlist;
 import com.sallefy.model.User;
 
 import java.util.List;
@@ -21,7 +25,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class HomeFragment extends Fragment implements MostFollowedUsersCallback {
+public class HomeFragment extends Fragment
+        implements MostFollowedUsersCallback, MostFollowedPlaylistsCallback {
 
     private static HomeFragment instance;
     private Context context;
@@ -45,7 +50,7 @@ public class HomeFragment extends Fragment implements MostFollowedUsersCallback 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getPopularUsers();
+        getMostFollowedUsers();
     }
 
     @Override
@@ -76,14 +81,18 @@ public class HomeFragment extends Fragment implements MostFollowedUsersCallback 
         super.onResume();
     }
 
-    private void getPopularUsers() {
+    private void getMostFollowedUsers() {
         UserManager.getInstance().getMostFollowedUsers(getContext(), this);
+    }
+
+    private void getMostFollowedPlaylists() {
+        PlaylistManager.getInstance().getMostFollowedPlaylists(getContext(), this);
     }
 
     @Override
     public void onMostFollowedUsersSuccess(List<User> users) {
         LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
-        UserListAdapter adapter = new UserListAdapter(context, users);
+        FeaturedUserListAdapter adapter = new FeaturedUserListAdapter(context, users);
         rvArtists.setLayoutManager(manager);
         rvArtists.setAdapter(adapter);
     }
@@ -91,5 +100,18 @@ public class HomeFragment extends Fragment implements MostFollowedUsersCallback 
     @Override
     public void onMostFollowedUsersFailure(Throwable throwable) {
         Log.d(TAG, "onPopularUsersFailure: " + throwable.getMessage());
+    }
+
+    @Override
+    public void onMostFollowedPlaylistsSuccess(List<Playlist> playlists) {
+        LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
+        FeaturedPlaylistListAdapter adapter = new FeaturedPlaylistListAdapter(context, playlists);
+        rvArtists.setLayoutManager(manager);
+        rvArtists.setAdapter(adapter);
+    }
+
+    @Override
+    public void onMostFollowedPlaylistsFailure(Throwable throwable) {
+
     }
 }
