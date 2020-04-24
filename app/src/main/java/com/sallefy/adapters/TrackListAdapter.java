@@ -20,7 +20,6 @@ import com.sallefy.model.Track;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +28,8 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
 
     private Context context;
     private List<Track> tracks;
+
+    private AppCompatImageButton ibMore;
 
     private int selectedItem = RecyclerView.NO_POSITION;
 
@@ -66,42 +67,51 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
             setTextsUnselected(holder, track);
         }
 
-        holder.itemView.setOnLongClickListener(v -> {
-            PopupMenu popupMenu = new PopupMenu(context, holder.itemView);
-            popupMenu.inflate(R.menu.menu_track_options);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                popupMenu.setForceShowIcon(true);
-            }
-            popupMenu.setGravity(Gravity.END);
-            popupMenu.setGravity(Gravity.AXIS_PULL_BEFORE);
-            popupMenu.setOnMenuItemClickListener(item -> {
-                switch (item.getItemId()){
-                    case R.id.menu_track_like:
-                        Toast.makeText(context, "like!", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menu_track_add_to_playlist:
-                        Toast.makeText(context, "add to playlist!", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menu_track_share:
-                        Toast.makeText(context, "share!", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menu_track_owner:
-                        Toast.makeText(context, "owner!", Toast.LENGTH_SHORT).show();
-                        break;
-                    default:
-                        return false;
-                }
-                return false;
-            });
 
-            popupMenu.show();
+        holder.itemView.setOnLongClickListener(v -> {
+            processOptions(holder);
             return false;
+        });
+
+        ibMore.setOnClickListener(v -> {
+            processOptions(holder);
         });
     }
 
     @Override
     public int getItemCount() {
         return (tracks != null) ? tracks.size() : 0;
+    }
+
+    private void processOptions(ViewHolder holder){
+        PopupMenu popupMenu = new PopupMenu(context, holder.itemView);
+        popupMenu.inflate(R.menu.menu_track_options);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            popupMenu.setForceShowIcon(true);
+        }
+        popupMenu.setGravity(Gravity.END);
+
+        popupMenu.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()){
+                case R.id.menu_track_like:
+                    Toast.makeText(context, "like!", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.menu_track_add_to_playlist:
+                    Toast.makeText(context, "add to playlist!", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.menu_track_share:
+                    Toast.makeText(context, "share!", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.menu_track_owner:
+                    Toast.makeText(context, "owner!", Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    return false;
+            }
+            return false;
+        });
+
+        popupMenu.show();
     }
 
     private void setTextsUnselected(ViewHolder holder, Track track) {
@@ -132,7 +142,6 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
         ConstraintLayout unselectedLayout;
         TextView tvTrackTitle;
         TextView tvOwner;
-        AppCompatImageButton ibFavourite;
 
         ConstraintLayout selectedLayout;
         ImageView ivSelectedThumbnail;
@@ -147,7 +156,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
 
             tvTrackTitle = itemView.findViewById(R.id.tv_track_title);
             tvOwner = itemView.findViewById(R.id.tv_owner);
-            ibFavourite = itemView.findViewById(R.id.ib_favourite);
+            ibMore = itemView.findViewById(R.id.ib_favourite);
 
 
             selectedLayout = itemView.findViewById(R.id.selected_track);
