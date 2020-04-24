@@ -1,11 +1,15 @@
 package com.sallefy.adapters;
 
 import android.content.Context;
+import android.os.Build;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners;
@@ -16,6 +20,7 @@ import com.sallefy.model.Track;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,7 +53,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Track track = tracks.get(position);
 
-        holder.itemView.setOnClickListener(v -> {
+       holder.itemView.setOnClickListener(v -> {
             selectedItem = position;
             notifyItemRangeChanged(0, tracks.size());
         });
@@ -60,6 +65,38 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
             holder.showUnselected();
             setTextsUnselected(holder, track);
         }
+
+        holder.itemView.setOnLongClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(context, holder.itemView);
+            popupMenu.inflate(R.menu.menu_track_options);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                popupMenu.setForceShowIcon(true);
+            }
+            popupMenu.setGravity(Gravity.END);
+            popupMenu.setGravity(Gravity.AXIS_PULL_BEFORE);
+            popupMenu.setOnMenuItemClickListener(item -> {
+                switch (item.getItemId()){
+                    case R.id.menu_track_like:
+                        Toast.makeText(context, "like!", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.menu_track_add_to_playlist:
+                        Toast.makeText(context, "add to playlist!", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.menu_track_share:
+                        Toast.makeText(context, "share!", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.menu_track_owner:
+                        Toast.makeText(context, "owner!", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        return false;
+                }
+                return false;
+            });
+
+            popupMenu.show();
+            return false;
+        });
     }
 
     @Override
