@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Sallefy</string>
+    <string name="app_name">Sallefy Pocket</string>
     <string name="action_settings">Settings</string>
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -62,4 +62,8 @@
     <string name="date_placeholder">1970–01–01T00:00:00Z</string>
     <string name="search_search_bar">Users, songs or playlists</string>
     <string name="search_results_title">Search Results</string>
+    <string name="home_title">Home</string>
+    <string name="featured_artists_title">Featured artists</string>
+    <string name="featured_playlists_title">Featured playlists</string>
+    <string name="featured_tracks_title">Featured tracks</string>
 </resources>
