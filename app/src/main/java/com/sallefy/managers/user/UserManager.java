@@ -68,22 +68,22 @@ public class UserManager extends BaseManager {
         });
     }
 
-    public synchronized void getPopularUsers(Context context, final PopularUsersCallback popularUsersCallback) {
+    public synchronized void getMostFollowedUsers(Context context, final MostFollowedUsersCallback mostFollowedUsersCallback) {
         String userToken = AuthenticationUtils.getToken(context);
 
-        Call<List<User>> call = userService.getPopularUsers("Bearer " + userToken, true, "followers,desc");
+        Call<List<User>> call = userService.getMostFollowedUsers("Bearer " + userToken, "followers,desc");
         call.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 int code = response.code();
 
                 if (response.isSuccessful()) {
-                    popularUsersCallback.onPopularUsersSuccess(response.body());
+                    mostFollowedUsersCallback.onMostFollowedUsersSuccess(response.body());
                 } else {
                     Log.d("ncs", "Error PopularUsers not successful: " + response.toString());
 
                     try {
-                        popularUsersCallback.onPopularUsersFailure(new Throwable("Error " + code + ", " + response.errorBody().string()));
+                        mostFollowedUsersCallback.onMostFollowedUsersFailure(new Throwable("Error " + code + ", " + response.errorBody().string()));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -93,7 +93,7 @@ public class UserManager extends BaseManager {
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
                 Log.d("ncs", "Error PopularUsers failure: " + Arrays.toString(t.getStackTrace()));
-                popularUsersCallback.onPopularUsersFailure(new Throwable("Error " + Arrays.toString(t.getStackTrace())));
+                mostFollowedUsersCallback.onMostFollowedUsersFailure(new Throwable("Error " + Arrays.toString(t.getStackTrace())));
             }
         });
     }

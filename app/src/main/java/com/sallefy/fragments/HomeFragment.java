@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.sallefy.R;
 import com.sallefy.adapters.UserListAdapter;
-import com.sallefy.managers.user.PopularUsersCallback;
+import com.sallefy.managers.user.MostFollowedUsersCallback;
 import com.sallefy.managers.user.UserManager;
 import com.sallefy.model.User;
 
@@ -21,7 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class HomeFragment extends Fragment implements PopularUsersCallback {
+public class HomeFragment extends Fragment implements MostFollowedUsersCallback {
 
     private static HomeFragment instance;
     private Context context;
@@ -77,11 +77,11 @@ public class HomeFragment extends Fragment implements PopularUsersCallback {
     }
 
     private void getPopularUsers() {
-        UserManager.getInstance().getPopularUsers(getContext(), this);
+        UserManager.getInstance().getMostFollowedUsers(getContext(), this);
     }
 
     @Override
-    public void onPopularUsersSuccess(List<User> users) {
+    public void onMostFollowedUsersSuccess(List<User> users) {
         LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
         UserListAdapter adapter = new UserListAdapter(context, users);
         rvArtists.setLayoutManager(manager);
@@ -89,7 +89,7 @@ public class HomeFragment extends Fragment implements PopularUsersCallback {
     }
 
     @Override
-    public void onPopularUsersFailure(Throwable throwable) {
+    public void onMostFollowedUsersFailure(Throwable throwable) {
         Log.d(TAG, "onPopularUsersFailure: " + throwable.getMessage());
     }
 }
