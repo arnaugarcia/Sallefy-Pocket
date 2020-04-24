@@ -1,9 +1,14 @@
 package com.sallefy.activity;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -15,6 +20,9 @@ import com.sallefy.R;
 import com.sallefy.fragments.HomeFragment;
 import com.sallefy.fragments.SearchFragment;
 import com.sallefy.fragments.YourLibraryFragment;
+import com.sallefy.services.player.PlayerService;
+
+import static android.widget.Toast.makeText;
 
 
 public class HomeActivity extends FragmentActivity {
@@ -25,6 +33,23 @@ public class HomeActivity extends FragmentActivity {
     private FragmentTransaction mTransaction;
     private FragmentManager mFragmentManager;
     private TextView tvMusicNav;
+    private ImageView playButton;
+
+    private PlayerService playerService;
+
+    private ServiceConnection mServiceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            PlayerService.PlayerBinder binder = (PlayerService.PlayerBinder)service;
+            playerService = binder.getService();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            makeText(context, "Service disconnected", Toast.LENGTH_SHORT).show();
+            playerService = null;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +59,31 @@ public class HomeActivity extends FragmentActivity {
         initMusicNavView();
         setInitialFragment();
         this.context = getApplicationContext();
+        startStreamingService(null);
+    }
+
+    private void startStreamingService (String url) {
+        Intent intent = new Intent(this, HomeActivity.class);
+        // intent.putExtra(Constants.URL, url);
+        // intent.setAction(Constants.ACTION.STARTFOREGROUND_ACTION);
+        startService(intent);
+        bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
     }
 
     private void initMusicNavView() {
         tvMusicNav = findViewById(R.id.music_nav_title);
         tvMusicNav.setOnClickListener(v -> startActivity(new Intent(this, TrackActivity.class)));
+
+        playButton = findViewById(R.id.music_nav_play);
+        playButton.setOnClickListener(listener -> {
+            makeText(context, "Toggle track", Toast.LENGTH_SHORT).show();
+            playerService.togglePlayer();
+            if (playerService.isPlaying()) {
+                playButton.setImageResource(R.drawable.ic_pause);
+            } else {
+                playButton.setImageResource(R.drawable.ic_play);
+            }
+        });
     }
 
     private void initViews() {

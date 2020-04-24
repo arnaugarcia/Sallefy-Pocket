@@ -33,7 +33,7 @@ public class PlayerService extends Service implements MediaPlayer.OnPreparedList
     }
 
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (intent.getAction().equals(ACTION_PLAY)) {
+        // if (intent.getAction().equals(ACTION_PLAY)) {
             mediaPlayer = new MediaPlayer(); // initialize it here
             mediaPlayer.setOnPreparedListener(this);
             mediaPlayer.prepareAsync(); // prepare async to not block main thread
@@ -44,8 +44,18 @@ public class PlayerService extends Service implements MediaPlayer.OnPreparedList
             WifiManager.WifiLock wifiLock = ((WifiManager) getSystemService(Context.WIFI_SERVICE))
                     .createWifiLock(WIFI_MODE_FULL_LOW_LATENCY, "mylock");
             wifiLock.acquire();
-        }
+       // }
         return START_REDELIVER_INTENT;
+    }
+
+    public void togglePlayer() {
+        if (mediaPlayer != null) {
+            if (mediaPlayer.isPlaying()) {
+                mediaPlayer.pause();
+            } else {
+                mediaPlayer.start();
+            }
+        }
     }
 
     public boolean isPlaying() {
