@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sallefy.R;
+import com.sallefy.adapters.UserListAdapter;
 import com.sallefy.managers.user.PopularUsersCallback;
 import com.sallefy.managers.user.UserManager;
 import com.sallefy.model.User;
@@ -81,7 +83,10 @@ public class HomeFragment extends Fragment implements PopularUsersCallback {
 
     @Override
     public void onPopularUsersSuccess(List<User> users) {
-        Log.d(TAG, "onPopularUsersSuccess: " + users);
+        LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
+        UserListAdapter adapter = new UserListAdapter(context, users);
+        rvArtists.setLayoutManager(manager);
+        rvArtists.setAdapter(adapter);
     }
 
     @Override
