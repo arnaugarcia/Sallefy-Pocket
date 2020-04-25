@@ -3,38 +3,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/backgroundDefault">
+    android:background="@color/backgroundDefault"
+    android:padding="10dp">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_playlist_thumbnail"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/application_logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_track_title"
-        style="@style/Headline4"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="@string/playlist_title_placeholder"
-        android:textColor="@color/colorSecondary"
-        app:layout_constraintBottom_toTopOf="@+id/tv_track_owner"
-        app:layout_constraintEnd_toEndOf="@+id/iv_playlist_thumbnail"
-        app:layout_constraintStart_toStartOf="@+id/iv_playlist_thumbnail" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_track_owner"
-        style="@style/Headline5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="@string/owner_login_placeholder"
-        android:textColor="@color/colorTextPrimary"
+        android:layout_marginBottom="3dp"
+        android:background="#C3393939"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_playlist_thumbnail"
-        app:layout_constraintEnd_toEndOf="@+id/iv_playlist_thumbnail"
-        app:layout_constraintStart_toStartOf="@+id/iv_playlist_thumbnail" />
+        app:layout_constraintEnd_toEndOf="@id/iv_playlist_thumbnail"
+        app:layout_constraintStart_toStartOf="@id/iv_playlist_thumbnail">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_playlist_owner"
+            style="@style/Headline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/owner_login_placeholder"
+            android:textColor="@color/colorTextPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.sallefy.custom_views.GradientHeadline1
+            android:id="@+id/tv_playlist_title"
+            style="@style/Headline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/playlist_title_placeholder"
+            android:textColor="@color/colorSecondaryDark"
+            app:layout_constraintBottom_toTopOf="@+id/tv_playlist_owner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

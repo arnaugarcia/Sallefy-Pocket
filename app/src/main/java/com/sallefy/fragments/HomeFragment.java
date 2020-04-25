@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.sallefy.R;
 import com.sallefy.adapters.FeaturedPlaylistListAdapter;
@@ -51,6 +52,7 @@ public class HomeFragment extends Fragment
         super.onCreate(savedInstanceState);
 
         getMostFollowedUsers();
+        getMostFollowedPlaylists();
     }
 
     @Override
@@ -100,18 +102,20 @@ public class HomeFragment extends Fragment
     @Override
     public void onMostFollowedUsersFailure(Throwable throwable) {
         Log.d(TAG, "onPopularUsersFailure: " + throwable.getMessage());
+        Toast.makeText(context, "Error receiving users", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onMostFollowedPlaylistsSuccess(List<Playlist> playlists) {
         LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
         FeaturedPlaylistListAdapter adapter = new FeaturedPlaylistListAdapter(context, playlists);
-        rvArtists.setLayoutManager(manager);
-        rvArtists.setAdapter(adapter);
+        rvPlaylists.setLayoutManager(manager);
+        rvPlaylists.setAdapter(adapter);
     }
 
     @Override
     public void onMostFollowedPlaylistsFailure(Throwable throwable) {
-
+        Log.d(TAG, "onMostFollowedPlaylistsFailure: " + throwable.getMessage());
+        Toast.makeText(context, "Error receiving playlists", Toast.LENGTH_SHORT).show();
     }
 }
