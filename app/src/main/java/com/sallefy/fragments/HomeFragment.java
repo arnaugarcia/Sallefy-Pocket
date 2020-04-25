@@ -10,12 +10,16 @@ import android.widget.Toast;
 
 import com.sallefy.R;
 import com.sallefy.adapters.FeaturedPlaylistListAdapter;
+import com.sallefy.adapters.FeaturedTrackListAdapter;
 import com.sallefy.adapters.FeaturedUserListAdapter;
 import com.sallefy.managers.playlists.MostFollowedPlaylistsCallback;
 import com.sallefy.managers.playlists.PlaylistManager;
+import com.sallefy.managers.tracks.MostPlayedTracksCallback;
+import com.sallefy.managers.tracks.TrackManager;
 import com.sallefy.managers.user.MostFollowedUsersCallback;
 import com.sallefy.managers.user.UserManager;
 import com.sallefy.model.Playlist;
+import com.sallefy.model.Track;
 import com.sallefy.model.User;
 
 import java.util.List;
@@ -26,8 +30,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class HomeFragment extends Fragment
-        implements MostFollowedUsersCallback, MostFollowedPlaylistsCallback {
+public class HomeFragment extends Fragment implements
+        MostFollowedUsersCallback,
+        MostFollowedPlaylistsCallback,
+        MostPlayedTracksCallback {
 
     private static HomeFragment instance;
     private Context context;
@@ -53,6 +59,7 @@ public class HomeFragment extends Fragment
 
         getMostFollowedUsers();
         getMostFollowedPlaylists();
+        getMostFollowedTracks();
     }
 
     @Override
@@ -91,6 +98,10 @@ public class HomeFragment extends Fragment
         PlaylistManager.getInstance().getMostFollowedPlaylists(getContext(), this);
     }
 
+    private void getMostFollowedTracks() {
+        TrackManager.getInstance().getMostPlayedTracks(getContext(), this);
+    }
+
     @Override
     public void onMostFollowedUsersSuccess(List<User> users) {
         LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
@@ -117,5 +128,20 @@ public class HomeFragment extends Fragment
     public void onMostFollowedPlaylistsFailure(Throwable throwable) {
         Log.d(TAG, "onMostFollowedPlaylistsFailure: " + throwable.getMessage());
         Toast.makeText(context, "Error receiving playlists", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onMostPlayedTracksSuccess(List<Track> tracks) {
+        Log.d(TAG, "onMostFollowedTracksSuccess: " + tracks);
+        LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
+        FeaturedTrackListAdapter adapter = new FeaturedTrackListAdapter(context, tracks);
+//        rvPlaylists.setLayoutManager(manager);
+//        rvPlaylists.setAdapter(adapter);
+    }
+
+    @Override
+    public void onMostPlayedTracksFailure(Throwable throwable) {
+        Log.d(TAG, "onMostFollowedTracksFailure: " + throwable.getMessage());
+        Toast.makeText(context, "Error receiving tracks", Toast.LENGTH_SHORT).show();
     }
 }

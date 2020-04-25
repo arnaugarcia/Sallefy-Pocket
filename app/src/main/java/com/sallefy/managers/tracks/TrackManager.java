@@ -97,6 +97,35 @@ public class TrackManager extends BaseManager {
                 tracksByGenreCallback.onTracksByGenreFailure(new Throwable("Error " + Arrays.toString(t.getStackTrace())));
             }
         });
+    }
 
+    public synchronized void getMostPlayedTracks(Context context, final MostPlayedTracksCallback mostPlayedTracksCallback) {
+        String userToken = AuthenticationUtils.getToken(context);
+
+        Call<List<Track>> call = trackService.getMostPlayedTracks("Bearer " + userToken, true);
+        call.enqueue(new Callback<List<Track>>() {
+            @Override
+            public void onResponse(Call<List<Track>> call, Response<List<Track>> response) {
+                int code = response.code();
+
+                if (response.isSuccessful()) {
+                    mostPlayedTracksCallback.onMostPlayedTracksSuccess(response.body());
+                } else {
+                    Log.d("ncs", "Error PopularTracks not successful: " + response.toString());
+
+                    try {
+                        mostPlayedTracksCallback.onMostPlayedTracksFailure(new Throwable("Error " + code + ", " + response.errorBody().string()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Track>> call, Throwable t) {
+                Log.d("ncs", "Error PopularTracks failure: " + Arrays.toString(t.getStackTrace()));
+                mostPlayedTracksCallback.onMostPlayedTracksFailure(new Throwable("Error " + Arrays.toString(t.getStackTrace())));
+            }
+        });
     }
 }
