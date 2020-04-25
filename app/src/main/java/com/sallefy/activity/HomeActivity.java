@@ -44,7 +44,7 @@ public class HomeActivity extends FragmentActivity {
                 Fragment fragment = null;
                 switch (item.getItemId()) {
                     case R.id.action_home:
-                        fragment = HomeFragment.getInstance();
+                        fragment = HomeFragment.getInstance(context);
                         break;
                     case R.id.action_search:
                         fragment = SearchFragment.getInstance(context, mFragmentManager);
@@ -86,7 +86,7 @@ public class HomeActivity extends FragmentActivity {
     }
 
     private void setInitialFragment() {
-        mTransaction.add(R.id.fragment_manager, HomeFragment.getInstance());
+        mTransaction.add(R.id.fragment_manager, HomeFragment.getInstance(context));
         mTransaction.commit();
     }
 }

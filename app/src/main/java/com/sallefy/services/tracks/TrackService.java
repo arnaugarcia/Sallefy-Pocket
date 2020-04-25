@@ -24,4 +24,7 @@ public interface TrackService {
     @PUT("tracks/{id}/like")
     Call<LikedDTO> updateTrackLiked(@Header("Authorization") String userToken, @Path("id") String id);
 
+    // TODO: Most liked tracks backed bug
+    @GET("tracks")
+    Call<List<Track>> getMostPlayedTracks(@Header("Authorization") String userToken, @Query("played") boolean sortByPlays);
 }

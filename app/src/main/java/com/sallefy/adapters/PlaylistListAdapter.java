@@ -99,6 +99,7 @@ public class PlaylistListAdapter extends RecyclerView.Adapter<PlaylistListAdapte
 
             createPlaylistLayout.setOnClickListener(layoutView -> {
                 Intent intent = new Intent(context, CreatePlaylistActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             });
         }
