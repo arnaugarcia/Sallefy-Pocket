@@ -16,13 +16,13 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.ViewHolder> {
+public class FeaturedUserListAdapter extends RecyclerView.Adapter<FeaturedUserListAdapter.ViewHolder> {
 
     private Context context;
 
     private List<User> users;
 
-    public UserListAdapter(Context context, List<User> users) {
+    public FeaturedUserListAdapter(Context context, List<User> users) {
         this.context = context;
         this.users = users;
     }
@@ -32,7 +32,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.featured_user_item, parent, false);
-        return new UserListAdapter.ViewHolder(itemView);
+        return new FeaturedUserListAdapter.ViewHolder(itemView);
     }
 
     @Override
