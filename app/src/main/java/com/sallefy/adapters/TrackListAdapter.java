@@ -81,9 +81,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
             return false;
         });
 
-        ibMore.setOnClickListener(v -> {
-            processOptions(holder, track);
-        });
+        ibMore.setOnClickListener(v -> processOptions(holder, track));
     }
 
     @Override
@@ -98,9 +96,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
             popupMenu.setForceShowIcon(true);
         }
         popupMenu.setGravity(Gravity.END);
-        if (track.isLiked()){
-            ContextCompat.getDrawable(context, R.drawable.outline_favorite_border_24).setTint(Color.GREEN);
-        }
+
         popupMenu.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()){
                 case R.id.menu_track_like:
