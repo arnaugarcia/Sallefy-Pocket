@@ -96,10 +96,10 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
 
     private void playMedia() {
         if (!mediaPlayer.isPlaying()) {
+            mediaPlayer.start();
             PlayerState playerState = new PlayerState();
             playerState.setPlaying(true);
-            EventBus.getDefault().post(playerState);
-            mediaPlayer.start();
+            EventBus.getDefault().postSticky(playerState);
         }
     }
 
@@ -107,6 +107,9 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
         if (mediaPlayer == null) return;
         if (mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
+            PlayerState playerState = new PlayerState();
+            playerState.setPlaying(false);
+            EventBus.getDefault().postSticky(playerState);
         }
     }
 
@@ -114,6 +117,9 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
         if (mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
             resumePosition = mediaPlayer.getCurrentPosition();
+            PlayerState playerState = new PlayerState();
+            playerState.setPlaying(false);
+            EventBus.getDefault().postSticky(playerState);
         }
     }
 
@@ -121,6 +127,9 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
         if (!mediaPlayer.isPlaying()) {
             mediaPlayer.seekTo(resumePosition);
             mediaPlayer.start();
+            PlayerState playerState = new PlayerState();
+            playerState.setPlaying(true);
+            EventBus.getDefault().postSticky(playerState);
         }
     }
 
@@ -164,27 +173,27 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
     @Override
     public boolean onInfo(MediaPlayer mp, int what, int extra) {
         //Invoked to communicate some info.
-        makeText(this, "OnInfo", LENGTH_SHORT).show();
+        // makeText(this, "OnInfo", LENGTH_SHORT).show();
         return false;
     }
 
     @Override
     public void onPrepared(MediaPlayer mp) {
         //Invoked when the media source is ready for playback.
-        makeText(this, "OnPrepared", LENGTH_SHORT).show();
+        // makeText(this, "OnPrepared", LENGTH_SHORT).show();
         playMedia();
     }
 
     @Override
     public void onSeekComplete(MediaPlayer mp) {
         //Invoked indicating the completion of a seek operation.
-        makeText(this, "OnSeekComplete", LENGTH_SHORT).show();
+        // makeText(this, "OnSeekComplete", LENGTH_SHORT).show();
     }
 
     @Override
     public void onAudioFocusChange(int focusState) {
         //Invoked when the audio focus of the system is updated.
-        makeText(this, "OnAudioFocusChange", LENGTH_SHORT).show();
+        // makeText(this, "OnAudioFocusChange", LENGTH_SHORT).show();
         switch (focusState) {
             case AudioManager.AUDIOFOCUS_GAIN:
                 // resume playback

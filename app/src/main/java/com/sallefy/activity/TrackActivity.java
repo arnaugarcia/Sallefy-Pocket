@@ -69,7 +69,7 @@ public class TrackActivity extends AppCompatActivity {
 
     private void checkAndStartMediaPlayerService() {
         if (!serviceBound) {
-            makeText(this, "[Track Activity] - Media Player service is not active", LENGTH_SHORT).show();
+            // makeText(this, "[Track Activity] - Media Player service is not active", LENGTH_SHORT).show();
             Intent playerIntent = new Intent(this, MediaPlayerService.class);
             startService(playerIntent);
             bindService(playerIntent, serviceConnection, BIND_AUTO_CREATE);
