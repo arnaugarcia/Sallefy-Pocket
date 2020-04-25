@@ -1,9 +1,14 @@
 package com.sallefy.adapters;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.sallefy.R;
 import com.sallefy.model.Track;
 
 import java.util.List;
@@ -25,22 +30,39 @@ public class FeaturedTrackListAdapter extends RecyclerView.Adapter<FeaturedTrack
     @NonNull
     @Override
     public FeaturedTrackListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.featured_track_item, parent, false);
+        return new FeaturedTrackListAdapter.ViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull FeaturedTrackListAdapter.ViewHolder holder, int position) {
+        Track track = tracks.get(position);
 
+        holder.tvTrackTitle.setText(track.getName());
+        holder.tvTrackTitle.setSelected(true);
+        Glide.with(context)
+                .asBitmap()
+                .placeholder(R.drawable.application_logo)
+                .load(track.getThumbnail())
+                .into(holder.ivTrackThumbnail);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return (tracks != null) ? tracks.size() : 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
+        ImageView ivTrackThumbnail;
+        TextView tvTrackTitle;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            ivTrackThumbnail = itemView.findViewById(R.id.iv_track_thumbnail);
+            tvTrackTitle = itemView.findViewById(R.id.tv_track_title);
         }
     }
 }

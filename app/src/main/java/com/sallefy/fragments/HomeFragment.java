@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment implements
 
         getMostFollowedUsers();
         getMostFollowedPlaylists();
-        getMostFollowedTracks();
+        getMostPlayedTracks();
     }
 
     @Override
@@ -98,7 +98,7 @@ public class HomeFragment extends Fragment implements
         PlaylistManager.getInstance().getMostFollowedPlaylists(getContext(), this);
     }
 
-    private void getMostFollowedTracks() {
+    private void getMostPlayedTracks() {
         TrackManager.getInstance().getMostPlayedTracks(getContext(), this);
     }
 
@@ -132,11 +132,10 @@ public class HomeFragment extends Fragment implements
 
     @Override
     public void onMostPlayedTracksSuccess(List<Track> tracks) {
-        Log.d(TAG, "onMostFollowedTracksSuccess: " + tracks);
         LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
         FeaturedTrackListAdapter adapter = new FeaturedTrackListAdapter(context, tracks);
-//        rvPlaylists.setLayoutManager(manager);
-//        rvPlaylists.setAdapter(adapter);
+        rvTracks.setLayoutManager(manager);
+        rvTracks.setAdapter(adapter);
     }
 
     @Override
