@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="150dp"
     android:layout_height="150dp"
-    android:background="@color/backgroundDefault"
     android:padding="10dp">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -24,8 +23,8 @@
         android:background="#C3393939"
         android:ellipsize="marquee"
         android:marqueeRepeatLimit="marquee_forever"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
+        android:paddingStart="3dp"
+        android:paddingEnd="3dp"
         android:singleLine="true"
         android:text="@string/track_title_placeholder"
         app:layout_constraintBottom_toBottomOf="@+id/iv_track_thumbnail"

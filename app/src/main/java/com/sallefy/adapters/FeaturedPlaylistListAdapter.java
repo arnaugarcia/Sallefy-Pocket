@@ -41,6 +41,8 @@ public class FeaturedPlaylistListAdapter extends RecyclerView.Adapter<FeaturedPl
 
         holder.tvPlaylistTitle.setText(playlist.getName());
         holder.tvPlaylistOwnerLogin.setText(playlist.getUserLogin());
+        holder.tvPlaylistTitle.setSelected(true);
+        holder.tvPlaylistOwnerLogin.setSelected(true);
         Glide.with(context)
                 .asBitmap()
                 .placeholder(R.drawable.application_logo)

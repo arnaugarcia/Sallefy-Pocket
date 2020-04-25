@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="120dp"
     android:layout_height="wrap_content"
     android:background="@color/backgroundDefault"
     android:padding="10dp">
@@ -12,18 +12,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/username_title"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:marqueeRepeatLimit="marquee_forever"
         android:textSize="@dimen/itemTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_user_pic" />
 
-    <com.mikhaellopez.circularimageview.CircularImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_user_pic"
         android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:src="@drawable/application_logo"
         app:civ_border_width="0dp"
         app:civ_shadow="false"
+        app:layout_constraintBottom_toTopOf="@+id/tv_user_login"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
