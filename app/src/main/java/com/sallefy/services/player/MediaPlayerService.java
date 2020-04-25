@@ -18,6 +18,8 @@ import android.widget.Toast;
 import com.sallefy.activity.TrackActivity;
 import com.sallefy.model.Track;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -67,8 +69,6 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
         //callStateListener();
         //ACTION_AUDIO_BECOMING_NOISY -- change in audio outputs -- BroadcastReceiver
         //registerBecomingNoisyReceiver();
-        //Listen for new Audio to play -- BroadcastReceiver
-        register_playNewAudio();
     }
 
     private void initMediaPlayer() {
@@ -96,6 +96,9 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
 
     private void playMedia() {
         if (!mediaPlayer.isPlaying()) {
+            PlayerState playerState = new PlayerState();
+            playerState.setPlaying(true);
+            EventBus.getDefault().post(playerState);
             mediaPlayer.start();
         }
     }
@@ -138,36 +141,6 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
         stopMedia();
         //stop the service
         stopSelf();
-    }
-
-    private BroadcastReceiver playNewAudio = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            //Get the new media index form SharedPreferences
-            //audioIndex = new StorageUtil(getApplicationContext()).loadAudioIndex();
-            audioIndex = 0;
-            if (audioIndex != -1 && audioIndex < audioList.size()) {
-                //index is in a valid range
-                currentTrack = audioList.get(audioIndex);
-            } else {
-                stopSelf();
-            }
-
-            //A PLAY_NEW_AUDIO action received
-            //reset mediaPlayer to play the new Audio
-            stopMedia();
-            mediaPlayer.reset();
-            initMediaPlayer();
-            mediaPlayerNotification.updateMetaData();
-            mediaPlayerNotification.buildNotification(PlaybackStatus.PLAYING);
-        }
-    };
-
-    private void register_playNewAudio() {
-        //Register playNewMedia receiver
-        IntentFilter filter = new IntentFilter(TrackActivity.Broadcast_PLAY_NEW_AUDIO);
-        registerReceiver(playNewAudio, filter);
     }
 
     //Handle errors
@@ -249,10 +222,7 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
         }
         removeAudioFocus();
 
-        mediaPlayerNotification.removeNotification();
-
-        //unregister BroadcastReceivers
-        unregisterReceiver(playNewAudio);*/
+        mediaPlayerNotification.removeNotification();*/
 
     }
 
@@ -408,12 +378,9 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
     private boolean requestAudioFocus() {
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         int result = audioManager.requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
-        if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
-            //Focus gained
-            return true;
-        }
+        //Focus gained
+        return result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED;
         //Could not gain focus
-        return false;
     }
 
     private boolean removeAudioFocus() {
