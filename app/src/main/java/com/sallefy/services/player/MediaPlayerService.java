@@ -43,6 +43,7 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
 
     //MediaSession
     private MediaSessionManager mediaSessionManager;
+    private MediaSessionCompat mediaSession;
 
     //List of available Audio files
     private ArrayList<Track> audioList;
@@ -258,7 +259,7 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
 
         mediaSessionManager = (MediaSessionManager) getSystemService(MEDIA_SESSION_SERVICE);
         // Create a new MediaSession
-        MediaSessionCompat mediaSession = new MediaSessionCompat(getApplicationContext(), "AudioPlayer");
+        mediaSession = new MediaSessionCompat(getApplicationContext(), "AudioPlayer");
         //set MediaSession -> ready to receive media commands
         mediaSession.setActive(true);
         //indicate that the MediaSession handles transport control commands
@@ -413,8 +414,8 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
         return false;
     }
 
-    private void removeAudioFocus() {
-        audioManager.abandonAudioFocus(this);
+    private boolean removeAudioFocus() {
+        return AudioManager.AUDIOFOCUS_REQUEST_GRANTED == audioManager.abandonAudioFocus(this);
     }
 
     public void playStream(Track track) {
