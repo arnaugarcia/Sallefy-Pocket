@@ -59,4 +59,7 @@ dependencies {
 
     // Circular Image View
     implementation 'com.mikhaellopez:circularimageview:4.2.0'
+
+    // Event bus
+    implementation 'org.greenrobot:eventbus:3.2.0'
 }
