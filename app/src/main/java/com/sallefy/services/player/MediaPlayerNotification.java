@@ -16,11 +16,11 @@ import com.sallefy.R;
 
 class MediaPlayerNotification {
 
-    public static final String ACTION_PLAY = "com.valdioveliu.valdio.audioplayer.ACTION_PLAY";
-    public static final String ACTION_PAUSE = "com.valdioveliu.valdio.audioplayer.ACTION_PAUSE";
-    public static final String ACTION_PREVIOUS = "com.valdioveliu.valdio.audioplayer.ACTION_PREVIOUS";
-    public static final String ACTION_NEXT = "com.valdioveliu.valdio.audioplayer.ACTION_NEXT";
-    public static final String ACTION_STOP = "com.valdioveliu.valdio.audioplayer.ACTION_STOP";
+    public static final String ACTION_PLAY = "com.sallefy.mediaplayer.ACTION_PLAY";
+    public static final String ACTION_PAUSE = "com.sallefy.mediaplayer.ACTION_PAUSE";
+    public static final String ACTION_PREVIOUS = "com.sallefy.mediaplayer.ACTION_PREVIOUS";
+    public static final String ACTION_NEXT = "com.sallefy.mediaplayer.ACTION_NEXT";
+    public static final String ACTION_STOP = "com.sallefy.mediaplayer.ACTION_STOP";
 
     //AudioPlayer notification ID
     private static final int NOTIFICATION_ID = 101;
