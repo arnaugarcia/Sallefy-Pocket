@@ -13,6 +13,7 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.sallefy.activity.TrackActivity;
 import com.sallefy.model.Track;
@@ -241,7 +242,8 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mediaPlayer != null) {
+        makeText(this, "Destroying MediaPlayerService", LENGTH_SHORT).show();
+        /*if (mediaPlayer != null) {
             stopMedia();
             mediaPlayer.release();
         }
@@ -250,7 +252,7 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
         mediaPlayerNotification.removeNotification();
 
         //unregister BroadcastReceivers
-        unregisterReceiver(playNewAudio);
+        unregisterReceiver(playNewAudio);*/
 
     }
 
