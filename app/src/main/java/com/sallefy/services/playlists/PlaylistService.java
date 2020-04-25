@@ -10,6 +10,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface PlaylistService {
 
@@ -18,4 +19,7 @@ public interface PlaylistService {
 
     @POST("playlists")
     Call<Playlist> createPlaylist(@Header("Authorization") String userToken, @Body PlaylistRequest playlistRequest);
+
+    @GET("playlists")
+    Call<List<Playlist>> getMostFollowedPlaylists(@Header("Authorization") String userToken, @Query("sort") String sortByFollowers);
 }
