@@ -88,6 +88,10 @@ public class HomeFragment extends Fragment implements
     @Override
     public void onResume() {
         super.onResume();
+
+        getMostFollowedUsers();
+        getMostFollowedPlaylists();
+        getMostPlayedTracks();
     }
 
     private void getMostFollowedUsers() {
