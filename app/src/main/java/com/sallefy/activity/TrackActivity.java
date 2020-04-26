@@ -11,8 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sallefy.R;
+import com.sallefy.services.player.MediaPlayerEvent;
 import com.sallefy.services.player.MediaPlayerService;
-import com.sallefy.services.player.PlayerState;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -27,7 +27,6 @@ public class TrackActivity extends AppCompatActivity {
     private ImageButton btnPlay;
 
     private MediaPlayerService player;
-    private PlayerState playerState;
     boolean serviceBound = false;
 
     //Binding this Client to the AudioPlayer Service
@@ -35,7 +34,7 @@ public class TrackActivity extends AppCompatActivity {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             // We've bound to LocalService, cast the IBinder and get LocalService instance
-            MediaPlayerService.LocalBinder binder = (MediaPlayerService.LocalBinder) service;
+            MediaPlayerService.MediaPlayerBinder binder = (MediaPlayerService.MediaPlayerBinder) service;
             player = binder.getService();
             serviceBound = true;
             makeText(TrackActivity.this, "Service Bound Track Activity", LENGTH_SHORT).show();
@@ -46,16 +45,6 @@ public class TrackActivity extends AppCompatActivity {
             serviceBound = false;
         }
     };
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(PlayerState playerState) {
-        this.playerState = playerState;
-        togglePlayButton();
-    }
-
-    private void updateView() {
-
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,16 +70,6 @@ public class TrackActivity extends AppCompatActivity {
 
     private void initViews() {
         btnPlay = findViewById(R.id.activity_track_play_btn);
-
-        //btnPlay.setOnClickListener(listener -> togglePlayButton());
-    }
-
-    private void togglePlayButton() {
-        if (playerState.isPlaying()) {
-            btnPlay.setImageResource(R.drawable.ic_pause);
-        } else {
-            btnPlay.setImageResource(R.drawable.ic_play);
-        }
     }
 
     @Override
@@ -103,6 +82,11 @@ public class TrackActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMediaPlayerStateChanged(MediaPlayerEvent.StateChanged event) {
+        System.out.println(event.currentState);
     }
 
     @Override

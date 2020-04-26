@@ -83,7 +83,7 @@ public class PlaylistFragment extends Fragment implements TrackListCallback {
 
     @Override
     public void onTrackSelected(Track track) {
-        mBoundService.playStream(track);
+        mBoundService.play(track);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class PlaylistFragment extends Fragment implements TrackListCallback {
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            MediaPlayerService.LocalBinder binder = (MediaPlayerService.LocalBinder)service;
+            MediaPlayerService.MediaPlayerBinder binder = (MediaPlayerService.MediaPlayerBinder)service;
             mBoundService = binder.getService();
             //mBoundService.setCallback(SongsFragment.this);
             mServiceBound = true;

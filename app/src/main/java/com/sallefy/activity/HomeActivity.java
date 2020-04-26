@@ -20,20 +20,17 @@ import com.sallefy.R;
 import com.sallefy.fragments.HomeFragment;
 import com.sallefy.fragments.SearchFragment;
 import com.sallefy.fragments.YourLibraryFragment;
+import com.sallefy.services.player.MediaPlayerEvent;
 import com.sallefy.services.player.MediaPlayerService;
-import com.sallefy.services.player.PlayerState;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import static android.widget.Toast.makeText;
-import static java.util.Objects.isNull;
 
 
 public class HomeActivity extends FragmentActivity {
-
-    private Context context;
 
     private BottomNavigationView mBottomNavigationView;
     private FragmentTransaction mTransaction;
@@ -42,19 +39,20 @@ public class HomeActivity extends FragmentActivity {
     private ImageView btnPlay;
 
     private MediaPlayerService playerService;
-    private PlayerState playerState;
+    private Boolean mediaPlayerServiceBound = false;
 
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            MediaPlayerService.LocalBinder binder = (MediaPlayerService.LocalBinder)service;
+            MediaPlayerService.MediaPlayerBinder binder = (MediaPlayerService.MediaPlayerBinder)service;
             playerService = binder.getService();
+            mediaPlayerServiceBound = true;
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            makeText(context, "Service disconnected", Toast.LENGTH_SHORT).show();
-            playerService = null;
+            makeText(getApplicationContext(), "Service disconnected", Toast.LENGTH_SHORT).show();
+            mediaPlayerServiceBound = false;
         }
     };
 
@@ -65,43 +63,40 @@ public class HomeActivity extends FragmentActivity {
         initViews();
         initMusicNavView();
         setInitialFragment();
-        this.context = getApplicationContext();
-        startStreamingService(null);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(PlayerState playerState) {
-        this.playerState = playerState;
-        togglePlayButton();
-    }
-
-    private void togglePlayButton() {
-        if (!isNull(playerState) && playerState.isPlaying()) {
+    /*private void togglePlayButton() {
+        if (playerState.isPlaying()) {
             btnPlay.setImageResource(R.drawable.ic_pause);
         } else {
             btnPlay.setImageResource(R.drawable.ic_play);
         }
-    }
+    }*/
 
     @Override
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
-        playerState = EventBus.getDefault().getStickyEvent(PlayerState.class);
-        if (!isNull(playerState)) togglePlayButton();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMediaPlayerStateChanged(MediaPlayerEvent.StateChanged event) {
+        System.out.println(event.currentState);
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        if (mediaPlayerServiceBound){
+            unbindService(mServiceConnection);
+            mediaPlayerServiceBound = false;
+        }
         EventBus.getDefault().unregister(this);
+
     }
 
-
-    private void startStreamingService (String url) {
+    private void startStreamingService() {
         Intent intent = new Intent(this, HomeActivity.class);
-        // intent.putExtra(Constants.URL, url);
-        // intent.setAction(Constants.ACTION.STARTFOREGROUND_ACTION);
         startService(intent);
         bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
     }
@@ -112,7 +107,7 @@ public class HomeActivity extends FragmentActivity {
 
         btnPlay = findViewById(R.id.music_nav_play);
         btnPlay.setOnClickListener(listener -> {
-            makeText(context, "Toggle track", Toast.LENGTH_SHORT).show();
+            makeText(getApplicationContext(), "Toggle track", Toast.LENGTH_SHORT).show();
             //playerService.togglePlayer();
             // togglePlayButton();
         });
@@ -133,7 +128,7 @@ public class HomeActivity extends FragmentActivity {
                     fragment = SearchFragment.getInstance();
                     break;
                 case R.id.action_your_library:
-                    fragment = YourLibraryFragment.getInstance(context, mFragmentManager);
+                    fragment = YourLibraryFragment.getInstance(getApplicationContext(), mFragmentManager);
                     break;
             }
             changeFragment(fragment);

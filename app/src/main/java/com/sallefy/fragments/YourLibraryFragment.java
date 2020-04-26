@@ -65,6 +65,7 @@ public class YourLibraryFragment extends Fragment
 
     public static YourLibraryFragment getInstance(Context context, FragmentManager fragmentManager) {
         if (instance == null) instance = new YourLibraryFragment(context, fragmentManager);
+
         return instance;
     }
 
@@ -167,7 +168,7 @@ public class YourLibraryFragment extends Fragment
 
     @Override
     public void onTrackSelected(Track track) {
-        mBoundService.playStream(track);
+        mBoundService.play(track);
     }
 
     @Override
@@ -178,7 +179,7 @@ public class YourLibraryFragment extends Fragment
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            MediaPlayerService.LocalBinder binder = (MediaPlayerService.LocalBinder)service;
+            MediaPlayerService.MediaPlayerBinder binder = (MediaPlayerService.MediaPlayerBinder)service;
             mBoundService = binder.getService();
             // mBoundService.setCallback(SongsFragment.this);
             mServiceBound = true;
