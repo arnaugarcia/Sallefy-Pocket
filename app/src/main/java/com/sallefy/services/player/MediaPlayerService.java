@@ -63,7 +63,7 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
     public void onCreate() {
         super.onCreate();
         // Perform one-time setup procedures
-        initMediaPlayer();
+        // initMediaPlayer();
         // Manage incoming phone calls during playback.
         // Pause MediaPlayer on incoming call,
         // Resume on hangup.

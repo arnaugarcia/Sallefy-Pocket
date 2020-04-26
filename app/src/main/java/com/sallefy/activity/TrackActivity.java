@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.sallefy.R;
 import com.sallefy.services.player.MediaPlayerEvent;
 import com.sallefy.services.player.MediaPlayerService;
+import com.sallefy.services.player.MediaPlayerState;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -21,6 +22,9 @@ import org.jetbrains.annotations.NotNull;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
+import static com.sallefy.services.player.MediaPlayerState.PAUSED;
+import static com.sallefy.services.player.MediaPlayerState.PLAYING;
+import static org.greenrobot.eventbus.ThreadMode.MAIN;
 
 public class TrackActivity extends AppCompatActivity {
 
@@ -28,6 +32,7 @@ public class TrackActivity extends AppCompatActivity {
 
     private MediaPlayerService player;
     boolean serviceBound = false;
+    private MediaPlayerState playerState;
 
     //Binding this Client to the AudioPlayer Service
     private ServiceConnection serviceConnection = new ServiceConnection() {
@@ -51,6 +56,8 @@ public class TrackActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song);
         checkAndStartMediaPlayerService();
+        EventBus.getDefault().register(this);
+        playerState = EventBus.getDefault().getStickyEvent(MediaPlayerEvent.StateChanged.class).currentState;
         initViews();
         /*Intent intent = new Intent(this, PlayerService.class);
         this.bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);*/
@@ -70,12 +77,16 @@ public class TrackActivity extends AppCompatActivity {
 
     private void initViews() {
         btnPlay = findViewById(R.id.activity_track_play_btn);
-    }
+        if (playerState == PLAYING) btnPlay.setImageResource(R.drawable.ic_pause);
+        if (playerState == PAUSED) btnPlay.setImageResource(R.drawable.ic_play);
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
+        btnPlay.setOnClickListener(listener -> {
+            if (playerState == PLAYING) {
+                player.stop();
+            } else {
+                player.resume();
+            }
+        });
     }
 
     @Override
@@ -84,7 +95,7 @@ public class TrackActivity extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe(threadMode = MAIN)
     public void onMediaPlayerStateChanged(MediaPlayerEvent.StateChanged event) {
         switch (event.currentState) {
             case PLAYING:
