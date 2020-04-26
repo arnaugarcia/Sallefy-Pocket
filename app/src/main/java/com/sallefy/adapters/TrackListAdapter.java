@@ -37,7 +37,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
     private Context context;
     private List<Track> tracks;
 
-    private AppCompatImageButton ibMore;
+    private AppCompatImageButton ibMore, ibSelectedMore;
 
     private int selectedItem = RecyclerView.NO_POSITION;
 
@@ -82,6 +82,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
         });
 
         ibMore.setOnClickListener(v -> processOptions(holder, track));
+        ibSelectedMore.setOnClickListener(v -> processOptions(holder, track));
     }
 
     @Override
@@ -169,7 +170,6 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
 
         ConstraintLayout selectedLayout;
         ImageView ivSelectedThumbnail;
-        AppCompatImageButton ibSelectedFavourite;
         TextView tvSelectedTrackTitle;
         TextView tvSelectedOwner;
 
@@ -188,7 +188,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
             ivSelectedThumbnail = itemView.findViewById(R.id.iv_selected_thumbnail);
             tvSelectedTrackTitle = itemView.findViewById(R.id.tv_selected_track_title);
             tvSelectedOwner = itemView.findViewById(R.id.tv_selected_owner);
-            ibSelectedFavourite = itemView.findViewById(R.id.ib_selected_favourite);
+            ibSelectedMore = itemView.findViewById(R.id.ib_selected_favourite);
         }
 
         void showSelected() {
