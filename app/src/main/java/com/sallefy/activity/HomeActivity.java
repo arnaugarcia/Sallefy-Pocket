@@ -1,14 +1,12 @@
 package com.sallefy.activity;
 
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -27,6 +25,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
 
 
@@ -38,21 +37,23 @@ public class HomeActivity extends FragmentActivity {
     private TextView tvMusicNav;
     private ImageView btnPlay;
 
-    private MediaPlayerService playerService;
-    private Boolean mediaPlayerServiceBound = false;
+    private MediaPlayerService player;
+    boolean mServiceBound = false;
 
+    //Binding this Client to the AudioPlayer Service
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            MediaPlayerService.MediaPlayerBinder binder = (MediaPlayerService.MediaPlayerBinder)service;
-            playerService = binder.getService();
-            mediaPlayerServiceBound = true;
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            MediaPlayerService.MediaPlayerBinder binder = (MediaPlayerService.MediaPlayerBinder) service;
+            player = binder.getService();
+            mServiceBound = true;
+            makeText(getApplicationContext(), "[Home Activity] - Service disconnected", LENGTH_SHORT).show();
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            makeText(getApplicationContext(), "Service disconnected", Toast.LENGTH_SHORT).show();
-            mediaPlayerServiceBound = false;
+            mServiceBound = false;
         }
     };
 
@@ -63,6 +64,19 @@ public class HomeActivity extends FragmentActivity {
         initViews();
         initMusicNavView();
         setInitialFragment();
+        checkAndStartMediaPlayerService();
+    }
+
+    private void checkAndStartMediaPlayerService() {
+        if (!mServiceBound) {
+            // makeText(this, "[Track Activity] - Media Player service is not active", LENGTH_SHORT).show();
+            Intent playerIntent = new Intent(this, MediaPlayerService.class);
+            startService(playerIntent);
+            bindService(playerIntent, mServiceConnection, BIND_AUTO_CREATE);
+        } else {
+            //Service is active
+            //Send media with BroadcastReceiver
+        }
     }
 
     /*private void togglePlayButton() {
@@ -81,15 +95,22 @@ public class HomeActivity extends FragmentActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMediaPlayerStateChanged(MediaPlayerEvent.StateChanged event) {
-        System.out.println(event.currentState);
+        switch (event.currentState) {
+            case PLAYING:
+                btnPlay.setImageResource(R.drawable.ic_pause);
+                break;
+            case PAUSED:
+                btnPlay.setImageResource(R.drawable.ic_play);
+                break;
+        }
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if (mediaPlayerServiceBound){
+        if (mServiceBound){
             unbindService(mServiceConnection);
-            mediaPlayerServiceBound = false;
+            mServiceBound = false;
         }
         EventBus.getDefault().unregister(this);
 
@@ -98,7 +119,7 @@ public class HomeActivity extends FragmentActivity {
     private void startStreamingService() {
         Intent intent = new Intent(this, HomeActivity.class);
         startService(intent);
-        bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
+        bindService(intent, mServiceConnection, BIND_AUTO_CREATE);
     }
 
     private void initMusicNavView() {
@@ -107,8 +128,8 @@ public class HomeActivity extends FragmentActivity {
 
         btnPlay = findViewById(R.id.music_nav_play);
         btnPlay.setOnClickListener(listener -> {
-            makeText(getApplicationContext(), "Toggle track", Toast.LENGTH_SHORT).show();
-            //playerService.togglePlayer();
+            makeText(getApplicationContext(), "Toggle track", LENGTH_SHORT).show();
+            player.pause();
             // togglePlayButton();
         });
     }

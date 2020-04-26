@@ -1,5 +1,5 @@
 package com.sallefy.services.player;
 
-enum MediaPlayerState {
+public enum MediaPlayerState {
     PREPARED, PLAYING, PAUSED, COMPLETED, RESET, ERROR
 }

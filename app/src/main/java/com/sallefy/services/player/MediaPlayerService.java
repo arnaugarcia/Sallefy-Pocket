@@ -53,6 +53,12 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
     // Binder given to clients
     private final IBinder iBinder = new MediaPlayerBinder();
 
+    public class MediaPlayerBinder extends Binder {
+        public MediaPlayerService getService() {
+            return MediaPlayerService.this;
+        }
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -84,11 +90,14 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
         if (!mediaPlayer.isPlaying()) {
             try {
                 mediaPlayer.setDataSource(track.getUrl());
+                mediaPlayer.prepareAsync();
+                mediaPlayer.setOnPreparedListener(listener -> {
+                    mediaPlayer.start();
+                    EventBus.getDefault().postSticky(mediaPlayerEvent(PLAYING));
+                });
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            mediaPlayer.start();
-            EventBus.getDefault().postSticky(mediaPlayerEvent(PLAYING));
         }
     }
 
@@ -262,6 +271,7 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
                 super.onPlay();
                 resume();
                 mediaPlayerNotification.buildNotification(PlaybackStatus.PLAYING);
+                EventBus.getDefault().postSticky(mediaPlayerEvent(PLAYING));
             }
 
             @Override
@@ -269,6 +279,7 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
                 super.onPause();
                 pause();
                 mediaPlayerNotification.buildNotification(PlaybackStatus.PAUSED);
+                EventBus.getDefault().postSticky(mediaPlayerEvent(PAUSED));
             }
 
             @Override
@@ -277,6 +288,7 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
                 skipToNext();
                 mediaPlayerNotification.updateMetaData();
                 mediaPlayerNotification.buildNotification(PlaybackStatus.PLAYING);
+                EventBus.getDefault().postSticky(mediaPlayerEvent(PLAYING));
             }
 
             @Override
@@ -285,6 +297,7 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
                 skipToPrevious();
                 mediaPlayerNotification.updateMetaData();
                 mediaPlayerNotification.buildNotification(PlaybackStatus.PLAYING);
+                EventBus.getDefault().postSticky(mediaPlayerEvent(PLAYING));
             }
 
             @Override
@@ -292,6 +305,7 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
                 super.onStop();
                 // removeNotification();
                 //Stop the service
+                EventBus.getDefault().postSticky(mediaPlayerEvent(COMPLETED));
                 stopSelf();
             }
 
@@ -388,12 +402,6 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
 
     private boolean removeAudioFocus() {
         return AudioManager.AUDIOFOCUS_REQUEST_GRANTED == audioManager.abandonAudioFocus(this);
-    }
-
-    public class MediaPlayerBinder extends Binder {
-        public MediaPlayerService getService() {
-            return MediaPlayerService.this;
-        }
     }
 
 }

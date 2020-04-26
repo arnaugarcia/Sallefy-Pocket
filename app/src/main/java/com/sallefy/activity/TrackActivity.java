@@ -86,7 +86,14 @@ public class TrackActivity extends AppCompatActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMediaPlayerStateChanged(MediaPlayerEvent.StateChanged event) {
-        System.out.println(event.currentState);
+        switch (event.currentState) {
+            case PLAYING:
+                btnPlay.setImageResource(R.drawable.ic_pause);
+                break;
+            case PAUSED:
+                btnPlay.setImageResource(R.drawable.ic_play);
+                break;
+        }
     }
 
     @Override
