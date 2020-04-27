@@ -22,4 +22,7 @@ public interface PlaylistService {
 
     @GET("playlists")
     Call<List<Playlist>> getMostFollowedPlaylists(@Header("Authorization") String userToken, @Query("sort") String sortByFollowers);
+
+    @POST("playlists")
+    Call<Playlist> updatePlaylist(@Header("Authorization") String userToken, @Body Playlist playlist);
 }

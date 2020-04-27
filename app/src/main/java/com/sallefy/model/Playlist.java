@@ -106,6 +106,10 @@ public class Playlist implements Serializable {
         this.tracks = tracks;
     }
 
+    public void addTrack(Track track){
+        this.tracks.add(track);
+    }
+
     public boolean isFollowed() {
         return followed;
     }

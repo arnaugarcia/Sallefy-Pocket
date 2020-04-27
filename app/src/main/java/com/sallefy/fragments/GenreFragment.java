@@ -69,7 +69,7 @@ public class GenreFragment extends Fragment implements TracksByGenreCallback {
         LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
         rvSongs.setLayoutManager(manager);
 
-        trackListAdapter = new TrackListAdapter(context, tracks);
+        trackListAdapter = new TrackListAdapter(context, tracks, fragmentManager);
 
         getTracksByGenre(genre.getName());
         genreTitle.setText(genre.getName());

@@ -1,9 +1,9 @@
 package com.sallefy.adapters;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.sallefy.R;
+import com.sallefy.fragments.AddToPlaylistFragment;
 import com.sallefy.managers.tracks.TrackManager;
 import com.sallefy.managers.tracks.UpdateTrackLikedCallback;
 import com.sallefy.model.LikedDTO;
@@ -27,23 +28,24 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import okhttp3.ResponseBody;
 
 public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.ViewHolder> implements UpdateTrackLikedCallback {
 
-    private Context context;
+    private Context mContext;
+    private FragmentManager mFragmentManager;
     private List<Track> tracks;
+    private Track currentTrack;
 
     private AppCompatImageButton ibMore, ibSelectedMore;
 
     private int selectedItem = RecyclerView.NO_POSITION;
 
-    public TrackListAdapter(Context context, List<Track> tracks) {
-        this.context = context;
+    public TrackListAdapter(Context context, List<Track> tracks, FragmentManager fragmentManager) {
+        this.mContext = context;
         this.tracks = tracks;
+        this.mFragmentManager = fragmentManager;
     }
 
     public void setTracks(List<Track> tracks) {
@@ -60,29 +62,32 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Track track = tracks.get(position);
+        currentTrack = tracks.get(position);
 
-       holder.itemView.setOnClickListener(v -> {
+       /*holder.itemView.setOnClickListener(v -> {
             selectedItem = position;
             notifyItemRangeChanged(0, tracks.size());
-        });
+        });*/
 
         if (selectedItem == position) {
             holder.showSelected();
-            setTextsSelected(holder, track);
+            setTextsSelected(holder);
         } else {
             holder.showUnselected();
-            setTextsUnselected(holder, track);
+            setTextsUnselected(holder);
         }
 
+        holder.itemView.setOnClickListener(v -> {
+            Toast.makeText(mContext, currentTrack.getName(), Toast.LENGTH_SHORT).show();
+        });
 
         holder.itemView.setOnLongClickListener(v -> {
-            processOptions(holder, track);
+            processOptions(holder);
             return false;
         });
 
-        ibMore.setOnClickListener(v -> processOptions(holder, track));
-        ibSelectedMore.setOnClickListener(v -> processOptions(holder, track));
+        ibMore.setOnClickListener(v -> processOptions(holder));
+        ibSelectedMore.setOnClickListener(v -> processOptions(holder));
     }
 
     @Override
@@ -90,8 +95,8 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
         return (tracks != null) ? tracks.size() : 0;
     }
 
-    private void processOptions(ViewHolder holder, Track track){
-        PopupMenu popupMenu = new PopupMenu(context, holder.itemView);
+    private void processOptions(ViewHolder holder){
+        PopupMenu popupMenu = new PopupMenu(mContext, holder.itemView);
         popupMenu.inflate(R.menu.menu_track_options);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             popupMenu.setForceShowIcon(true);
@@ -101,16 +106,17 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
         popupMenu.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()){
                 case R.id.menu_track_like:
-                    updateTrackLiked(track.getId().toString());
+                    Toast.makeText(mContext, currentTrack.getName(), Toast.LENGTH_SHORT).show();
+                    updateTrackLiked(currentTrack.getId().toString());
                     break;
                 case R.id.menu_track_add_to_playlist:
-                    Toast.makeText(context, "add to playlist!", Toast.LENGTH_SHORT).show();
+                    openAddToPlaylistFragment();
                     break;
                 case R.id.menu_track_share:
-                    Toast.makeText(context, "share!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "share!", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.menu_track_owner:
-                    Toast.makeText(context, "owner!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "owner!", Toast.LENGTH_SHORT).show();
                     break;
                 default:
                     return false;
@@ -122,37 +128,48 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
     }
 
     private void updateTrackLiked(String trackId){
-        TrackManager.getInstance().updateTrackLiked(context, trackId, this);
+        TrackManager.getInstance().updateTrackLiked(mContext, trackId, this);
     }
 
     @Override
     public void onMyTracksSuccess(LikedDTO liked) {
         if (liked.isLiked()){
-            Toast.makeText(context, "Added to liked tracks", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Added to liked tracks", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(context, "Removed from liked tracks", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Removed from liked tracks", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void onMyTracksFailure(Throwable throwable) {
-        Toast.makeText(context, "Error: Unable to like track", Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, "Error: Unable to like track", Toast.LENGTH_SHORT).show();
     }
 
-    private void setTextsUnselected(ViewHolder holder, Track track) {
-        holder.tvTrackTitle.setText(track.getName());
-        holder.tvOwner.setText(track.getUser().getLogin());
+    private void openAddToPlaylistFragment(){
+        AddToPlaylistFragment addToPlaylistFragment = new AddToPlaylistFragment(mContext, mFragmentManager);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("track", currentTrack);
+        addToPlaylistFragment.setArguments(bundle);
+        mFragmentManager.beginTransaction()
+                .replace(R.id.fragment_manager, addToPlaylistFragment, "addToPlaylistFragment")
+                .addToBackStack(null)
+                .commit();
     }
 
-    private void setTextsSelected(ViewHolder holder, Track track) {
-        holder.tvSelectedTrackTitle.setText(track.getName());
+    private void setTextsUnselected(ViewHolder holder) {
+        holder.tvTrackTitle.setText(currentTrack.getName());
+        holder.tvOwner.setText(currentTrack.getUser().getLogin());
+    }
+
+    private void setTextsSelected(ViewHolder holder) {
+        holder.tvSelectedTrackTitle.setText(currentTrack.getName());
         holder.tvSelectedTrackTitle.setSelected(true);
-        holder.tvSelectedOwner.setText(track.getUser().getLogin());
-        if (track.getThumbnail() != null) {
-            Glide.with(context)
+        holder.tvSelectedOwner.setText(currentTrack.getUser().getLogin());
+        if (currentTrack.getThumbnail() != null) {
+            Glide.with(mContext)
                     .asBitmap()
                     .placeholder(R.drawable.application_logo)
-                    .load(track.getThumbnail())
+                    .load(currentTrack.getThumbnail())
                     .apply(RequestOptions.bitmapTransform(new GranularRoundedCorners(20,
                             0,
                             0,

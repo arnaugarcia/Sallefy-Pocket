@@ -70,4 +70,6 @@
     <string name="featured_artists_title">Featured artists</string>
     <string name="featured_playlists_title">Featured playlists</string>
     <string name="featured_tracks_title">Featured tracks</string>
+    <string name="add_to_playlist_title_placeholder">Add to playlist</string>
+    <string name="ib_new_playlist">New playlist</string>
 </resources>
