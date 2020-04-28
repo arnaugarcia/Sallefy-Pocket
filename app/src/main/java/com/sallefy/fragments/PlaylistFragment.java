@@ -71,7 +71,7 @@ public class PlaylistFragment extends Fragment implements TrackListCallback {
 
         LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
         rvSongs.setLayoutManager(manager);
-        TrackListAdapter adapter = new TrackListAdapter(this, context, playlist);
+        PlaylistTrackListAdapter adapter = new PlaylistTrackListAdapter(fragmentManager, context, playlist);
         rvSongs.setAdapter(adapter);
     }
 

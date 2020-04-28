@@ -28,7 +28,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
 
-
 public class HomeActivity extends FragmentActivity {
 
     private BottomNavigationView mBottomNavigationView;
@@ -61,6 +60,7 @@ public class HomeActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        this.context = getApplicationContext();
         initViews();
         initMusicNavView();
         setInitialFragment();
@@ -137,19 +137,24 @@ public class HomeActivity extends FragmentActivity {
     private void initViews() {
         mFragmentManager = getSupportFragmentManager();
         mTransaction = mFragmentManager.beginTransaction();
+        initViews();
+        setInitialFragment();
+    }
+
+    private void initViews() {
 
         mBottomNavigationView = findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             Fragment fragment = null;
             switch (item.getItemId()) {
                 case R.id.action_home:
-                    fragment = HomeFragment.getInstance();
+                    fragment = HomeFragment.getInstance(context);
                     break;
                 case R.id.action_search:
-                    fragment = SearchFragment.getInstance();
+                    fragment = SearchFragment.getInstance(context, mFragmentManager);
                     break;
                 case R.id.action_your_library:
-                    fragment = YourLibraryFragment.getInstance(getApplicationContext(), mFragmentManager);
+                    fragment = YourLibraryFragment.getInstance(context, mFragmentManager);
                     break;
             }
             changeFragment(fragment);
@@ -181,12 +186,10 @@ public class HomeActivity extends FragmentActivity {
         } catch (IllegalStateException e) {
             e.printStackTrace();
         }
-
     }
 
     private void setInitialFragment() {
-        mTransaction.add(R.id.fragment_manager, HomeFragment.getInstance());
+        mTransaction.add(R.id.fragment_manager, HomeFragment.getInstance(context));
         mTransaction.commit();
     }
-
 }

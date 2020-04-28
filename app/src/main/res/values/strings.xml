@@ -1,7 +1,6 @@
 <resources>
-    <string name="app_name">Sallefy</string>
+    <string name="app_name">Sallefy Pocket</string>
     <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
@@ -42,8 +41,37 @@
     <string name="create_playlist_title">Create playlist</string>
     <string name="playlist_description_placeholder">Playlist description placeholder</string>
     <string name="search_title">Search</string>
+    <string name="search_hint">Search</string>
+    <string name="genre_item_placeholder">Genre</string>
+    <string name="playlist_description">Playlist Description</string>
+    <string name="splash_screen">Splash Screen</string>
+    <string name="back_button">Back button</string>
+    <string name="option_button">Option button</string>
+    <string name="playlist_thumbnail">Playlist Thumbnail</string>
+    <string name="create_playlist_button">Create playlist button</string>
+    <string name="track_thumbnail">Track thumbnail</string>
+    <string name="genre_title_placeholder">Genre Title</string>
     <string name="play_image">Play image</string>
     <string name="duration_placeholder">00:00</string>
     <string name="track_thumbnail">Track thumbnail</string>
     <string name="default_song_title">No song selected</string>
+    <string name="logout">Logout</string>
+    <string name="profile">Profile</string>
+    <string name="create_button">Create button</string>
+    <string name="first_name_placeholder">First name</string>
+    <string name="last_name_placeholder">Last name</string>
+    <string name="email_placeholder">login@students.salle.url.edu</string>
+    <string name="date_placeholder">1970–01–01T00:00:00Z</string>
+    <string name="search_search_bar">Users, songs or playlists</string>
+    <string name="search_results_title">Search Results</string>
+    <string name="menu_track_like">Like</string>
+    <string name="menu_track_add_to_playlist">Add to playlist</string>
+    <string name="menu_track_share">Share</string>
+    <string name="menu_track_owner">Go to Artist</string>
+    <string name="home_title">Home</string>
+    <string name="featured_artists_title">Featured artists</string>
+    <string name="featured_playlists_title">Featured playlists</string>
+    <string name="featured_tracks_title">Featured tracks</string>
+    <string name="add_to_playlist_title_placeholder">Add to playlist</string>
+    <string name="ib_new_playlist">New playlist</string>
 </resources>

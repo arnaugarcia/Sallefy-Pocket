@@ -98,4 +98,65 @@ public class PlaylistManager extends BaseManager {
             }
         });
     }
+
+    public synchronized void getMostFollowedPlaylists(Context context, final MostFollowedPlaylistsCallback mostFollowedPlaylistsCallback) {
+        String userToken = AuthenticationUtils.getToken(context);
+
+        Call<List<Playlist>> call = playlistService.getMostFollowedPlaylists("Bearer " + userToken, "followers,desc");
+        call.enqueue(new Callback<List<Playlist>>() {
+            @Override
+            public void onResponse(Call<List<Playlist>> call, Response<List<Playlist>> response) {
+                int code = response.code();
+
+                if (response.isSuccessful()) {
+                    mostFollowedPlaylistsCallback.onMostFollowedPlaylistsSuccess(response.body());
+                } else {
+                    Log.d("ncs", "Error MostFollowedPlaylist not successful: " + response.toString());
+
+                    try {
+                        mostFollowedPlaylistsCallback.onMostFollowedPlaylistsFailure(new Throwable("Error " + code + ", " + response.errorBody().string()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Playlist>> call, Throwable t) {
+                Log.d("ncs", "Error MostFollowedPlaylist failure: " + Arrays.toString(t.getStackTrace()));
+                mostFollowedPlaylistsCallback.onMostFollowedPlaylistsFailure(new Throwable("Error " + Arrays.toString(t.getStackTrace())));
+            }
+        });
+
+    }
+
+    public synchronized void updatePlaylist(Context context, PlaylistRequest playlistRequest, final UpdatePlaylistCallback callback){
+        String userToken = AuthenticationUtils.getToken(context);
+
+        Call<Playlist> call = playlistService.updatePlaylist("Bearer " + userToken, playlistRequest);
+        call.enqueue(new Callback<Playlist>() {
+            @Override
+            public void onResponse(Call<Playlist> call, Response<Playlist> response) {
+                int code = response.code();
+
+                if (response.isSuccessful()) {
+                    callback.onUpdatePlaylistSuccess(response.body());
+                } else {
+                    Log.d(ApplicationConstants.LOGCAT_ID, "Error UpdatePlaylist not successful: " + response.toString());
+
+                    try {
+                        callback.onUpdatePlaylistFailure(new Throwable("Error " + code + ", " + response.errorBody().string()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Playlist> call, Throwable t) {
+                Log.d(ApplicationConstants.LOGCAT_ID, "Error UpdatePlaylist failure: " + Arrays.toString(t.getStackTrace()));
+                callback.onUpdatePlaylistFailure(new Throwable("Error " + Arrays.toString(t.getStackTrace())));
+            }
+        });
+    }
 }

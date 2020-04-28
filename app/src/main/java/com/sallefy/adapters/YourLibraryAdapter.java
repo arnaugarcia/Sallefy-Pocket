@@ -60,7 +60,7 @@ public class YourLibraryAdapter extends RecyclerView.Adapter<YourLibraryAdapter.
                 adapter = new PlaylistListAdapter(context, playlists, fragmentManager);
         } else if (position == 1) {
             if (this.tracks != null)
-                adapter = new TrackListAdapter(trackListCallback, context, this.tracks);
+                adapter = new TrackListAdapter(context, trackListCallback, this.tracks, fragmentManager);
         }
         if (adapter != null) holder.rvYourLibrary.setAdapter(adapter);
     }

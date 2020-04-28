@@ -2,13 +2,19 @@ package com.sallefy.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class PlaylistRequest {
+import java.io.Serializable;
+import java.util.List;
+
+public class PlaylistRequest implements Serializable {
 
     @SerializedName("cover")
     private String cover;
 
     @SerializedName("description")
     private String description;
+
+    @SerializedName("id")
+    private Integer id;
 
     @SerializedName("name")
     private String name;
@@ -19,15 +25,28 @@ public class PlaylistRequest {
     @SerializedName("thumbnail")
     private String thumbnail;
 
+    @SerializedName("tracks")
+    private List<Track> tracks = null;
+
     public PlaylistRequest() {
     }
 
-    public PlaylistRequest(String cover, String description, String name, boolean publicAccessible, String thumbnail) {
-        this.cover = cover;
-        this.description = description;
-        this.name = name;
-        this.publicAccessible = publicAccessible;
-        this.thumbnail = thumbnail;
+    public PlaylistRequest(Playlist playlist) {
+        this.cover = playlist.getCover();
+        this.description = playlist.getDescription();
+        this.id = playlist.getId();
+        this.name = playlist.getName();
+        this.publicAccessible = playlist.getPublicAccessible();
+        this.thumbnail = playlist.getThumbnail();
+        this.tracks = playlist.getTracks();
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getCover() {
@@ -68,5 +87,17 @@ public class PlaylistRequest {
 
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
+    }
+
+    public List<Track> getTracks() {
+        return tracks;
+    }
+
+    public void setTracks(List<Track> tracks) {
+        this.tracks = tracks;
+    }
+
+    public void addTrack(Track track){
+        this.tracks.add(track);
     }
 }

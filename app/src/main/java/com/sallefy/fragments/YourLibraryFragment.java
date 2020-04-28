@@ -23,7 +23,7 @@ import com.sallefy.adapters.YourLibraryAdapter;
 import com.sallefy.adapters.callbacks.TrackListCallback;
 import com.sallefy.managers.playlists.MyPlaylistsCallback;
 import com.sallefy.managers.playlists.PlaylistManager;
-import com.sallefy.managers.tracks.TrackCallback;
+import com.sallefy.managers.tracks.MyTracksCallback;
 import com.sallefy.managers.tracks.TrackManager;
 import com.sallefy.model.Playlist;
 import com.sallefy.model.Track;
@@ -33,14 +33,13 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 public class YourLibraryFragment extends Fragment
-        implements MyPlaylistsCallback, TrackCallback, TrackListCallback {
+        implements MyPlaylistsCallback, MyTracksCallback {
 
     private static YourLibraryFragment instance;
     private FragmentManager fragmentManager;
@@ -65,7 +64,7 @@ public class YourLibraryFragment extends Fragment
 
     public static YourLibraryFragment getInstance(Context context, FragmentManager fragmentManager) {
         if (instance == null) instance = new YourLibraryFragment(context, fragmentManager);
-
+        if (instance.fragmentManager != fragmentManager) instance.fragmentManager = fragmentManager;
         return instance;
     }
 
@@ -78,7 +77,6 @@ public class YourLibraryFragment extends Fragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_your_library, container, false);
     }
 
@@ -90,14 +88,12 @@ public class YourLibraryFragment extends Fragment
         ibSettings.setOnClickListener(view1 -> openProfileFragment());
 
         viewPager.setAdapter(yourLibraryAdapter);
-        int gradientEnd = ResourcesCompat.getColor(getResources(), R.color.gradientEnd, null);
-        int white = ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null);
-        tabLayout.setSelectedTabIndicatorColor(gradientEnd);
-        tabLayout.setTabTextColors(white, gradientEnd);
+        int colorAccent = ResourcesCompat.getColor(getResources(), R.color.colorAccent, null);
+        int colorTextPrimaryVariant = ResourcesCompat.getColor(getResources(), R.color.colorTextPrimaryVariant, null);
+        tabLayout.setSelectedTabIndicatorColor(colorAccent);
+        tabLayout.setTabTextColors(colorTextPrimaryVariant, colorAccent);
         new TabLayoutMediator(tabLayout, viewPager,
-                ((tab, position) -> {
-                    tab.setText((position == 0) ? "Playlists" : "Tracks");
-                })
+                ((tab, position) -> tab.setText((position == 0) ? "Playlists" : "Tracks"))
         ).attach();
     }
 
@@ -118,14 +114,6 @@ public class YourLibraryFragment extends Fragment
         viewPager = view.findViewById(R.id.view_pager);
         tabLayout = view.findViewById(R.id.tab_layout);
         mLibraryTitleTextView = view.findViewById(R.id.tv_your_library_title);
-
-        TextPaint paint = mLibraryTitleTextView.getPaint();
-        float width = paint.measureText(mLibraryTitleTextView.getText().toString());
-        Shader shader = new LinearGradient(0, 0, width, 0,
-                ContextCompat.getColor(view.getContext(), R.color.gradientStart),
-                ContextCompat.getColor(view.getContext(), R.color.gradientEnd),
-                Shader.TileMode.MIRROR);
-        mLibraryTitleTextView.getPaint().setShader(shader);
     }
 
     private void getMyPlaylists() {
@@ -139,7 +127,7 @@ public class YourLibraryFragment extends Fragment
     private void openProfileFragment() {
         ProfileFragment profileFragment = new ProfileFragment(context);
         fragmentManager.beginTransaction()
-                .replace(((ViewGroup) getView().getParent()).getId(), profileFragment, "profileFragment")
+                .replace(R.id.fragment_manager, profileFragment, "profileFragment")
                 .addToBackStack(null)
                 .commit();
     }

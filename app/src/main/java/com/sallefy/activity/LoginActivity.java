@@ -63,12 +63,12 @@ public class LoginActivity extends AppCompatActivity implements AuthenticationCa
     }
 
     private void goToMainActivity() {
-        Intent intent= new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
     private void goToRegisterActivity() {
-        Intent intent= new Intent(this, RegisterActivity.class);
+        Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
 }

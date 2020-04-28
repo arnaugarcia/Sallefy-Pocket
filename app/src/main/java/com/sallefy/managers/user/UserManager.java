@@ -11,6 +11,7 @@ import com.sallefy.services.user.UserService;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,7 +38,7 @@ public class UserManager extends BaseManager {
         return instance;
     }
 
-    public synchronized void getUserData(Context context, final UserCallback userCallback) {
+    public synchronized void getUserData(Context context, final UserDataCallback userDataCallback) {
         String userToken = AuthenticationUtils.getToken(context);
 
         Call<User> call = userService.getUserData("Bearer " + userToken);
@@ -47,12 +48,12 @@ public class UserManager extends BaseManager {
                 int code = response.code();
 
                 if (response.isSuccessful()) {
-                    userCallback.onUserDataReceived(response.body());
+                    userDataCallback.onUserDataSuccess(response.body());
                 } else {
                     Log.d("ncs", "Error UserData not successful: " + response.toString());
 
                     try {
-                        userCallback.onUserDataFailure(new Throwable("Error " + code + ", " + response.errorBody().string()));
+                        userDataCallback.onUserDataFailure(new Throwable("Error " + code + ", " + response.errorBody().string()));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -62,7 +63,37 @@ public class UserManager extends BaseManager {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Log.d("ncs", "Error UserData failure: " + Arrays.toString(t.getStackTrace()));
-                userCallback.onUserDataFailure(new Throwable("Error " + Arrays.toString(t.getStackTrace())));
+                userDataCallback.onUserDataFailure(new Throwable("Error " + Arrays.toString(t.getStackTrace())));
+            }
+        });
+    }
+
+    public synchronized void getMostFollowedUsers(Context context, final MostFollowedUsersCallback mostFollowedUsersCallback) {
+        String userToken = AuthenticationUtils.getToken(context);
+
+        Call<List<User>> call = userService.getMostFollowedUsers("Bearer " + userToken, "followers,desc");
+        call.enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                int code = response.code();
+
+                if (response.isSuccessful()) {
+                    mostFollowedUsersCallback.onMostFollowedUsersSuccess(response.body());
+                } else {
+                    Log.d("ncs", "Error PopularUsers not successful: " + response.toString());
+
+                    try {
+                        mostFollowedUsersCallback.onMostFollowedUsersFailure(new Throwable("Error " + code + ", " + response.errorBody().string()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                Log.d("ncs", "Error PopularUsers failure: " + Arrays.toString(t.getStackTrace()));
+                mostFollowedUsersCallback.onMostFollowedUsersFailure(new Throwable("Error " + Arrays.toString(t.getStackTrace())));
             }
         });
     }

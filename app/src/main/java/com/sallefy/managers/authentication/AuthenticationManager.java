@@ -63,7 +63,6 @@ public class AuthenticationManager {
                 System.out.println(call.toString());
                 Log.e(this.getClass().getName(), "Error authenticating " + t);
 
-
                 if (t instanceof RuntimeException) {
                     Log.d("nxw => T", t.getMessage());
                 }

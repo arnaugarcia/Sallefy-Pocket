@@ -1,16 +1,44 @@
 <resources>
-
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme.NoActionBar" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
-    <style name="AppTheme.NoActionBar">
+        <item name="colorSurface">@color/colorSurface</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <!-- Authentication Theme -->
+    <style name="AuthenticationTheme" parent="AppTheme.NoActionBar">
+        <item name="colorPrimaryDark">@color/colorBackgroundAuth</item>
+    </style>
+
+    <style name="AuthenticationTheme.Button" parent="Widget.MaterialComponents.Button">
+        <item name="fontFamily">@font/poppins_bold</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="strokeColor">@color/buttonStrokeColor</item>
+        <item name="backgroundTint">@color/transparent</item>
+    </style>
+
+    <!-- Sallefy Dialog -->
+    <style name="Dialog.Logout" parent="MaterialAlertDialog.MaterialComponents">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/Dialog.Logout.Title</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/Dialog.Logout.Body</item>
+        <item name="colorPrimary">@color/colorSecondary</item>
+    </style>
+
+    <style name="Dialog.Logout.Title" parent="Headline4">
+        <item name="android:textColor">@color/colorTextSecondary</item>
+    </style>
+
+    <style name="Dialog.Logout.Body" parent="Body2">
+        <item name="android:textColor">@color/colorTextSecondaryVariant</item>
     </style>
 
     <style name="PlayerTitleTheme" parent="TextAppearance.AppCompat">
@@ -24,9 +52,99 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="TabLayoutTextStyle">
+    <!-- Bottom Navigation View -->
+    <style name="TabLayoutTextStyle" parent="Widget.Design.BottomNavigationView">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="itemIconTint">@color/colorTextPrimary</item>
+        <item name="itemTextColor">@color/colorTextPrimary</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
         <item name="android:fontFamily">@font/poppins_black</item>
+        <item name="android:background">@color/buttonNavigationViewBackground</item>
     </style>
 
+    <!-- Headlines -->
+    <style name="Headline1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="fontFamily">@font/poppins_black</item>
+        <item name="android:fontFamily">@font/poppins_black</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textSize">@dimen/heading1TextSize</item>
+    </style>
+
+    <style name="Headline2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="fontFamily">@font/poppins_black</item>
+        <item name="android:fontFamily">@font/poppins_black</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textSize">@dimen/heading2TextSize</item>
+    </style>
+
+    <style name="Headline3" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="fontFamily">@font/poppins_black</item>
+        <item name="android:fontFamily">@font/poppins_black</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textSize">@dimen/heading3TextSize</item>
+    </style>
+
+    <style name="Headline4" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="fontFamily">@font/poppins_black</item>
+        <item name="android:fontFamily">@font/poppins_black</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textSize">@dimen/heading4TextSize</item>
+    </style>
+
+    <style name="Headline5" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="fontFamily">@font/poppins_bold</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textSize">@dimen/heading5TextSize</item>
+    </style>
+
+    <style name="Headline6" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:fontFamily">@font/poppins_black</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textSize">19sp</item>
+    </style>
+
+    <style name="Item.Title" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/poppins_black</item>
+        <item name="android:fontFamily">@font/poppins_black</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textSize">@dimen/itemTitle</item>
+    </style>
+
+    <style name="Item.Subtitle" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textSize">@dimen/itemSubtitle</item>
+    </style>
+
+    <style name="Body2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Overline" parent="TextAppearance.MaterialComponents.Overline">
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textSize">10sp</item>
+    </style>
 </resources>
