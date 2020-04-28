@@ -1,6 +1,7 @@
 package com.sallefy.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textview.MaterialTextView;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.sallefy.R;
+import com.sallefy.constants.ApplicationConstants;
 import com.sallefy.model.Playlist;
 import com.sallefy.model.Track;
 
@@ -103,6 +107,7 @@ public class PlaylistTrackListAdapter
         ConstraintLayout playlistDataLayout;
         TextView tvPlaylistName;
         TextView tvPlaylistDescription;
+        MaterialTextView mbPlaylistFollowers;
         CircularImageView ivPlaylistThumbnail;
 
 
@@ -125,6 +130,7 @@ public class PlaylistTrackListAdapter
             ivPlaylistThumbnail = itemView.findViewById(R.id.iv_playlist_thumbnail);
             tvPlaylistName = itemView.findViewById(R.id.tv_playlist_title);
             tvPlaylistDescription = itemView.findViewById(R.id.tv_playlist_description);
+            mbPlaylistFollowers = itemView.findViewById(R.id.mb_playlist_followers);
 
             trackItemLayout = itemView.findViewById(R.id.track_layout);
             unselectedLayout = itemView.findViewById(R.id.unselected_track);
@@ -152,6 +158,8 @@ public class PlaylistTrackListAdapter
                         .load(playlist.getThumbnail())
                         .into(ivPlaylistThumbnail);
             }
+            Log.d(ApplicationConstants.LOGCAT_ID, playlist.getName() + " followers: " + playlist.getFollowers());
+            mbPlaylistFollowers.setText(String.valueOf(playlist.getFollowers()));
         }
 
         void makeOtherItems() {

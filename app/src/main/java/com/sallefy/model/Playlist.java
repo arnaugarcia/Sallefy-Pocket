@@ -13,6 +13,12 @@ public class Playlist implements Serializable {
     @SerializedName("description")
     private String description;
 
+    @SerializedName("followed")
+    private boolean followed;
+
+    @SerializedName("followers")
+    private int followers;
+
     @SerializedName("id")
     private Integer id;
 
@@ -30,8 +36,6 @@ public class Playlist implements Serializable {
 
     @SerializedName("tracks")
     private List<Track> tracks = null;
-
-    private boolean followed;
 
     public String getCover() {
         return cover;
@@ -116,5 +120,13 @@ public class Playlist implements Serializable {
 
     public void setFollowed(boolean followed) {
         this.followed = followed;
+    }
+
+    public int getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(int followers) {
+        this.followers = followers;
     }
 }

@@ -10,4 +10,5 @@
     <!-- Body -->
     <dimen name="itemTitle">15sp</dimen>
     <dimen name="itemSubtitle">12sp</dimen>
+    <dimen name="playlist_header">325</dimen>
 </resources>
