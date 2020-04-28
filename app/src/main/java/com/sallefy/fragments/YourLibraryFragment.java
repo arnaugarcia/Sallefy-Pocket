@@ -39,7 +39,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 public class YourLibraryFragment extends Fragment
-        implements MyPlaylistsCallback, MyTracksCallback {
+        implements MyPlaylistsCallback, MyTracksCallback, TrackListCallback {
 
     private static YourLibraryFragment instance;
     private FragmentManager fragmentManager;

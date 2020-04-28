@@ -84,6 +84,7 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
         //Reset so that the MediaPlayer is not pointing to another data source
         mediaPlayer.reset();
         mediaPlayer.setAudioStreamType(STREAM_MUSIC);
+        EventBus.getDefault().postSticky(mediaPlayerEvent(COMPLETED));
     }
 
     public void play(Track track) {

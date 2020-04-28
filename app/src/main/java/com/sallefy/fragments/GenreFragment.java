@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.google.android.material.textview.MaterialTextView;
 import com.sallefy.R;
 import com.sallefy.adapters.TrackListAdapter;
+import com.sallefy.adapters.callbacks.TrackListCallback;
 import com.sallefy.managers.tracks.TrackManager;
 import com.sallefy.managers.tracks.TracksByGenreCallback;
 import com.sallefy.model.Genre;
@@ -28,7 +29,7 @@ import com.sallefy.model.Track;
 import java.util.List;
 
 
-public class GenreFragment extends Fragment implements TracksByGenreCallback {
+public class GenreFragment extends Fragment implements TracksByGenreCallback, TrackListCallback {
 
     private FragmentManager fragmentManager;
     private Context context;
@@ -69,7 +70,7 @@ public class GenreFragment extends Fragment implements TracksByGenreCallback {
         LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
         rvSongs.setLayoutManager(manager);
 
-        trackListAdapter = new TrackListAdapter(context, tracks, fragmentManager);
+        trackListAdapter = new TrackListAdapter(this, context,  tracks);
 
         getTracksByGenre(genre.getName());
         genreTitle.setText(genre.getName());
@@ -96,5 +97,15 @@ public class GenreFragment extends Fragment implements TracksByGenreCallback {
     @Override
     public void onTracksByGenreFailure(Throwable throwable) {
         Toast.makeText(context, "Error: No tracks received", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onTrackSelected(Track track) {
+
+    }
+
+    @Override
+    public void onTrackLiked(Track track) {
+
     }
 }

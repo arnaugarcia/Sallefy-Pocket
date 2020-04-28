@@ -18,11 +18,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sallefy.R;
 import com.sallefy.adapters.TrackListAdapter;
+import com.sallefy.adapters.callbacks.TrackListCallback;
 import com.sallefy.managers.search.SearchResponseCallback;
 import com.sallefy.managers.search.SearchResponseManager;
+import com.sallefy.model.Playlist;
 import com.sallefy.model.SearchResult;
+import com.sallefy.model.Track;
 
-public class SearchResponseFragment extends Fragment implements SearchResponseCallback {
+public class SearchResponseFragment extends Fragment implements SearchResponseCallback, TrackListCallback {
 
     private static SearchFragment instance;
 
@@ -73,7 +76,7 @@ public class SearchResponseFragment extends Fragment implements SearchResponseCa
 
         LinearLayoutManager manager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false);
         mTrackRecyclerView.setLayoutManager(manager);
-        mTrackListAdapter = new TrackListAdapter(mContext, null, mFragmentManager);
+        mTrackListAdapter = new TrackListAdapter(this, mContext, new Playlist());
     }
 
     private void initViews(View view) {
@@ -97,5 +100,15 @@ public class SearchResponseFragment extends Fragment implements SearchResponseCa
     @Override
     public void onSearchResponseFailure(Throwable throwable) {
         Toast.makeText(mContext, "Error receiving search result", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onTrackSelected(Track track) {
+
+    }
+
+    @Override
+    public void onTrackLiked(Track track) {
+
     }
 }

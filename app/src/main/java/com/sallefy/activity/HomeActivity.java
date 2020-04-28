@@ -1,6 +1,7 @@
 package com.sallefy.activity;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
@@ -29,6 +30,8 @@ import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
 
 public class HomeActivity extends FragmentActivity {
+
+    private Context context;
 
     private BottomNavigationView mBottomNavigationView;
     private FragmentTransaction mTransaction;
@@ -60,7 +63,9 @@ public class HomeActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        this.context = getApplicationContext();
+        context = getApplicationContext();
+        mFragmentManager = getSupportFragmentManager();
+        mTransaction = mFragmentManager.beginTransaction();
         initViews();
         initMusicNavView();
         setInitialFragment();
@@ -135,13 +140,6 @@ public class HomeActivity extends FragmentActivity {
     }
 
     private void initViews() {
-        mFragmentManager = getSupportFragmentManager();
-        mTransaction = mFragmentManager.beginTransaction();
-        initViews();
-        setInitialFragment();
-    }
-
-    private void initViews() {
 
         mBottomNavigationView = findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
@@ -192,4 +190,5 @@ public class HomeActivity extends FragmentActivity {
         mTransaction.add(R.id.fragment_manager, HomeFragment.getInstance(context));
         mTransaction.commit();
     }
+
 }

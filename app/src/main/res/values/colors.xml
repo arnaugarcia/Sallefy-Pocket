@@ -68,4 +68,8 @@
         <item>@color/dazzledBlue</item>
         <item>@color/royalBlue</item>
     </array>
+
+    <!-- Music nav -->
+    <color name="music_nav_default">#111625</color>
+
 </resources>

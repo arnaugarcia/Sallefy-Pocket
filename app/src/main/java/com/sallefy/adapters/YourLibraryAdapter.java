@@ -17,7 +17,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class YourLibraryAdapter extends RecyclerView.Adapter<YourLibraryAdapter.ViewHolder> {
+public class YourLibraryAdapter extends RecyclerView.Adapter<YourLibraryAdapter.ViewHolder> implements TrackListCallback {
 
     private FragmentManager fragmentManager;
     private Context context;
@@ -60,7 +60,7 @@ public class YourLibraryAdapter extends RecyclerView.Adapter<YourLibraryAdapter.
                 adapter = new PlaylistListAdapter(context, playlists, fragmentManager);
         } else if (position == 1) {
             if (this.tracks != null)
-                adapter = new TrackListAdapter(context, trackListCallback, this.tracks, fragmentManager);
+                adapter = new TrackListAdapter(this, context, this.tracks);
         }
         if (adapter != null) holder.rvYourLibrary.setAdapter(adapter);
     }
@@ -68,6 +68,16 @@ public class YourLibraryAdapter extends RecyclerView.Adapter<YourLibraryAdapter.
     @Override
     public int getItemCount() {
         return 2;
+    }
+
+    @Override
+    public void onTrackSelected(Track track) {
+
+    }
+
+    @Override
+    public void onTrackLiked(Track track) {
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
