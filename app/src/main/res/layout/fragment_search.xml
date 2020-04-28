@@ -39,7 +39,7 @@
         android:paddingStart="60dp"
         android:paddingEnd="60dp"
         android:text="@string/search_search_bar"
-        android:textAllCaps="true"
+        android:textAllCaps="false"
         android:textColor="@color/colorTextSecondaryVariant"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

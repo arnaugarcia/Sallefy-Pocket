@@ -47,8 +47,6 @@ public class GenreListAdapter extends RecyclerView.Adapter<GenreListAdapter.View
         Genre genre = genres.get(position);
         holder.tvGenre.setText(genre.getName());
 
-        //holder.drawable.setTint(color);
-
         holder.itemView.setOnClickListener(v -> fragmentManager.beginTransaction()
                 .replace(R.id.fragment_manager,
                         new GenreFragment(fragmentManager, context, genres.get(position))

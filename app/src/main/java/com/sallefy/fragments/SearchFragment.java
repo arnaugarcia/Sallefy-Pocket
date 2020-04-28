@@ -62,7 +62,7 @@ public class SearchFragment extends Fragment implements GenresCallback {
 
         mSearchBarButton.setOnClickListener(v -> openSearchResponseFragment());
 
-        mGenreListAdapter = new GenreListAdapter(getContext(), null, mFragmentManager);
+        mGenreListAdapter = new GenreListAdapter(mContext, null, mFragmentManager);
         LinearLayoutManager manager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false);
         mGenreRecyclerView.setLayoutManager(manager);
     }
