@@ -1,8 +1,11 @@
 package com.sallefy.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -10,18 +13,26 @@ import android.widget.Toast;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.sallefy.R;
+import com.sallefy.adapters.AddToPlaylistAdapter;
+import com.sallefy.constants.ApplicationConstants;
 import com.sallefy.managers.playlists.CreatePlaylistCallback;
 import com.sallefy.managers.playlists.PlaylistManager;
 import com.sallefy.model.Playlist;
 import com.sallefy.model.PlaylistRequest;
+import com.sallefy.model.Track;
 
-public class CreatePlaylistActivity extends AppCompatActivity implements CreatePlaylistCallback {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-    CircularImageView ivCoverPicker;
-    EditText etName;
-    EditText etDescription;
-    SwitchMaterial sPrivate;
-    Button btnCreate;
+public class CreatePlaylistActivity extends AppCompatActivity implements
+        CreatePlaylistCallback {
+
+    private CircularImageView ivCoverPicker;
+    private EditText etName;
+    private EditText etDescription;
+    private SwitchMaterial sPrivate;
+    private Button btnCreate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +45,17 @@ public class CreatePlaylistActivity extends AppCompatActivity implements CreateP
                 Toast.makeText(this, "Name cannot be empty", Toast.LENGTH_SHORT).show();
             } else {
                 PlaylistRequest playlist = new PlaylistRequest();
+                Bundle bundle = getIntent().getExtras();
+                if (bundle != null){
+                    List<Track> tracks = new ArrayList<>();
+                    tracks.add((Track) bundle.get("track"));
+                    playlist.setTracks(tracks);
+                }
                 playlist.setName(etName.getText().toString());
                 playlist.setDescription(etDescription.getText().toString());
                 playlist.setPublicAccessible(sPrivate.isChecked());
                 PlaylistManager.getInstance().createPlaylist(this, playlist, this);
+
             }
         });
     }

@@ -2,6 +2,7 @@ package com.sallefy.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.sallefy.model.PlaylistRequest;
 import com.sallefy.model.Track;
 
 import java.util.List;
+import java.util.Optional;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -60,7 +62,7 @@ public class AddToPlaylistAdapter extends RecyclerView.Adapter<AddToPlaylistAdap
     @Override
     public void onBindViewHolder(@NonNull AddToPlaylistAdapter.ViewHolder holder, int position) {
         if (position == 0) {
-            holder.makeFirstItem();
+            holder.makeFirstItem(mTrackToAdd);
         } else {
             holder.itemView.setOnClickListener(v -> {
                 PlaylistRequest playlistRequest = new PlaylistRequest(mPlaylists.get(position -1 ));
@@ -123,14 +125,20 @@ public class AddToPlaylistAdapter extends RecyclerView.Adapter<AddToPlaylistAdap
             tvNumSongs = itemView.findViewById(R.id.tv_songs_number);
         }
 
-        public void makeFirstItem() {
+        public void makeFirstItem(Track track) {
             createPlaylistLayout.setVisibility(VISIBLE);
             playlistLayout.setVisibility(GONE);
 
             createPlaylistLayout.setOnClickListener(layoutView -> {
                 Intent intent = new Intent(mContext, CreatePlaylistActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                if (track != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("track", track);
+                    intent.putExtras(bundle);
+                }
                 mContext.startActivity(intent);
+                mFragmentManager.popBackStack();
             });
         }
 
