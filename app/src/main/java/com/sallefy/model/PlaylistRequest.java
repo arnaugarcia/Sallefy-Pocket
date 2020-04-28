@@ -2,9 +2,10 @@ package com.sallefy.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class PlaylistRequest {
+public class PlaylistRequest implements Serializable {
 
     @SerializedName("cover")
     private String cover;
