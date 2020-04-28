@@ -42,6 +42,7 @@ public class SearchFragment extends Fragment implements GenresCallback {
 
     public static SearchFragment getInstance(Context context, FragmentManager fragmentManager) {
         if (instance == null) instance = new SearchFragment(context, fragmentManager);
+        if (instance.mFragmentManager != fragmentManager) instance.mFragmentManager = fragmentManager;
         return instance;
     }
 
