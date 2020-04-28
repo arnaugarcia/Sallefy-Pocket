@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -31,12 +32,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.ViewHolder> implements UpdateTrackLikedCallback {
+public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.ViewHolder>
+        implements UpdateTrackLikedCallback {
 
     private Context mContext;
     private FragmentManager mFragmentManager;
     private List<Track> tracks;
-    private Track currentTrack;
 
     private AppCompatImageButton ibMore, ibSelectedMore;
 
@@ -62,32 +63,28 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        currentTrack = tracks.get(position);
+        Track currentTrack = tracks.get(position);
 
-       /*holder.itemView.setOnClickListener(v -> {
+        holder.itemView.setOnClickListener(v -> {
             selectedItem = position;
             notifyItemRangeChanged(0, tracks.size());
-        });*/
+        });
 
         if (selectedItem == position) {
             holder.showSelected();
-            setTextsSelected(holder);
+            setTextsSelected(holder, currentTrack);
         } else {
             holder.showUnselected();
-            setTextsUnselected(holder);
+            setTextsUnselected(holder, currentTrack);
         }
 
-        holder.itemView.setOnClickListener(v -> {
-            Toast.makeText(mContext, currentTrack.getName(), Toast.LENGTH_SHORT).show();
-        });
-
         holder.itemView.setOnLongClickListener(v -> {
-            processOptions(holder);
+            processOptions(holder, currentTrack);
             return false;
         });
 
-        ibMore.setOnClickListener(v -> processOptions(holder));
-        ibSelectedMore.setOnClickListener(v -> processOptions(holder));
+        ibMore.setOnClickListener(v -> processOptions(holder, currentTrack));
+        ibSelectedMore.setOnClickListener(v -> processOptions(holder, currentTrack));
     }
 
     @Override
@@ -95,14 +92,21 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
         return (tracks != null) ? tracks.size() : 0;
     }
 
-    private void processOptions(ViewHolder holder){
+    private void processOptions(ViewHolder holder, Track currentTrack){
         PopupMenu popupMenu = new PopupMenu(mContext, holder.itemView);
         popupMenu.inflate(R.menu.menu_track_options);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             popupMenu.setForceShowIcon(true);
         }
         popupMenu.setGravity(Gravity.END);
+        //TODO: Refresh state of like button on click
+/*        MenuItem like = popupMenu.getMenu().findItem(R.id.menu_track_like);
 
+        if (currentTrack.isLiked()) {
+            like.setIcon(R.drawable.outline_favorite_24);
+        } else {
+            like.setIcon(R.drawable.outline_favorite_border_24);
+        }*/
         popupMenu.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()){
                 case R.id.menu_track_like:
@@ -110,7 +114,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
                     updateTrackLiked(currentTrack.getId().toString());
                     break;
                 case R.id.menu_track_add_to_playlist:
-                    openAddToPlaylistFragment();
+                    openAddToPlaylistFragment(currentTrack);
                     break;
                 case R.id.menu_track_share:
                     Toast.makeText(mContext, "share!", Toast.LENGTH_SHORT).show();
@@ -145,7 +149,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
         Toast.makeText(mContext, "Error: Unable to like track", Toast.LENGTH_SHORT).show();
     }
 
-    private void openAddToPlaylistFragment(){
+    private void openAddToPlaylistFragment(Track currentTrack){
         AddToPlaylistFragment addToPlaylistFragment = new AddToPlaylistFragment(mContext, mFragmentManager);
         Bundle bundle = new Bundle();
         bundle.putSerializable("track", currentTrack);
@@ -156,12 +160,12 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
                 .commit();
     }
 
-    private void setTextsUnselected(ViewHolder holder) {
+    private void setTextsUnselected(ViewHolder holder, Track currentTrack) {
         holder.tvTrackTitle.setText(currentTrack.getName());
         holder.tvOwner.setText(currentTrack.getUser().getLogin());
     }
 
-    private void setTextsSelected(ViewHolder holder) {
+    private void setTextsSelected(ViewHolder holder, Track currentTrack) {
         holder.tvSelectedTrackTitle.setText(currentTrack.getName());
         holder.tvSelectedTrackTitle.setSelected(true);
         holder.tvSelectedOwner.setText(currentTrack.getUser().getLogin());
@@ -206,6 +210,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
             tvSelectedTrackTitle = itemView.findViewById(R.id.tv_selected_track_title);
             tvSelectedOwner = itemView.findViewById(R.id.tv_selected_owner);
             ibSelectedMore = itemView.findViewById(R.id.ib_selected_favourite);
+
         }
 
         void showSelected() {

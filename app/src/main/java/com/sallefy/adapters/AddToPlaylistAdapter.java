@@ -2,6 +2,7 @@ package com.sallefy.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +15,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.sallefy.R;
 import com.sallefy.activity.CreatePlaylistActivity;
+import com.sallefy.constants.ApplicationConstants;
+import com.sallefy.managers.playlists.PlaylistManager;
 import com.sallefy.managers.playlists.UpdatePlaylistCallback;
 import com.sallefy.model.Playlist;
+import com.sallefy.model.PlaylistRequest;
 import com.sallefy.model.Track;
 
 import java.util.List;
@@ -57,7 +62,26 @@ public class AddToPlaylistAdapter extends RecyclerView.Adapter<AddToPlaylistAdap
         if (position == 0) {
             holder.makeFirstItem();
         } else {
-            holder.makeOtherItems(position - 1);
+            holder.itemView.setOnClickListener(v -> {
+                PlaylistRequest playlistRequest = new PlaylistRequest(mPlaylists.get(position -1 ));
+                playlistRequest.addTrack(mTrackToAdd);
+                updatePlaylist(playlistRequest);
+                mFragmentManager.popBackStack();
+            });
+            holder.makeOtherItems();
+            Playlist playlist = mPlaylists.get(position - 1);
+
+            holder.tvPlaylistTitle.setText(playlist.getName());
+            int numSongs = playlist.getTracks().size();
+            holder.tvNumSongs.setText((numSongs == 1) ? numSongs + " song" : numSongs + " songs");
+
+            if (playlist.getThumbnail() != null) {
+                Glide.with(mContext)
+                        .asBitmap()
+                        .placeholder(R.drawable.application_logo)
+                        .load(playlist.getThumbnail())
+                        .into(holder.ivThumbnail);
+            }
         }
     }
 
@@ -66,14 +90,19 @@ public class AddToPlaylistAdapter extends RecyclerView.Adapter<AddToPlaylistAdap
         return mPlaylists.size() + 1;
     }
 
+    private void updatePlaylist(PlaylistRequest playlistRequest){
+        PlaylistManager.getInstance().updatePlaylist(mContext, playlistRequest, this);
+    }
+
     @Override
     public void onUpdatePlaylistSuccess(Playlist playlist) {
-
+        Toast.makeText(mContext, "Added to " + playlist.getName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onUpdatePlaylistFailure(Throwable throwable) {
-
+        Log.d(ApplicationConstants.LOGCAT_ID, throwable.getMessage());
+        Toast.makeText(mContext, "Error: unable to add track to playlist", Toast.LENGTH_SHORT).show();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -105,12 +134,9 @@ public class AddToPlaylistAdapter extends RecyclerView.Adapter<AddToPlaylistAdap
             });
         }
 
-        public void makeOtherItems(int position) {
+        public void makeOtherItems() {
             createPlaylistLayout.setVisibility(GONE);
             playlistLayout.setVisibility(VISIBLE);
-
-            mPlaylists.get(position).addTrack(mTrackToAdd);
-
         }
     }
 }

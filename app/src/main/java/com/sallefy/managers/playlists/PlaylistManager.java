@@ -130,10 +130,10 @@ public class PlaylistManager extends BaseManager {
 
     }
 
-    public synchronized void updatePlaylist(Context context, Playlist playlist, final UpdatePlaylistCallback callback){
+    public synchronized void updatePlaylist(Context context, PlaylistRequest playlistRequest, final UpdatePlaylistCallback callback){
         String userToken = AuthenticationUtils.getToken(context);
 
-        Call<Playlist> call = playlistService.updatePlaylist("Bearer " + userToken, playlist);
+        Call<Playlist> call = playlistService.updatePlaylist("Bearer " + userToken, playlistRequest);
         call.enqueue(new Callback<Playlist>() {
             @Override
             public void onResponse(Call<Playlist> call, Response<Playlist> response) {
@@ -142,7 +142,7 @@ public class PlaylistManager extends BaseManager {
                 if (response.isSuccessful()) {
                     callback.onUpdatePlaylistSuccess(response.body());
                 } else {
-                    Log.d("ncs", "Error MyPlaylists not successful: " + response.toString());
+                    Log.d(ApplicationConstants.LOGCAT_ID, "Error UpdatePlaylist not successful: " + response.toString());
 
                     try {
                         callback.onUpdatePlaylistFailure(new Throwable("Error " + code + ", " + response.errorBody().string()));
@@ -154,7 +154,7 @@ public class PlaylistManager extends BaseManager {
 
             @Override
             public void onFailure(Call<Playlist> call, Throwable t) {
-                Log.d("ncs", "Error CreatePlaylist failure: " + Arrays.toString(t.getStackTrace()));
+                Log.d(ApplicationConstants.LOGCAT_ID, "Error UpdatePlaylist failure: " + Arrays.toString(t.getStackTrace()));
                 callback.onUpdatePlaylistFailure(new Throwable("Error " + Arrays.toString(t.getStackTrace())));
             }
         });
