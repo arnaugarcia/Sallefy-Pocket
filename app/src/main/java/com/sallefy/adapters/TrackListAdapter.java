@@ -12,6 +12,12 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
@@ -27,11 +33,7 @@ import com.sallefy.model.Track;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
+import static java.util.Objects.isNull;
 
 public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.ViewHolder> implements UpdateTrackLikedCallback {
 
@@ -80,6 +82,8 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         if (type == TRACK_LIST) {
+
+            if (isNull(tracks)) return;
 
             Track currentTrack = tracks.get(position);
 

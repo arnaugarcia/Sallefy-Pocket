@@ -21,9 +21,10 @@ import com.sallefy.adapters.TrackListAdapter;
 import com.sallefy.adapters.callbacks.TrackListCallback;
 import com.sallefy.managers.search.SearchResponseCallback;
 import com.sallefy.managers.search.SearchResponseManager;
-import com.sallefy.model.Playlist;
 import com.sallefy.model.SearchResult;
 import com.sallefy.model.Track;
+
+import java.util.List;
 
 public class SearchResponseFragment extends Fragment implements SearchResponseCallback, TrackListCallback {
 
@@ -76,7 +77,7 @@ public class SearchResponseFragment extends Fragment implements SearchResponseCa
 
         LinearLayoutManager manager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false);
         mTrackRecyclerView.setLayoutManager(manager);
-        mTrackListAdapter = new TrackListAdapter(this, mContext, new Playlist());
+        mTrackListAdapter = new TrackListAdapter(this, mContext, (List<Track>) null);
     }
 
     private void initViews(View view) {
