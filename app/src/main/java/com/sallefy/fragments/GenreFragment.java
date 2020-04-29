@@ -2,6 +2,11 @@ package com.sallefy.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,13 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.android.material.textview.MaterialTextView;
 import com.sallefy.R;
@@ -31,7 +29,7 @@ import java.util.List;
 
 public class GenreFragment extends Fragment implements TracksByGenreCallback, TrackListCallback {
 
-    private FragmentManager fragmentManager;
+    private FragmentManager mFragmentManager;
     private Context context;
 
     private Genre genre;
@@ -47,8 +45,8 @@ public class GenreFragment extends Fragment implements TracksByGenreCallback, Tr
     public GenreFragment() {
     }
 
-    public GenreFragment(FragmentManager fragmentManager, Context context, Genre genre) {
-        this.fragmentManager = fragmentManager;
+    public GenreFragment(FragmentManager mFragmentManager, Context context, Genre genre) {
+        this.mFragmentManager = mFragmentManager;
         this.context = context;
         this.genre = genre;
     }
@@ -65,12 +63,12 @@ public class GenreFragment extends Fragment implements TracksByGenreCallback, Tr
 
         initViews(view);
 
-        ibBack.setOnClickListener(v -> fragmentManager.popBackStack());
+        ibBack.setOnClickListener(v -> mFragmentManager.popBackStack());
 
         LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
         rvSongs.setLayoutManager(manager);
 
-        trackListAdapter = new TrackListAdapter(this, context,  tracks);
+        trackListAdapter = new TrackListAdapter(this, context, tracks, mFragmentManager);
 
         getTracksByGenre(genre.getName());
         genreTitle.setText(genre.getName());

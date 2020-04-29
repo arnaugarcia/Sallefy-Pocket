@@ -52,11 +52,12 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
 
     private int selectedItem = RecyclerView.NO_POSITION;
 
-    public TrackListAdapter(TrackListCallback trackCallback, Context mContext, List<Track> tracks) {
+    public TrackListAdapter(TrackListCallback trackCallback, Context mContext, List<Track> tracks, FragmentManager mFragmentManager) {
         this.mContext = mContext;
         this.tracks = tracks;
         this.trackCallback = trackCallback;
         this.type = TRACK_LIST;
+        this.mFragmentManager = mFragmentManager;
     }
 
     public TrackListAdapter(TrackListCallback trackCallback, Context mContext, Playlist playlist) {

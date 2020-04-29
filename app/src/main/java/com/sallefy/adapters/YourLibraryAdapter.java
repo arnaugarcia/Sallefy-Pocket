@@ -5,6 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.sallefy.R;
 import com.sallefy.adapters.callbacks.TrackListCallback;
 import com.sallefy.model.Playlist;
@@ -12,24 +17,19 @@ import com.sallefy.model.Track;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 public class YourLibraryAdapter extends RecyclerView.Adapter<YourLibraryAdapter.ViewHolder> implements TrackListCallback {
 
-    private FragmentManager fragmentManager;
+    private FragmentManager mFragmentManager;
     private Context context;
 
     private List<Playlist> playlists;
     private List<Track> tracks;
     private TrackListCallback trackListCallback;
 
-    public YourLibraryAdapter(TrackListCallback trackListCallback, Context context, FragmentManager fragmentManager) {
+    public YourLibraryAdapter(TrackListCallback trackListCallback, Context context, FragmentManager mFragmentManager) {
         this.trackListCallback = trackListCallback;
         this.context = context;
-        this.fragmentManager = fragmentManager;
+        this.mFragmentManager = mFragmentManager;
     }
 
     public void setPlaylists(List<Playlist> playlists) {
@@ -57,10 +57,10 @@ public class YourLibraryAdapter extends RecyclerView.Adapter<YourLibraryAdapter.
 
         if (position == 0) {
             if (playlists != null)
-                adapter = new PlaylistListAdapter(context, playlists, fragmentManager);
+                adapter = new PlaylistListAdapter(context, playlists, mFragmentManager);
         } else if (position == 1) {
             if (this.tracks != null)
-                adapter = new TrackListAdapter(this, context, this.tracks);
+                adapter = new TrackListAdapter(this, context, this.tracks, mFragmentManager);
         }
         if (adapter != null) holder.rvYourLibrary.setAdapter(adapter);
     }

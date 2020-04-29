@@ -77,7 +77,7 @@ public class SearchResponseFragment extends Fragment implements SearchResponseCa
 
         LinearLayoutManager manager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false);
         mTrackRecyclerView.setLayoutManager(manager);
-        mTrackListAdapter = new TrackListAdapter(this, mContext, (List<Track>) null);
+        mTrackListAdapter = new TrackListAdapter(this, mContext, (List<Track>) null, mFragmentManager);
     }
 
     private void initViews(View view) {
