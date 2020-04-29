@@ -10,5 +10,7 @@
     <!-- Body -->
     <dimen name="itemTitle">15sp</dimen>
     <dimen name="itemSubtitle">12sp</dimen>
-    <dimen name="playlist_header">325</dimen>
+
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="music_nav_height">60dp</dimen>
 </resources>

@@ -5,28 +5,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.sallefy.R;
-import com.sallefy.model.Playlist;
-import com.sallefy.model.Track;
-
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class YourLibraryAdapter extends RecyclerView.Adapter<YourLibraryAdapter.ViewHolder> {
+import com.sallefy.R;
+import com.sallefy.adapters.callbacks.TrackListCallback;
+import com.sallefy.model.Playlist;
+import com.sallefy.model.Track;
 
-    private FragmentManager fragmentManager;
+import java.util.List;
+
+public class YourLibraryAdapter extends RecyclerView.Adapter<YourLibraryAdapter.ViewHolder> implements TrackListCallback {
+
+    private FragmentManager mFragmentManager;
     private Context context;
 
     private List<Playlist> playlists;
     private List<Track> tracks;
+    private TrackListCallback trackListCallback;
 
-    public YourLibraryAdapter(Context context, FragmentManager fragmentManager) {
+    public YourLibraryAdapter(TrackListCallback trackListCallback, Context context, FragmentManager mFragmentManager) {
+        this.trackListCallback = trackListCallback;
         this.context = context;
-        this.fragmentManager = fragmentManager;
+        this.mFragmentManager = mFragmentManager;
     }
 
     public void setPlaylists(List<Playlist> playlists) {
@@ -54,10 +57,10 @@ public class YourLibraryAdapter extends RecyclerView.Adapter<YourLibraryAdapter.
 
         if (position == 0) {
             if (playlists != null)
-                adapter = new PlaylistListAdapter(context, playlists, fragmentManager);
+                adapter = new PlaylistListAdapter(context, playlists, mFragmentManager);
         } else if (position == 1) {
             if (this.tracks != null)
-                adapter = new TrackListAdapter(context, this.tracks, fragmentManager);
+                adapter = new TrackListAdapter(this, context, this.tracks, mFragmentManager);
         }
         if (adapter != null) holder.rvYourLibrary.setAdapter(adapter);
     }
@@ -65,6 +68,16 @@ public class YourLibraryAdapter extends RecyclerView.Adapter<YourLibraryAdapter.
     @Override
     public int getItemCount() {
         return 2;
+    }
+
+    @Override
+    public void onTrackSelected(Track track) {
+
+    }
+
+    @Override
+    public void onTrackLiked(Track track) {
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
