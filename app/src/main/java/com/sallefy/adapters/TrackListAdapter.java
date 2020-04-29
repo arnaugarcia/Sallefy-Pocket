@@ -268,6 +268,9 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
             selectedLayout = itemView.findViewById(R.id.selected_track);
 
             playlistDataLayout = itemView.findViewById(R.id.playlist_data);
+            tvPlaylistTitle = itemView.findViewById(R.id.tv_playlist_title);
+            tvPlaylistDescription = itemView.findViewById(R.id.tv_playlist_description);
+            ivPlaylistThumbnail = itemView.findViewById(R.id.iv_playlist_thumbnail);
 
             ivSelectedThumbnail = itemView.findViewById(R.id.iv_selected_thumbnail);
             tvSelectedTrackTitle = itemView.findViewById(R.id.tv_selected_track_title);
