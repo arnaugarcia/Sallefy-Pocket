@@ -49,10 +49,11 @@
     <string name="option_button">Option button</string>
     <string name="playlist_thumbnail">Playlist Thumbnail</string>
     <string name="create_playlist_button">Create playlist button</string>
-    <string name="track_thumbnail">Track thumbnail</string>
     <string name="genre_title_placeholder">Genre Title</string>
     <string name="play_image">Play image</string>
     <string name="duration_placeholder">00:00</string>
+    <string name="track_thumbnail">Track thumbnail</string>
+    <string name="default_song_title">No song selected</string>
     <string name="logout">Logout</string>
     <string name="profile">Profile</string>
     <string name="create_button">Create button</string>

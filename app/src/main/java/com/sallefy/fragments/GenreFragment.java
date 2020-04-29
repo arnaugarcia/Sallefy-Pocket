@@ -2,6 +2,11 @@ package com.sallefy.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,16 +15,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.Toast;
-
 import com.google.android.material.textview.MaterialTextView;
 import com.sallefy.R;
 import com.sallefy.adapters.TrackListAdapter;
+import com.sallefy.adapters.callbacks.TrackListCallback;
 import com.sallefy.managers.tracks.TrackManager;
 import com.sallefy.managers.tracks.TracksByGenreCallback;
 import com.sallefy.model.Genre;
@@ -28,9 +27,9 @@ import com.sallefy.model.Track;
 import java.util.List;
 
 
-public class GenreFragment extends Fragment implements TracksByGenreCallback {
+public class GenreFragment extends Fragment implements TracksByGenreCallback, TrackListCallback {
 
-    private FragmentManager fragmentManager;
+    private FragmentManager mFragmentManager;
     private Context context;
 
     private Genre genre;
@@ -46,8 +45,8 @@ public class GenreFragment extends Fragment implements TracksByGenreCallback {
     public GenreFragment() {
     }
 
-    public GenreFragment(FragmentManager fragmentManager, Context context, Genre genre) {
-        this.fragmentManager = fragmentManager;
+    public GenreFragment(FragmentManager mFragmentManager, Context context, Genre genre) {
+        this.mFragmentManager = mFragmentManager;
         this.context = context;
         this.genre = genre;
     }
@@ -64,12 +63,12 @@ public class GenreFragment extends Fragment implements TracksByGenreCallback {
 
         initViews(view);
 
-        ibBack.setOnClickListener(v -> fragmentManager.popBackStack());
+        ibBack.setOnClickListener(v -> mFragmentManager.popBackStack());
 
         LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
         rvSongs.setLayoutManager(manager);
 
-        trackListAdapter = new TrackListAdapter(context, tracks, fragmentManager);
+        trackListAdapter = new TrackListAdapter(this, context, tracks, mFragmentManager);
 
         getTracksByGenre(genre.getName());
         genreTitle.setText(genre.getName());
@@ -96,5 +95,15 @@ public class GenreFragment extends Fragment implements TracksByGenreCallback {
     @Override
     public void onTracksByGenreFailure(Throwable throwable) {
         Toast.makeText(context, "Error: No tracks received", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onTrackSelected(Track track) {
+
+    }
+
+    @Override
+    public void onTrackLiked(Track track) {
+
     }
 }
