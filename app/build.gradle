@@ -44,6 +44,11 @@ dependencies {
     // View support library
     // implementation 'com.android.support:design:29.0.0'
 
+    // Lifecycle components
+    def archLifecycleVersion = '1.1.1'
+    implementation "android.arch.lifecycle:extensions:$archLifecycleVersion"
+    annotationProcessor "android.arch.lifecycle:compiler:$archLifecycleVersion"
+
     // Retrofit
     def retrofit_version = "2.7.2"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
