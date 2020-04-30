@@ -10,14 +10,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.mikhaellopez.circularimageview.CircularImageView;
 import com.sallefy.R;
 import com.sallefy.adapters.TrackListAdapter;
 import com.sallefy.adapters.callbacks.TrackListCallback;
@@ -35,6 +39,11 @@ public class PlaylistFragment extends Fragment implements TrackListCallback {
     private ImageButton ibBack;
     private ImageButton ibOptions;
     private RecyclerView rvSongs;
+
+    private ConstraintLayout playlistDataLayout;
+    private TextView tvPlaylistTitle;
+    private TextView tvPlaylistDescription;
+    private CircularImageView ivPlaylistThumbnail;
 
     private MediaPlayerService mBoundService;
     private boolean mServiceBound = false;
@@ -67,6 +76,16 @@ public class PlaylistFragment extends Fragment implements TrackListCallback {
 
         initViews(view);
 
+        tvPlaylistTitle.setText(playlist.getName());
+        tvPlaylistDescription.setText(playlist.getDescription());
+        if (playlist.getThumbnail() != null) {
+            Glide.with(context)
+                    .asBitmap()
+                    .placeholder(R.drawable.application_logo)
+                    .load(playlist.getThumbnail())
+                    .into(ivPlaylistThumbnail);
+        }
+
         ibBack.setOnClickListener(view1 -> fragmentManager.popBackStack());
 
         LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
@@ -79,6 +98,11 @@ public class PlaylistFragment extends Fragment implements TrackListCallback {
         ibBack = view.findViewById(R.id.ib_back);
         ibOptions = view.findViewById(R.id.ib_options);
         rvSongs = view.findViewById(R.id.rv_songs);
+
+        playlistDataLayout = view.findViewById(R.id.playlist_data);
+        tvPlaylistTitle = view.findViewById(R.id.tv_playlist_title);
+        tvPlaylistDescription = view.findViewById(R.id.tv_playlist_description);
+        ivPlaylistThumbnail = view.findViewById(R.id.iv_playlist_thumbnail);
     }
 
     @Override
