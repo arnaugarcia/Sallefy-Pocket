@@ -3,21 +3,17 @@ package com.sallefy.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.mikhaellopez.circularimageview.CircularImageView;
 import com.sallefy.R;
 import com.sallefy.activity.MainActivity;
 import com.sallefy.managers.user.UserDataCallback;
@@ -25,12 +21,16 @@ import com.sallefy.managers.user.UserManager;
 import com.sallefy.model.User;
 import com.sallefy.services.authentication.AuthenticationUtils;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 public class ProfileFragment extends Fragment implements UserDataCallback {
 
     private Context context;
 
     private TextView tvProfileTitle;
-    private CircularImageView ivProfilePic;
+    private ImageView ivProfilePic;
     private TextView tvUsername;
     private TextView tvFirstName;
     private TextView tvLastName;
@@ -113,6 +113,7 @@ public class ProfileFragment extends Fragment implements UserDataCallback {
         if (user.getImageUrl() != null) {
             Glide.with(context)
                     .asBitmap()
+                    .apply(RequestOptions.circleCropTransform())
                     .placeholder(R.drawable.application_logo)
                     .load(user.getImageUrl())
                     .into(ivProfilePic);

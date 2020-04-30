@@ -10,18 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
-import com.mikhaellopez.circularimageview.CircularImageView;
+import com.bumptech.glide.request.RequestOptions;
 import com.sallefy.R;
 import com.sallefy.adapters.TrackListAdapter;
 import com.sallefy.adapters.callbacks.TrackListCallback;
@@ -29,9 +22,16 @@ import com.sallefy.model.Playlist;
 import com.sallefy.model.Track;
 import com.sallefy.services.player.MediaPlayerService;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class PlaylistFragment extends Fragment implements TrackListCallback {
 
-    private FragmentManager fragmentManager;
+    private FragmentManager mFragmentManager;
     private Context context;
 
     private Playlist playlist;
@@ -40,10 +40,9 @@ public class PlaylistFragment extends Fragment implements TrackListCallback {
     private ImageButton ibOptions;
     private RecyclerView rvSongs;
 
-    private ConstraintLayout playlistDataLayout;
     private TextView tvPlaylistTitle;
     private TextView tvPlaylistDescription;
-    private CircularImageView ivPlaylistThumbnail;
+    private ImageView ivPlaylistThumbnail;
 
     private MediaPlayerService mBoundService;
     private boolean mServiceBound = false;
@@ -51,10 +50,10 @@ public class PlaylistFragment extends Fragment implements TrackListCallback {
     public PlaylistFragment() {
     }
 
-    public PlaylistFragment(Context context, Playlist playlist, FragmentManager fragmentManager) {
+    public PlaylistFragment(Context context, Playlist playlist, FragmentManager mFragmentManager) {
         this.context = context;
         this.playlist = playlist;
-        this.fragmentManager = fragmentManager;
+        this.mFragmentManager = mFragmentManager;
     }
 
     @Override
@@ -81,16 +80,17 @@ public class PlaylistFragment extends Fragment implements TrackListCallback {
         if (playlist.getThumbnail() != null) {
             Glide.with(context)
                     .asBitmap()
+                    .apply(RequestOptions.circleCropTransform())
                     .placeholder(R.drawable.application_logo)
                     .load(playlist.getThumbnail())
                     .into(ivPlaylistThumbnail);
         }
 
-        ibBack.setOnClickListener(view1 -> fragmentManager.popBackStack());
+        ibBack.setOnClickListener(view1 -> mFragmentManager.popBackStack());
 
         LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
         rvSongs.setLayoutManager(manager);
-        TrackListAdapter adapter = new TrackListAdapter(this, context, playlist);
+        TrackListAdapter adapter = new TrackListAdapter(this, context, playlist.getTracks(), mFragmentManager);
         rvSongs.setAdapter(adapter);
     }
 
@@ -99,7 +99,6 @@ public class PlaylistFragment extends Fragment implements TrackListCallback {
         ibOptions = view.findViewById(R.id.ib_options);
         rvSongs = view.findViewById(R.id.rv_songs);
 
-        playlistDataLayout = view.findViewById(R.id.playlist_data);
         tvPlaylistTitle = view.findViewById(R.id.tv_playlist_title);
         tvPlaylistDescription = view.findViewById(R.id.tv_playlist_description);
         ivPlaylistThumbnail = view.findViewById(R.id.iv_playlist_thumbnail);

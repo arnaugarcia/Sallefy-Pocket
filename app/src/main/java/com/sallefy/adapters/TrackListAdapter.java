@@ -12,16 +12,9 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.mikhaellopez.circularimageview.CircularImageView;
 import com.sallefy.R;
 import com.sallefy.adapters.callbacks.TrackListCallback;
 import com.sallefy.fragments.AddToPlaylistFragment;
@@ -32,6 +25,12 @@ import com.sallefy.model.Playlist;
 import com.sallefy.model.Track;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import static java.util.Objects.isNull;
 
@@ -46,7 +45,6 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
 
     private Playlist playlist;
     private TrackListCallback trackCallback;
-    private int type;
 
     private AppCompatImageButton ibMore, ibSelectedMore;
 
@@ -56,16 +54,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
         this.mContext = mContext;
         this.tracks = tracks;
         this.trackCallback = trackCallback;
-        this.type = TRACK_LIST;
         this.mFragmentManager = mFragmentManager;
-    }
-
-    public TrackListAdapter(TrackListCallback trackCallback, Context mContext, Playlist playlist) {
-        this.mContext = mContext;
-        this.playlist = playlist;
-        this.tracks = playlist.getTracks();
-        this.trackCallback = trackCallback;
-        this.type = PLAYLIST_TRACK_LIST;
     }
 
     public void setTracks(List<Track> tracks) {
@@ -228,11 +217,6 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
             tvSelectedTrackTitle = itemView.findViewById(R.id.tv_selected_track_title);
             tvSelectedOwner = itemView.findViewById(R.id.tv_selected_owner);
             ibSelectedMore = itemView.findViewById(R.id.ib_selected_favourite);
-        }
-
-        void makeTrackItems(boolean isSelected) {
-            if (isSelected) showSelected();
-            else showUnselected();
         }
 
         void showSelected() {

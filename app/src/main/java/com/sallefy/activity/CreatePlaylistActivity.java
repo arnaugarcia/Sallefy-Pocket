@@ -1,34 +1,28 @@
 package com.sallefy.activity;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
-import com.mikhaellopez.circularimageview.CircularImageView;
 import com.sallefy.R;
-import com.sallefy.adapters.AddToPlaylistAdapter;
-import com.sallefy.constants.ApplicationConstants;
 import com.sallefy.managers.playlists.CreatePlaylistCallback;
 import com.sallefy.managers.playlists.PlaylistManager;
 import com.sallefy.model.Playlist;
 import com.sallefy.model.PlaylistRequest;
 import com.sallefy.model.Track;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class CreatePlaylistActivity extends AppCompatActivity implements
         CreatePlaylistCallback {
 
-    private CircularImageView ivCoverPicker;
+    private ImageView ivCoverPicker;
     private EditText etName;
     private EditText etDescription;
     private SwitchMaterial sPrivate;

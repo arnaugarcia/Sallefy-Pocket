@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="@string/username_title"
+            android:text=""
             app:layout_constraintBottom_toTopOf="@+id/tv_first_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
-            android:text="@string/first_name_placeholder"
+            android:text=""
             android:textColor="@color/colorTextPrimary"
             app:layout_constraintBottom_toTopOf="@+id/tv_last_name"
             app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
-            android:text="@string/last_name_placeholder"
+            android:text=""
             android:textColor="@color/colorTextPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_first_name" />
@@ -91,7 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
-            android:text="@string/email_placeholder"
+            android:text=""
             android:textColor="@color/colorTextPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_last_name" />
@@ -101,21 +101,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
-            android:text="@string/date_placeholder"
+            android:text=""
             android:textColor="@color/colorTextPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_email" />
 
-        <com.mikhaellopez.circularimageview.CircularImageView
+        <ImageView
             android:id="@+id/iv_profile_pic"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:src="@drawable/application_logo"
-            app:civ_border_color="#EEEEEE"
-            app:civ_border_width="3dp"
-            app:civ_shadow="true"
-            app:civ_shadow_color="@color/colorPrimaryDark"
-            app:civ_shadow_radius="6dp"
             app:layout_constraintBottom_toTopOf="@+id/tv_login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
