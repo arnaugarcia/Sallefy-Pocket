@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="220dp"
-    android:layout_height="220dp"
+    android:layout_width="180dp"
+    android:layout_height="180dp"
     android:padding="10dp">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_playlist_thumbnail"
-        android:layout_width="200dp"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:src="@drawable/application_logo"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,8 +28,6 @@
             style="@style/Headline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="marquee"
-            android:marqueeRepeatLimit="marquee_forever"
             android:paddingStart="3dp"
             android:paddingEnd="3dp"
             android:singleLine="true"
@@ -44,8 +42,6 @@
             style="@style/Headline4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="marquee"
-            android:marqueeRepeatLimit="marquee_forever"
             android:paddingStart="3dp"
             android:paddingEnd="3dp"
             android:singleLine="true"

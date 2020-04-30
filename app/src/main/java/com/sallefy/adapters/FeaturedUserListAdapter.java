@@ -8,9 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.mikhaellopez.circularimageview.CircularImageView;
 import com.sallefy.R;
 import com.sallefy.model.User;
 
