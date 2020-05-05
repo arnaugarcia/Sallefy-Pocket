@@ -115,6 +115,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
             Glide.with(mContext)
                     .asBitmap()
                     .placeholder(R.drawable.application_logo)
+                    .centerCrop()
                     .load(track.getThumbnail())
                     .apply(RequestOptions.bitmapTransform(new GranularRoundedCorners(20,
                             0,
