@@ -11,6 +11,11 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
 
+        <service
+            android:name=".services.player.MediaPlayerService"
+            android:enabled="true"
+            android:exported="true" />
+
         <activity
             android:name=".activity.CreatePlaylistActivity"
             android:label="@string/create_a_playlist" />
@@ -35,9 +40,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".activity.TrackActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
 </manifest>

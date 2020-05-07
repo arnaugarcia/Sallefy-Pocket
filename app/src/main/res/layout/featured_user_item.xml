@@ -26,8 +26,6 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/application_logo"
-        app:civ_border_width="0dp"
-        app:civ_shadow="false"
         app:layout_constraintBottom_toTopOf="@+id/tv_user_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

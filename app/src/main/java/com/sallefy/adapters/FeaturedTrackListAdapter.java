@@ -40,9 +40,10 @@ public class FeaturedTrackListAdapter extends RecyclerView.Adapter<FeaturedTrack
         Track track = tracks.get(position);
 
         holder.tvTrackTitle.setText(track.getName());
-        holder.tvTrackTitle.setSelected(true);
         Glide.with(context)
                 .asBitmap()
+                .centerCrop()
+                .override(130, 130)
                 .placeholder(R.drawable.application_logo)
                 .load(track.getThumbnail())
                 .into(holder.ivTrackThumbnail);
