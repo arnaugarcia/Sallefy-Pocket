@@ -51,8 +51,7 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/backgroundDefault" /> // TODO: MIRAR ESTO
-        app:tabTextAppearance="@style/TabLayoutTextStyle" />
+            android:backgroundTint="@color/backgroundDefault" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager"
