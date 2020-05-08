@@ -107,4 +107,5 @@ public class SearchFragment extends Fragment implements GenresCallback {
     public void onGetAllGenresFailure(Throwable throwable) {
         Toast.makeText(mContext, "Error receiving genres", Toast.LENGTH_SHORT).show();
     }
+
 }

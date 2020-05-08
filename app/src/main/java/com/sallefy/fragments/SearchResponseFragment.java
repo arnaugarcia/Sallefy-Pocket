@@ -15,7 +15,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.sallefy.R;
 import com.sallefy.adapters.TrackListAdapter;
 import com.sallefy.adapters.callbacks.TrackListCallback;
@@ -38,6 +41,10 @@ public class SearchResponseFragment extends Fragment implements SearchResponseCa
     private TrackListAdapter mTrackListAdapter;
     private ImageButton mImageButtonBack;
     private RecyclerView mTrackRecyclerView;
+    private TabLayout mTabLayout;
+    private ViewPager2 mViewPager;
+
+
 
     public SearchResponseFragment(Context context, FragmentManager fragmentManager) {
         this.mContext = context;
@@ -75,9 +82,15 @@ public class SearchResponseFragment extends Fragment implements SearchResponseCa
 
         mImageButtonBack.setOnClickListener(v -> mFragmentManager.popBackStack());
 
-        LinearLayoutManager manager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false);
-        mTrackRecyclerView.setLayoutManager(manager);
-        mTrackListAdapter = new TrackListAdapter(this, mContext, (List<Track>) null, mFragmentManager);
+        //LinearLayoutManager manager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false);
+        //mTrackRecyclerView.setLayoutManager(manager);
+        mTrackListAdapter = new TrackListAdapter(this, mContext, null, mFragmentManager);
+
+        mViewPager.setAdapter(mTrackListAdapter);
+
+        new TabLayoutMediator(mTabLayout, mViewPager,
+                ((tab, position) -> tab.setText((position == 0) ? "Tracks" : "Playlists"))
+        ).attach();
     }
 
     private void initViews(View view) {
@@ -85,7 +98,11 @@ public class SearchResponseFragment extends Fragment implements SearchResponseCa
         mSearchView.setIconified(false);
 
         mImageButtonBack = view.findViewById(R.id.ib_search_response_back);
-        mTrackRecyclerView = view.findViewById(R.id.rv_search_response_tracks);
+        //mTrackRecyclerView = view.findViewById(R.id.rv_search_response_tracks);
+
+        mTabLayout = view.findViewById(R.id.search_tab_layout);
+        mViewPager = view.findViewById(R.id.search_view_pager);
+
     }
 
     private void getTracksBySearchQuery(String keyword){
@@ -95,7 +112,8 @@ public class SearchResponseFragment extends Fragment implements SearchResponseCa
     @Override
     public void onSearchResponseReceived(SearchResult result) {
         mTrackListAdapter.setTracks(result.getTracks());
-        mTrackRecyclerView.setAdapter(mTrackListAdapter);
+        //mTrackRecyclerView.setAdapter(mTrackListAdapter);
+        mViewPager.setAdapter(mTrackListAdapter);
     }
 
     @Override
