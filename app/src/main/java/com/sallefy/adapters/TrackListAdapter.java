@@ -209,8 +209,8 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
 
         private void initViews() {
             unselectedLayout = itemView.findViewById(R.id.unselected_track);
-            tvTrackTitle = itemView.findViewById(R.id.tv_track_title);
-            tvOwner = itemView.findViewById(R.id.tv_owner);
+            tvTrackTitle = itemView.findViewById(R.id.tv_user_name);
+            tvOwner = itemView.findViewById(R.id.tv_user_followers);
             ibMore = itemView.findViewById(R.id.ib_favourite);
 
             selectedLayout = itemView.findViewById(R.id.selected_track);
