@@ -69,6 +69,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_owner_name"/>
 
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tracks"
+        android:fontFamily="@font/poppins_bold"
+        android:textSize="18sp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="16dp"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toEndOf="@id/tv_owner_track_number"
+        app:layout_constraintTop_toBottomOf="@id/tv_owner_name"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_owner_playlists"
         android:layout_width="match_parent"

@@ -78,4 +78,5 @@
     <string name="playlists">Playlists</string>
     <string name="all_tracks">All Tracks</string>
     <string name="artist">artist</string>
+    <string name="tracks">tracks</string>
 </resources>
