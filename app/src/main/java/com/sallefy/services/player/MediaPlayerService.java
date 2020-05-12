@@ -19,6 +19,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.media.AudioManager.STREAM_MUSIC;
 import static android.widget.Toast.LENGTH_SHORT;
@@ -49,6 +51,7 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
     private MediaSessionManager mediaSessionManager;
     private MediaSessionCompat mediaSession;
     private Track currentTrack; //an object of the currently playing audio
+    private List<Track> queue = new ArrayList<>();
 
     // Binder given to clients
     private final IBinder iBinder = new MediaPlayerBinder();
@@ -88,9 +91,11 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
     }
 
     public void play(Track track) {
+        queue.add(track);
+        currentTrack = queue.get(queue.size() - 1);
         if (!mediaPlayer.isPlaying()) {
             try {
-                mediaPlayer.setDataSource(track.getUrl());
+                mediaPlayer.setDataSource(currentTrack.getUrl());
                 mediaPlayer.prepareAsync();
                 mediaPlayer.setOnPreparedListener(listener -> {
                     mediaPlayer.start();
@@ -99,19 +104,15 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else {
+            mediaPlayer.reset();
+            EventBus.getDefault().postSticky(mediaPlayerEvent(PAUSED));
+            play(currentTrack);
         }
     }
 
     public void play(Playlist playlist) {
-        if (!mediaPlayer.isPlaying()) {
-            try {
-                mediaPlayer.setDataSource(playlist.getTracks().get(0).getUrl());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            mediaPlayer.start();
-            EventBus.getDefault().postSticky(mediaPlayerEvent(PLAYING));
-        }
+
     }
 
     public void stop() {
@@ -123,8 +124,8 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
     }
 
     @NotNull
-    private MediaPlayerEvent.StateChanged mediaPlayerEvent(MediaPlayerState paused) {
-        return new MediaPlayerEvent.StateChanged(paused);
+    private MediaPlayerEvent.StateChanged mediaPlayerEvent(MediaPlayerState state) {
+        return new MediaPlayerEvent.StateChanged(state);
     }
 
     public void pause() {
@@ -149,7 +150,7 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
     }
 
     @Override
-    public void onBufferingUpdate(MediaPlayer mp, int percent) {
+    public void onBufferingUpdate(MediaPlayer mediaPlayer, int percent) {
         //Invoked indicating buffering status of a media resource being streamed over the network.
     }
 
@@ -192,7 +193,6 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
     public void onPrepared(MediaPlayer mp) {
         //Invoked when the media source is ready for playback.
         EventBus.getDefault().postSticky(mediaPlayerEvent(PREPARED));
-        makeText(this, "OnPrepared", LENGTH_SHORT).show();
     }
 
     @Override
@@ -235,15 +235,6 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
     @Override
     public void onDestroy() {
         super.onDestroy();
-        makeText(this, "Destroying MediaPlayerService", LENGTH_SHORT).show();
-        /*if (mediaPlayer != null) {
-            stopMedia();
-            mediaPlayer.release();
-        }
-        removeAudioFocus();
-
-        mediaPlayerNotification.removeNotification();*/
-
     }
 
     private void initMediaSession() throws RemoteException {
