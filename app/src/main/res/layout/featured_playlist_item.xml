@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="180dp"
-    android:layout_height="180dp"
+    android:layout_width="150dp"
+    android:layout_height="150dp"
     android:padding="10dp">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -37,7 +37,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <com.sallefy.custom_views.GradientHeadline1
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_playlist_title"
             style="@style/Headline4"
             android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
             android:paddingEnd="3dp"
             android:singleLine="true"
             android:text="@string/playlist_title_placeholder"
-            android:textColor="@color/colorSecondaryDark"
+            android:textColor="@color/colorTextPrimary"
             app:layout_constraintBottom_toTopOf="@+id/tv_playlist_owner"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
