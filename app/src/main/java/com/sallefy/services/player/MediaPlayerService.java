@@ -23,8 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.media.AudioManager.STREAM_MUSIC;
-import static android.widget.Toast.LENGTH_SHORT;
-import static android.widget.Toast.makeText;
 import static com.sallefy.services.player.MediaPlayerState.COMPLETED;
 import static com.sallefy.services.player.MediaPlayerState.ERROR;
 import static com.sallefy.services.player.MediaPlayerState.PAUSED;
@@ -91,8 +89,14 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
     }
 
     public void play(Track track) {
-        queue.add(track);
-        currentTrack = queue.get(queue.size() - 1);
+        if (queue.isEmpty()) {
+            this.currentTrack = track;
+            queue.add(track);
+        }
+        if (!getLastSongOfQueue().equals(track)) {
+            queue.add(track);
+        }
+        currentTrack = getLastSongOfQueue();
         if (!mediaPlayer.isPlaying()) {
             try {
                 mediaPlayer.setDataSource(currentTrack.getUrl());
@@ -111,8 +115,13 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
         }
     }
 
-    public void play(Playlist playlist) {
+    private Track getLastSongOfQueue() {
+        return queue.get(queue.size() - 1);
+    }
 
+    public void play(Playlist playlist) {
+        this.queue.addAll(playlist.getTracks());
+        this.play(getLastSongOfQueue());
     }
 
     public void stop() {
@@ -311,7 +320,6 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         try {
-            makeText(this, "onStartCommand", LENGTH_SHORT).show();
             //Load data from SharedPreferences
             //StorageUtil storage = new StorageUtil(getApplicationContext());
 
@@ -348,34 +356,17 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
     }
 
     private void skipToNext() {
-
-        /*if (audioIndex == audioList.size() - 1) {
-            //if last in playlist
-            audioIndex = 0;
-            currentTrack = audioList.get(audioIndex);
-        } else {
-            //get next in playlist
-            currentTrack = audioList.get(++audioIndex);
-        }*/
-
-        stop();
-        //reset mediaPlayer
-        EventBus.getDefault().postSticky(mediaPlayerEvent(RESET));
-        mediaPlayer.reset();
-        initMediaPlayer();
+        int nextSong = queue.indexOf(currentTrack) + 1;
+        if (nextSong != -1) {
+            currentTrack = queue.get(nextSong);
+            play(currentTrack);
+        }
     }
 
     private void skipToPrevious() {
-
-       /* if (audioIndex == 0) {
-            //if first in playlist
-            //set index to the last of audioList
-            audioIndex = audioList.size() - 1;
-            currentTrack = audioList.get(audioIndex);
-        } else {
-            //get previous in playlist
-            currentTrack = audioList.get(--audioIndex);
-        }*/
+        if (queue.isEmpty()) {
+            return;
+        }
 
         stop();
         //reset mediaPlayer
