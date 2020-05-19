@@ -76,7 +76,7 @@ public class OwnerFragment extends Fragment implements TracksByLoginCallback, Pl
 
         //mOwnerImage
         mOwnerName.setText(mUser.getLogin());
-        mOwnerTrackNumber.setText(mUser.getTracks());
+        mOwnerTrackNumber.setText(String.valueOf(mUser.getTracks()));
     }
 
     private void initViews(View view) {

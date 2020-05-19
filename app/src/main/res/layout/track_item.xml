@@ -42,7 +42,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_user_followers"
+            android:id="@+id/tv_user_item_followers"
             style="@style/Item.Subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
             android:singleLine="true"
             android:text="@string/track_title_placeholder"
             app:layout_constrainedWidth="true"
-            app:layout_constraintBottom_toTopOf="@+id/tv_user_followers"
+            app:layout_constraintBottom_toTopOf="@+id/tv_user_item_followers"
             app:layout_constraintEnd_toStartOf="@id/ib_favourite"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@+id/iv_play"

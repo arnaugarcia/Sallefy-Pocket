@@ -14,22 +14,19 @@ import androidx.appcompat.widget.SearchView;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.sallefy.R;
-import com.sallefy.adapters.TrackListAdapter;
-import com.sallefy.adapters.YourLibraryAdapter;
+import com.sallefy.adapters.SearchResponseAdapter;
 import com.sallefy.adapters.callbacks.TrackListCallback;
 import com.sallefy.managers.search.SearchResponseCallback;
 import com.sallefy.managers.search.SearchResponseManager;
 import com.sallefy.model.SearchResult;
 import com.sallefy.model.Track;
 
-import java.util.List;
+import static com.sallefy.constants.ApplicationConstants.TAB_TITLES;
 
 public class SearchResponseFragment extends Fragment implements SearchResponseCallback, TrackListCallback {
 
@@ -40,7 +37,7 @@ public class SearchResponseFragment extends Fragment implements SearchResponseCa
     private FragmentManager mFragmentManager;
 
     private SearchView mSearchView;
-    private YourLibraryAdapter mLibraryAdapter;
+    private SearchResponseAdapter mResponseAdapter;
     private ImageButton mImageButtonBack;
     private TabLayout mTabLayout;
     private ViewPager2 mViewPager;
@@ -50,7 +47,7 @@ public class SearchResponseFragment extends Fragment implements SearchResponseCa
     public SearchResponseFragment(Context context, FragmentManager fragmentManager) {
         this.mContext = context;
         this.mFragmentManager = fragmentManager;
-        this.mLibraryAdapter = new YourLibraryAdapter(this, context, fragmentManager);
+        this.mResponseAdapter = new SearchResponseAdapter(this, context, fragmentManager);
     }
 
     @Override
@@ -84,14 +81,19 @@ public class SearchResponseFragment extends Fragment implements SearchResponseCa
 
         mImageButtonBack.setOnClickListener(v -> mFragmentManager.popBackStack());
 
-        mViewPager.setAdapter(mLibraryAdapter);
+        mViewPager.setAdapter(mResponseAdapter);
         int colorAccent = ResourcesCompat.getColor(getResources(), R.color.colorAccent, null);
         int colorTextPrimaryVariant = ResourcesCompat.getColor(getResources(), R.color.colorTextPrimaryVariant, null);
         mTabLayout.setSelectedTabIndicatorColor(colorAccent);
         mTabLayout.setTabTextColors(colorTextPrimaryVariant, colorAccent);
-        new TabLayoutMediator(mTabLayout, mViewPager,
+
+        new TabLayoutMediator(mTabLayout, mViewPager, (tab, position) -> {
+            tab.setText(TAB_TITLES[position]);
+            mViewPager.setCurrentItem(tab.getPosition(), true);
+        }).attach();
+        /*new TabLayoutMediator(mTabLayout, mViewPager,
                 ((tab, position) -> tab.setText((position == 0) ? "Playlists" : "Tracks"))
-        ).attach();
+        ).attach();*/
     }
 
     private void initViews(View view) {
@@ -111,9 +113,10 @@ public class SearchResponseFragment extends Fragment implements SearchResponseCa
 
     @Override
     public void onSearchResponseReceived(SearchResult result) {
-        mLibraryAdapter.setPlaylists(result.getPlaylists());
-        mLibraryAdapter.setTracks(result.getTracks());
-        mViewPager.setAdapter(mLibraryAdapter);
+        mResponseAdapter.setmPlaylists(result.getPlaylists());
+        mResponseAdapter.setmTracks(result.getTracks());
+        mResponseAdapter.setmUsers(result.getUsers());
+        mViewPager.setAdapter(mResponseAdapter);
     }
 
     @Override

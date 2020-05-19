@@ -2,6 +2,7 @@ package com.sallefy.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,8 +62,7 @@ public class PlaylistListAdapter extends RecyclerView.Adapter<PlaylistListAdapte
             if (playlist.getThumbnail() != null) {
                 Glide.with(context)
                         .asBitmap()
-                        .placeholder(R.drawable.application_logo)
-                        .load(playlist.getThumbnail())
+                        .load(Uri.parse(playlist.getThumbnail()))
                         .into(holder.ivThumbnail);
             }
         }

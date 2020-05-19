@@ -17,8 +17,8 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="20dp"
-            android:src="@drawable/account_circle"
-            android:tint="@color/colorSecondaryDark"
+            android:background="@drawable/account_circle"
+            android:backgroundTint="@color/colorSecondaryDark"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -43,12 +43,12 @@
             android:src="@drawable/account_group"
             android:tint="@color/colorSurface"
             android:contentDescription="@null"
-            app:layout_constraintBottom_toBottomOf="@id/tv_user_followers"
-            app:layout_constraintTop_toTopOf="@+id/tv_user_followers"
+            app:layout_constraintBottom_toBottomOf="@id/tv_user_item_followers"
+            app:layout_constraintTop_toTopOf="@+id/tv_user_item_followers"
             app:layout_constraintStart_toEndOf="@+id/iv_user_thumbnail"/>
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_user_followers"
+            android:id="@+id/tv_user_item_followers"
             style="@style/Item.Subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
