@@ -52,7 +52,12 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.ViewHo
                     .asBitmap()
                     .apply(RequestOptions.circleCropTransform())
                     .load(Uri.parse(user.getImageUrl()))
-                    .placeholder(R.drawable.account_circle)
+                    .into(holder.ivThumbnail);
+        }else{
+            Glide.with(mContext)
+                    .asBitmap()
+                    .apply(RequestOptions.circleCropTransform())
+                    .load(R.drawable.account_circle)
                     .into(holder.ivThumbnail);
         }
 

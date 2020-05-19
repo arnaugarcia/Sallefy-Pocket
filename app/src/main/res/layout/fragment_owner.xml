@@ -1,184 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/backgroundDefault"
     tools:context=".fragments.OwnerFragment">
-
-    <ImageView
-        android:id="@+id/iv_owner_image"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:contentDescription="@null"
-        android:background="@color/colorSecondaryDark"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <ImageButton
-        android:id="@+id/ib_owner_back"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="5dp"
-        android:adjustViewBounds="true"
-        android:background="@null"
-        android:contentDescription="@string/back_button"
-        android:gravity="end"
-        android:scaleType="center"
-        android:src="@drawable/outline_arrow_back_24"
-        android:tint="@android:color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/artist"
-        android:textAllCaps="true"
-        android:fontFamily="@font/poppins_regular"
-        android:textSize="18sp"
-        android:textColor="@android:color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/ib_owner_back"
-        app:layout_constraintTop_toTopOf="@id/ib_owner_back"/>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_owner_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_bold"
-        android:textSize="40sp"
-        android:layout_marginTop="25dp"
-        android:layout_marginStart="16dp"
-        android:textColor="@android:color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ib_owner_back"/>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_owner_track_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_bold"
-        android:textSize="18sp"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="16dp"
-        android:textColor="@android:color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_owner_name"/>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tracks"
-        android:fontFamily="@font/poppins_bold"
-        android:textSize="18sp"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="16dp"
-        android:textColor="@android:color/white"
-        app:layout_constraintStart_toEndOf="@id/tv_owner_track_number"
-        app:layout_constraintTop_toBottomOf="@id/tv_owner_name"/>
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_owner_playlists"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_owner_image">
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/iv_owner_image"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:contentDescription="@null"
+            android:background="@color/colorSecondaryDark"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <ImageButton
+            android:id="@+id/ib_owner_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:contentDescription="@string/back_button"
+            android:gravity="end"
+            android:scaleType="center"
+            android:src="@drawable/outline_arrow_back_24"
+            android:tint="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/playlists"
+            android:text="@string/artist"
+            android:textAllCaps="true"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/ib_owner_back"
+            app:layout_constraintTop_toTopOf="@id/ib_owner_back"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_owner_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:textSize="40sp"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="16dp"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ib_owner_back"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_owner_track_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
             android:textSize="18sp"
             android:layout_marginTop="15dp"
             android:layout_marginStart="16dp"
             android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_owner_playlists_view_all"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/view_all"
-            android:fontFamily="@font/poppins_regular"
-            android:textSize="18sp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="16dp"
-            android:textColor="@color/colorSecondary"
-            android:clickable="true"
-            android:focusable="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_owner_playlists"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cl_owner_playlists"/>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_owner_tracks"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rv_owner_playlists">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_owner_name"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/all_tracks"
+            android:text="@string/tracks"
             android:fontFamily="@font/poppins_bold"
             android:textSize="18sp"
             android:layout_marginTop="15dp"
             android:layout_marginStart="16dp"
             android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toEndOf="@id/tv_owner_track_number"
+            app:layout_constraintTop_toBottomOf="@id/tv_owner_name"/>
 
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_owner_tracks_view_all"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_owner_playlists"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/view_all"
-            android:fontFamily="@font/poppins_regular"
-            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_owner_image">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/playlists"
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="18sp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="16dp"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_owner_playlists_view_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/view_all"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="18sp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="16dp"
+                android:textColor="@color/colorSecondary"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_owner_playlists"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="16dp"
-            android:textColor="@color/colorSecondary"
-            android:clickable="true"
-            android:focusable="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_owner_playlists"/>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_owner_tracks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_owner_playlists">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/all_tracks"
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="18sp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="16dp"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_owner_tracks_view_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/view_all"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="18sp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="16dp"
+                android:textColor="@color/colorSecondary"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_owner_tracks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_owner_tracks"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_owner_tracks"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cl_owner_tracks"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
