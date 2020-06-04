@@ -79,4 +79,6 @@
     <string name="all_tracks">All Tracks</string>
     <string name="artist">artist</string>
     <string name="tracks">tracks</string>
+    <string name="follow">FOLLOW</string>
+    <string name="unfollow">UNFOLLOW</string>
 </resources>

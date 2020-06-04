@@ -30,7 +30,7 @@ import static com.sallefy.constants.ApplicationConstants.TAB_TITLES;
 
 public class SearchResponseFragment extends Fragment implements SearchResponseCallback, TrackListCallback {
 
-    private static SearchResponseFragment instance;
+    //private static SearchResponseFragment instance;
 
     private Context mContext;
     private SearchResult mSearchResult;

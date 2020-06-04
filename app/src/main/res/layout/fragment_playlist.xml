@@ -39,7 +39,7 @@
             android:textSize="26sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_playlist_thumbnail" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_playlist_follow" />
 
         <ImageView
             android:id="@+id/iv_playlist_thumbnail"
@@ -48,9 +48,20 @@
             android:layout_marginTop="50dp"
             android:background="@color/backgroundDefault"
             android:src="@drawable/application_logo"
+            android:contentDescription="@string/login_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_playlist_follow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:backgroundTint="@color/colorAccent"
+            app:layout_constraintTop_toBottomOf="@id/iv_playlist_thumbnail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
