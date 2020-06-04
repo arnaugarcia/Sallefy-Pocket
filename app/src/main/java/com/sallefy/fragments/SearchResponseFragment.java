@@ -30,7 +30,7 @@ import static com.sallefy.constants.ApplicationConstants.TAB_TITLES;
 
 public class SearchResponseFragment extends Fragment implements SearchResponseCallback, TrackListCallback {
 
-    private static SearchFragment instance;
+    private static SearchResponseFragment instance;
 
     private Context mContext;
     private SearchResult mSearchResult;
@@ -91,9 +91,6 @@ public class SearchResponseFragment extends Fragment implements SearchResponseCa
             tab.setText(TAB_TITLES[position]);
             mViewPager.setCurrentItem(tab.getPosition(), true);
         }).attach();
-        /*new TabLayoutMediator(mTabLayout, mViewPager,
-                ((tab, position) -> tab.setText((position == 0) ? "Playlists" : "Tracks"))
-        ).attach();*/
     }
 
     private void initViews(View view) {
