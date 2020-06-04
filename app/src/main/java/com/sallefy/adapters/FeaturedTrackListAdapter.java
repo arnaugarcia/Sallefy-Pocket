@@ -63,7 +63,7 @@ public class FeaturedTrackListAdapter extends RecyclerView.Adapter<FeaturedTrack
             super(itemView);
 
             ivTrackThumbnail = itemView.findViewById(R.id.iv_track_thumbnail);
-            tvTrackTitle = itemView.findViewById(R.id.tv_user_name);
+            tvTrackTitle = itemView.findViewById(R.id.tv_track_title);
         }
     }
 }
