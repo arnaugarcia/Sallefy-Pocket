@@ -116,6 +116,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
                     .asBitmap()
                     .placeholder(R.drawable.application_logo)
                     .centerCrop()
+                    .override(130, 130)
                     .load(track.getThumbnail())
                     .apply(RequestOptions.bitmapTransform(new GranularRoundedCorners(20,
                             0,

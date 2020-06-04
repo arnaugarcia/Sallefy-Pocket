@@ -63,10 +63,10 @@ public class SearchResponseAdapter extends RecyclerView.Adapter<SearchResponseAd
 
         if (position == 0) {
             if (this.mTracks != null)
-                adapter = new TrackListAdapter(this, mContext, this.mTracks, mFragmentManager);
+                adapter = new TrackListAdapter(this, mContext, mTracks, mFragmentManager);
         } else if (position == 1) {
             if (mPlaylists != null)
-                adapter = new PlaylistListAdapter(mContext, mPlaylists, mFragmentManager);
+                adapter = new PlaylistListAdapterNoCreateOption(mContext, mPlaylists, mFragmentManager);
         } else if (position == 2){
             if (this.mUsers != null)
                 adapter = new UserListAdapter(mContext, mUsers, mFragmentManager);
