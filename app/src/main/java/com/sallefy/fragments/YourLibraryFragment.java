@@ -89,6 +89,7 @@ public class YourLibraryFragment extends Fragment
         int colorTextPrimaryVariant = ResourcesCompat.getColor(getResources(), R.color.colorTextPrimaryVariant, null);
         tabLayout.setSelectedTabIndicatorColor(colorAccent);
         tabLayout.setTabTextColors(colorTextPrimaryVariant, colorAccent);
+        //TODO extract hardcoded text to @strings
         new TabLayoutMediator(tabLayout, viewPager,
                 ((tab, position) -> tab.setText((position == 0) ? "Playlists" : "Tracks"))
         ).attach();

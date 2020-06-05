@@ -6,18 +6,25 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.button.MaterialButton;
 import com.sallefy.R;
 import com.sallefy.adapters.TrackListAdapter;
 import com.sallefy.adapters.callbacks.TrackListCallback;
+import com.sallefy.managers.playlists.FollowPlaylistCallback;
+import com.sallefy.managers.playlists.FollowedPlaylistsCallback;
+import com.sallefy.managers.playlists.PlaylistManager;
+import com.sallefy.model.LikedDTO;
 import com.sallefy.model.Playlist;
 import com.sallefy.model.Track;
 import com.sallefy.services.player.MediaPlayerService;
@@ -29,12 +36,17 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class PlaylistFragment extends Fragment implements TrackListCallback {
+import java.util.ArrayList;
+import java.util.List;
+
+public class PlaylistFragment extends Fragment
+        implements TrackListCallback, FollowPlaylistCallback, FollowedPlaylistsCallback {
 
     private FragmentManager mFragmentManager;
     private Context context;
 
     private Playlist playlist;
+    private List<Playlist> followedPlaylists;
 
     private ImageButton ibBack;
     private ImageButton ibOptions;
@@ -43,6 +55,7 @@ public class PlaylistFragment extends Fragment implements TrackListCallback {
     private TextView tvPlaylistTitle;
     private TextView tvPlaylistDescription;
     private ImageView ivPlaylistThumbnail;
+    private MaterialButton mbFollowPlaylist;
 
     private MediaPlayerService mBoundService;
     private boolean mServiceBound = false;
@@ -54,6 +67,7 @@ public class PlaylistFragment extends Fragment implements TrackListCallback {
         this.context = context;
         this.playlist = playlist;
         this.mFragmentManager = mFragmentManager;
+        this.followedPlaylists = new ArrayList<>();
     }
 
     @Override
@@ -72,7 +86,7 @@ public class PlaylistFragment extends Fragment implements TrackListCallback {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        getFollowedPlaylists();
         initViews(view);
 
         tvPlaylistTitle.setText(playlist.getName());
@@ -88,6 +102,9 @@ public class PlaylistFragment extends Fragment implements TrackListCallback {
 
         ibBack.setOnClickListener(view1 -> mFragmentManager.popBackStack());
 
+
+        mbFollowPlaylist.setOnClickListener(v -> PlaylistManager.getInstance().followPlaylist(context, String.valueOf(playlist.getId()), this));
+
         LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
         rvSongs.setLayoutManager(manager);
         TrackListAdapter adapter = new TrackListAdapter(this, context, playlist.getTracks(), mFragmentManager);
@@ -101,7 +118,25 @@ public class PlaylistFragment extends Fragment implements TrackListCallback {
 
         tvPlaylistTitle = view.findViewById(R.id.tv_playlist_title);
         tvPlaylistDescription = view.findViewById(R.id.tv_playlist_description);
+        mbFollowPlaylist = view.findViewById(R.id.btn_playlist_follow);
         ivPlaylistThumbnail = view.findViewById(R.id.iv_playlist_thumbnail);
+    }
+
+    private void checkIfFollowed() {
+
+        boolean following = followedPlaylists
+                .stream()
+                .anyMatch(p -> p.getId().intValue() == playlist.getId().intValue());
+
+        if (following){
+            mbFollowPlaylist.setText(R.string.unfollow);
+        }else {
+            mbFollowPlaylist.setText(R.string.follow);
+        }
+    }
+
+    void getFollowedPlaylists(){
+        PlaylistManager.getInstance().getMyFollowedPlaylists(context, this);
     }
 
     @Override
@@ -129,4 +164,25 @@ public class PlaylistFragment extends Fragment implements TrackListCallback {
             mServiceBound = false;
         }
     };
+
+    @Override
+    public void onFollowPlaylistSuccess(LikedDTO following) {
+        getFollowedPlaylists();
+    }
+
+    @Override
+    public void onFollowPlaylistFailure(Throwable throwable) {
+
+    }
+
+    @Override
+    public void onGetPlaylistsSuccess(List<Playlist> playlistList) {
+        this.followedPlaylists = playlistList;
+        checkIfFollowed();
+    }
+
+    @Override
+    public void onGetPlaylistsFailure(Throwable throwable) {
+
+    }
 }

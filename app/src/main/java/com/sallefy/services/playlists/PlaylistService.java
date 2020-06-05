@@ -1,5 +1,6 @@
 package com.sallefy.services.playlists;
 
+import com.sallefy.model.LikedDTO;
 import com.sallefy.model.Playlist;
 import com.sallefy.model.PlaylistRequest;
 
@@ -11,6 +12,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface PlaylistService {
@@ -26,4 +28,11 @@ public interface PlaylistService {
 
     @PUT("playlists")
     Call<Playlist> updatePlaylist(@Header("Authorization") String userToken, @Body PlaylistRequest playlistRequest);
+
+    @PUT("playlists/{id}/follow")
+    Call<LikedDTO> followPlaylist(@Header("Authorization") String userToken, @Path("id") String id);
+
+    @GET("me/playlists/following")
+    Call<List<Playlist>> getMyFollowedPlaylists(@Header("Authorization") String userToken);
+
 }
