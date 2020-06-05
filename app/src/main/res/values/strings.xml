@@ -73,4 +73,5 @@
     <string name="featured_tracks_title">Featured tracks</string>
     <string name="add_to_playlist_title_placeholder">Add to playlist</string>
     <string name="ib_new_playlist">New playlist</string>
+    <string name="stats_title">Stats</string>
 </resources>

@@ -60,4 +60,8 @@ dependencies {
 
     // Event bus
     implementation 'org.greenrobot:eventbus:3.2.0'
+
+    // Any Chart
+    implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
+
 }
