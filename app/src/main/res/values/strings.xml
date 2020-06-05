@@ -74,4 +74,12 @@
     <string name="add_to_playlist_title_placeholder">Add to playlist</string>
     <string name="ib_new_playlist">New playlist</string>
     <string name="stats_title">Stats</string>
+    <string name="playlist_followers_placeholder">0</string>
+    <string name="view_all">View All</string>
+    <string name="playlists">Playlists</string>
+    <string name="all_tracks">All Tracks</string>
+    <string name="artist">artist</string>
+    <string name="tracks">tracks</string>
+    <string name="follow">FOLLOW</string>
+    <string name="unfollow">UNFOLLOW</string>
 </resources>

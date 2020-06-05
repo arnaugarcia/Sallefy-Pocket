@@ -11,37 +11,43 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.sallefy.R;
-import com.sallefy.adapters.TrackListAdapter;
+import com.sallefy.adapters.SearchResponseAdapter;
 import com.sallefy.adapters.callbacks.TrackListCallback;
 import com.sallefy.managers.search.SearchResponseCallback;
 import com.sallefy.managers.search.SearchResponseManager;
 import com.sallefy.model.SearchResult;
 import com.sallefy.model.Track;
 
-import java.util.List;
+import static com.sallefy.constants.ApplicationConstants.TAB_TITLES;
 
 public class SearchResponseFragment extends Fragment implements SearchResponseCallback, TrackListCallback {
 
-    private static SearchFragment instance;
+    //private static SearchResponseFragment instance;
 
     private Context mContext;
     private SearchResult mSearchResult;
     private FragmentManager mFragmentManager;
 
     private SearchView mSearchView;
-    private TrackListAdapter mTrackListAdapter;
+    private SearchResponseAdapter mResponseAdapter;
     private ImageButton mImageButtonBack;
-    private RecyclerView mTrackRecyclerView;
+    private TabLayout mTabLayout;
+    private ViewPager2 mViewPager;
+
+
 
     public SearchResponseFragment(Context context, FragmentManager fragmentManager) {
         this.mContext = context;
         this.mFragmentManager = fragmentManager;
+        this.mResponseAdapter = new SearchResponseAdapter(this, context, fragmentManager);
     }
 
     @Override
@@ -75,9 +81,16 @@ public class SearchResponseFragment extends Fragment implements SearchResponseCa
 
         mImageButtonBack.setOnClickListener(v -> mFragmentManager.popBackStack());
 
-        LinearLayoutManager manager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false);
-        mTrackRecyclerView.setLayoutManager(manager);
-        mTrackListAdapter = new TrackListAdapter(this, mContext, (List<Track>) null, mFragmentManager);
+        mViewPager.setAdapter(mResponseAdapter);
+        int colorAccent = ResourcesCompat.getColor(getResources(), R.color.colorAccent, null);
+        int colorTextPrimaryVariant = ResourcesCompat.getColor(getResources(), R.color.colorTextPrimaryVariant, null);
+        mTabLayout.setSelectedTabIndicatorColor(colorAccent);
+        mTabLayout.setTabTextColors(colorTextPrimaryVariant, colorAccent);
+
+        new TabLayoutMediator(mTabLayout, mViewPager, (tab, position) -> {
+            tab.setText(TAB_TITLES[position]);
+            mViewPager.setCurrentItem(tab.getPosition(), true);
+        }).attach();
     }
 
     private void initViews(View view) {
@@ -85,7 +98,10 @@ public class SearchResponseFragment extends Fragment implements SearchResponseCa
         mSearchView.setIconified(false);
 
         mImageButtonBack = view.findViewById(R.id.ib_search_response_back);
-        mTrackRecyclerView = view.findViewById(R.id.rv_search_response_tracks);
+
+        mTabLayout = view.findViewById(R.id.search_tab_layout);
+        mViewPager = view.findViewById(R.id.search_view_pager);
+
     }
 
     private void getTracksBySearchQuery(String keyword){
@@ -94,8 +110,10 @@ public class SearchResponseFragment extends Fragment implements SearchResponseCa
 
     @Override
     public void onSearchResponseReceived(SearchResult result) {
-        mTrackListAdapter.setTracks(result.getTracks());
-        mTrackRecyclerView.setAdapter(mTrackListAdapter);
+        mResponseAdapter.setmPlaylists(result.getPlaylists());
+        mResponseAdapter.setmTracks(result.getTracks());
+        mResponseAdapter.setmUsers(result.getUsers());
+        mViewPager.setAdapter(mResponseAdapter);
     }
 
     @Override
