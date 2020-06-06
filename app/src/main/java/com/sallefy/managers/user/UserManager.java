@@ -24,14 +24,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class UserManager extends BaseManager {
 
     private static UserManager instance;
-    private Retrofit retrofit;
     private UserService userService;
 
     public UserManager() {
-        retrofit = new Retrofit.Builder()
-                .baseUrl(ApplicationConstants.API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
         userService = retrofit.create(UserService.class);
     }
 
@@ -40,10 +35,9 @@ public class UserManager extends BaseManager {
         return instance;
     }
 
-    public synchronized void getUserData(Context context, final UserDataCallback userDataCallback) {
-        String userToken = AuthenticationUtils.getToken(context);
+    public synchronized void getUserData(final UserDataCallback userDataCallback) {
 
-        Call<User> call = userService.getUserData("Bearer " + userToken);
+        Call<User> call = userService.getUserData();
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -70,10 +64,9 @@ public class UserManager extends BaseManager {
         });
     }
 
-    public synchronized void getMostFollowedUsers(Context context, final MostFollowedUsersCallback mostFollowedUsersCallback) {
-        String userToken = AuthenticationUtils.getToken(context);
+    public synchronized void getMostFollowedUsers(final MostFollowedUsersCallback mostFollowedUsersCallback) {
 
-        Call<List<User>> call = userService.getMostFollowedUsers("Bearer " + userToken, "followers,desc");
+        Call<List<User>> call = userService.getMostFollowedUsers("followers,desc");
         call.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
@@ -100,10 +93,9 @@ public class UserManager extends BaseManager {
         });
     }
 
-    public synchronized void getTracksByLogin(Context context, String login, final TracksByLoginCallback tracksByLoginCallback){
-        String userToken = AuthenticationUtils.getToken(context);
+    public synchronized void getTracksByLogin(String login, final TracksByLoginCallback tracksByLoginCallback){
 
-        Call<List<Track>> call = userService.getTracksByLogin("Bearer " + userToken, login);
+        Call<List<Track>> call = userService.getTracksByLogin(login);
         call.enqueue(new Callback<List<Track>>() {
             @Override
             public void onResponse(Call<List<Track>> call, Response<List<Track>> response) {
@@ -130,10 +122,8 @@ public class UserManager extends BaseManager {
         });
     }
 
-        public synchronized void getPlaylistsByLogin(Context context, String login, final PlaylistsByLoginCallback playlistsByLoginCallback){
-            String userToken = AuthenticationUtils.getToken(context);
-
-            Call<List<Playlist>> call = userService.getPlaylistsByLogin("Bearer " + userToken, login);
+        public synchronized void getPlaylistsByLogin(String login, final PlaylistsByLoginCallback playlistsByLoginCallback){
+            Call<List<Playlist>> call = userService.getPlaylistsByLogin(login);
             call.enqueue(new Callback<List<Playlist>>() {
                 @Override
                 public void onResponse(Call<List<Playlist>> call, Response<List<Playlist>> response) {

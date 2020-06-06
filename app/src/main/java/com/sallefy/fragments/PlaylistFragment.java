@@ -103,7 +103,7 @@ public class PlaylistFragment extends Fragment
         ibBack.setOnClickListener(view1 -> mFragmentManager.popBackStack());
 
 
-        mbFollowPlaylist.setOnClickListener(v -> PlaylistManager.getInstance().followPlaylist(context, String.valueOf(playlist.getId()), this));
+        mbFollowPlaylist.setOnClickListener(v -> PlaylistManager.getInstance().followPlaylist(String.valueOf(playlist.getId()), this));
 
         LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
         rvSongs.setLayoutManager(manager);
@@ -136,7 +136,7 @@ public class PlaylistFragment extends Fragment
     }
 
     void getFollowedPlaylists(){
-        PlaylistManager.getInstance().getMyFollowedPlaylists(context, this);
+        PlaylistManager.getInstance().getMyFollowedPlaylists(this);
     }
 
     @Override

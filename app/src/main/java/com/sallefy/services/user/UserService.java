@@ -15,15 +15,14 @@ import retrofit2.http.Query;
 public interface UserService {
 
     @GET("account")
-    Call<User> getUserData(@Header("Authorization") String userToken);
+    Call<User> getUserData();
 
     @GET("users")
-    Call<List<User>> getMostFollowedUsers(@Header("Authorization") String userToken,
-                                          @Query("sort") String sortByFollowers);
+    Call<List<User>> getMostFollowedUsers(@Query("sort") String sortByFollowers);
 
     @GET("users/{login}/tracks")
-    Call<List<Track>> getTracksByLogin(@Header("Authorization") String userToken, @Path("login") String login);
+    Call<List<Track>> getTracksByLogin(@Path("login") String login);
 
     @GET("users/{login}/playlists")
-    Call<List<Playlist>> getPlaylistsByLogin(@Header("Authorization") String userToken, @Path("login") String login);
+    Call<List<Playlist>> getPlaylistsByLogin(@Path("login") String login);
 }

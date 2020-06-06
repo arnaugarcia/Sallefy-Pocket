@@ -93,7 +93,7 @@ public class AddToPlaylistAdapter extends RecyclerView.Adapter<AddToPlaylistAdap
     }
 
     private void updatePlaylist(PlaylistRequest playlistRequest){
-        PlaylistManager.getInstance().updatePlaylist(mContext, playlistRequest, this);
+        PlaylistManager.getInstance().updatePlaylist(playlistRequest, this);
     }
 
     @Override

@@ -179,7 +179,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
     }
 
     private void updateTrackLiked(String trackId) {
-        TrackManager.getInstance().updateTrackLiked(mContext, trackId, this);
+        TrackManager.getInstance().updateTrackLiked(trackId, this);
     }
 
     @Override

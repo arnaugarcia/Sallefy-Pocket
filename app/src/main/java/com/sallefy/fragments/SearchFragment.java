@@ -94,7 +94,7 @@ public class SearchFragment extends Fragment implements GenresCallback {
     }
 
     private void getAllGenres() {
-        GenreManager.getInstance().getAllGenres(mContext, this);
+        GenreManager.getInstance().getAllGenres(this);
     }
 
     @Override
