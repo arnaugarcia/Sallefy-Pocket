@@ -21,14 +21,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SearchResponseManager extends BaseManager {
 
     private static SearchResponseManager instance;
-    private Retrofit retrofit;
     private SearchService searchService;
 
     private SearchResponseManager() {
-        retrofit = new Retrofit.Builder()
-                .baseUrl(ApplicationConstants.API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
         searchService = retrofit.create(SearchService.class);
     }
 
@@ -38,9 +33,7 @@ public class SearchResponseManager extends BaseManager {
     }
 
     public synchronized void getPlaylistsUsersTracksByKeyword(Context context, String keyword, final SearchResponseCallback responseCallback){
-        String userToken = AuthenticationUtils.getToken(context);
-
-        Call<SearchResult> call = searchService.getPlaylistsUsersTracksByKeyword("Bearer " + userToken, keyword);
+        Call<SearchResult> call = searchService.getPlaylistsUsersTracksByKeyword(keyword);
         call.enqueue(new Callback<SearchResult>() {
             @Override
             public void onResponse(Call<SearchResult> call, Response<SearchResult> response) {

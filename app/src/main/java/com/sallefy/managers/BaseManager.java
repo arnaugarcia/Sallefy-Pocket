@@ -17,7 +17,6 @@ import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static androidx.core.content.ContextCompat.startActivity;
 import static java.net.HttpURLConnection.*;
 
 public abstract class BaseManager {
@@ -58,7 +57,7 @@ public abstract class BaseManager {
 
             // Request customization: add request headers
             Request.Builder requestBuilder = original.newBuilder()
-                    .header("Authorization", TokenStoreManager.getInstance().getToken() + " " + bearerToken); // <-- this is the important line
+                    .header("Authorization", "Bearer " + bearerToken);
 
             Request request = requestBuilder.build();
             return chain.proceed(request);
