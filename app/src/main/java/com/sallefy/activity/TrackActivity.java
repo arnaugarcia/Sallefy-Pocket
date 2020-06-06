@@ -42,7 +42,6 @@ public class TrackActivity extends AppCompatActivity {
             MediaPlayerService.MediaPlayerBinder binder = (MediaPlayerService.MediaPlayerBinder) service;
             player = binder.getService();
             serviceBound = true;
-            makeText(TrackActivity.this, "Service Bound Track Activity", LENGTH_SHORT).show();
         }
 
         @Override
@@ -56,22 +55,19 @@ public class TrackActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song);
         checkAndStartMediaPlayerService();
-        EventBus.getDefault().register(this);
-        playerState = EventBus.getDefault().getStickyEvent(MediaPlayerEvent.StateChanged.class).currentState;
         initViews();
         /*Intent intent = new Intent(this, PlayerService.class);
         this.bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);*/
     }
 
     private void checkAndStartMediaPlayerService() {
+        EventBus.getDefault().register(this);
+        playerState = EventBus.getDefault().getStickyEvent(MediaPlayerEvent.StateChanged.class).currentState;
         if (!serviceBound) {
             // makeText(this, "[Track Activity] - Media Player service is not active", LENGTH_SHORT).show();
             Intent playerIntent = new Intent(this, MediaPlayerService.class);
             startService(playerIntent);
             bindService(playerIntent, serviceConnection, BIND_AUTO_CREATE);
-        } else {
-            //Service is active
-            //Send media with BroadcastReceiver
         }
     }
 
