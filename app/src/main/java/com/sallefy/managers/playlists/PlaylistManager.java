@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.sallefy.constants.ApplicationConstants;
 import com.sallefy.managers.BaseManager;
+import com.sallefy.model.LikedDTO;
 import com.sallefy.model.Playlist;
 import com.sallefy.model.PlaylistRequest;
 import com.sallefy.services.authentication.AuthenticationUtils;
@@ -156,6 +157,67 @@ public class PlaylistManager extends BaseManager {
             public void onFailure(Call<Playlist> call, Throwable t) {
                 Log.d(ApplicationConstants.LOGCAT_ID, "Error UpdatePlaylist failure: " + Arrays.toString(t.getStackTrace()));
                 callback.onUpdatePlaylistFailure(new Throwable("Error " + Arrays.toString(t.getStackTrace())));
+            }
+        });
+    }
+
+    public synchronized void followPlaylist(Context context, String playlistId, final FollowPlaylistCallback callback){
+        String userToken = AuthenticationUtils.getToken(context);
+
+        Call<LikedDTO> call = playlistService.followPlaylist("Bearer " + userToken, playlistId);
+        call.enqueue(new Callback<LikedDTO>() {
+            @Override
+            public void onResponse(Call<LikedDTO> call, Response<LikedDTO> response) {
+                int code = response.code();
+
+                if (response.isSuccessful()) {
+                    callback.onFollowPlaylistSuccess(response.body());
+                } else {
+                    Log.d(ApplicationConstants.LOGCAT_ID, "Error following playlist not successful: " + response.toString());
+
+                    try {
+                        callback.onFollowPlaylistFailure(new Throwable("Error " + code + ", " + response.errorBody().string()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LikedDTO> call, Throwable t) {
+                Log.d(ApplicationConstants.LOGCAT_ID, "Error following playlist failure: " + Arrays.toString(t.getStackTrace()));
+                callback.onFollowPlaylistFailure(new Throwable("Error " + Arrays.toString(t.getStackTrace())));
+            }
+        });
+    }
+
+
+    public synchronized void getMyFollowedPlaylists(Context context, final FollowedPlaylistsCallback callback) {
+        String userToken = AuthenticationUtils.getToken(context);
+
+        Call<List<Playlist>> call = playlistService.getMyFollowedPlaylists("Bearer " + userToken);
+        call.enqueue(new Callback<List<Playlist>>() {
+            @Override
+            public void onResponse(Call<List<Playlist>> call, Response<List<Playlist>> response) {
+                int code = response.code();
+
+                if (response.isSuccessful()) {
+                    callback.onGetPlaylistsSuccess(response.body());
+                } else {
+                    Log.d(ApplicationConstants.LOGCAT_ID, "Error MyPlaylists not successful: " + response.toString());
+
+                    try {
+                        callback.onGetPlaylistsFailure(new Throwable("Error " + code + ", " + response.errorBody().string()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Playlist>> call, Throwable t) {
+                Log.d(ApplicationConstants.LOGCAT_ID, "Error MyPlaylists failure: " + Arrays.toString(t.getStackTrace()));
+                callback.onGetPlaylistsFailure(new Throwable("Error " + Arrays.toString(t.getStackTrace())));
             }
         });
     }

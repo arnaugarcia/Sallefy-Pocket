@@ -48,9 +48,7 @@ public class GenreListAdapter extends RecyclerView.Adapter<GenreListAdapter.View
         holder.tvGenre.setText(genre.getName());
 
         holder.itemView.setOnClickListener(v -> fragmentManager.beginTransaction()
-                .replace(R.id.fragment_manager,
-                        new GenreFragment(fragmentManager, context, genres.get(position))
-                )
+                .replace(R.id.fragment_manager, new GenreFragment(fragmentManager, context, genres.get(position)))
                 .addToBackStack(null)
                 .commit());
     }

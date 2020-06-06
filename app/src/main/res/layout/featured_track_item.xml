@@ -15,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.sallefy.custom_views.GradientHeadline1
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_track_title"
         style="@style/Headline4"
         android:layout_width="match_parent"
