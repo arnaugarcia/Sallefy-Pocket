@@ -1,11 +1,13 @@
 package com.sallefy.managers;
 
+import android.content.Context;
 import android.content.Intent;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sallefy.activity.LoginActivity;
 import com.sallefy.constants.ApplicationConstants;
+import com.sallefy.services.authentication.AuthenticationUtils;
 import com.sallefy.services.authentication.TokenStoreManager;
 
 import java.util.concurrent.TimeUnit;
@@ -17,6 +19,7 @@ import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.sallefy.services.authentication.AuthenticationUtils.getToken;
 import static java.net.HttpURLConnection.*;
 
 public abstract class BaseManager {
@@ -49,7 +52,8 @@ public abstract class BaseManager {
         return chain -> {
             Request original = chain.request();
 
-            String bearerToken = TokenStoreManager.getInstance().getToken();
+            Context context = TokenStoreManager.getInstance().getContext();
+            String bearerToken = getToken(context);
 
             if (bearerToken == null || bearerToken.equals("")) {
                 throw new RuntimeException("Token is missing"); // Transform this to a BusinessException
