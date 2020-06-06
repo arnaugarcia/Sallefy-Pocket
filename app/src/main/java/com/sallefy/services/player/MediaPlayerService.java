@@ -168,7 +168,7 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
     }
 
     public int getDuration() {
-        if (isNull(currentTrack)) {
+        if (isNull(mediaPlayer)) {
             return 0;
         }
         return this.mediaPlayer.getDuration();

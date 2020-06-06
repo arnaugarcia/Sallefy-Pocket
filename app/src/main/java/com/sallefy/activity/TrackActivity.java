@@ -171,6 +171,9 @@ public class TrackActivity extends AppCompatActivity {
     public void updateSeekBar() {
         mSeekBar.setMax(player.getDuration());
 
+        System.out.println("max duration: " + player.getDuration());
+        System.out.println("progress:" + player.getCurrentDuration());
+
         tvMaxTime.setText(getCurrentTime(player.getDuration()));
         tvCurrentTime.setText(getCurrentTime(player.getCurrentDuration()));
 
