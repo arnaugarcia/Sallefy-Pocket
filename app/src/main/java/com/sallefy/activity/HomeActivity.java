@@ -30,6 +30,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
+import static com.sallefy.services.player.MediaPlayerState.PLAYING;
 import static org.greenrobot.eventbus.ThreadMode.MAIN;
 
 public class HomeActivity extends FragmentActivity {
@@ -141,9 +142,11 @@ public class HomeActivity extends FragmentActivity {
 
         btnPlay = findViewById(R.id.music_nav_play);
         btnPlay.setOnClickListener(listener -> {
-            makeText(getApplicationContext(), "Toggle track", LENGTH_SHORT).show();
-            player.pause();
-            // togglePlayButton();
+            if (playerState == PLAYING) {
+                player.pause();
+            } else {
+                player.resume();
+            }
         });
     }
 
