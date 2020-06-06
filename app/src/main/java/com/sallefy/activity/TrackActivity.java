@@ -103,6 +103,7 @@ public class TrackActivity extends AppCompatActivity {
 
     @Subscribe(threadMode = MAIN)
     public void onMediaPlayerStateChanged(MediaPlayerEvent.StateChanged event) {
+        playerState = event.currentState;
         switch (event.currentState) {
             case PLAYING:
                 Track track = player.getCurrentTrack();
