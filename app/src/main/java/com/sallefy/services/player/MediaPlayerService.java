@@ -29,6 +29,7 @@ import static com.sallefy.services.player.MediaPlayerState.PAUSED;
 import static com.sallefy.services.player.MediaPlayerState.PLAYING;
 import static com.sallefy.services.player.MediaPlayerState.PREPARED;
 import static com.sallefy.services.player.MediaPlayerState.RESET;
+import static java.util.Objects.isNull;
 
 public class MediaPlayerService extends Service implements MediaPlayer.OnCompletionListener,
         MediaPlayer.OnPreparedListener,
@@ -128,6 +129,11 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
         this.play(getLastSongOfQueue());
     }
 
+    public int getCurrentDuration() {
+        if (isNull(mediaPlayer)) return 0;
+        return mediaPlayer.getCurrentPosition();
+    }
+
     public void stop() {
         if (mediaPlayer == null) return;
         if (mediaPlayer.isPlaying()) {
@@ -151,10 +157,21 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
 
     public void resume() {
         if (!mediaPlayer.isPlaying()) {
-            mediaPlayer.seekTo(resumePosition);
+            // mediaPlayer.seekTo(mediaPlayer.getCurrentPosition());
             mediaPlayer.start();
             EventBus.getDefault().postSticky(mediaPlayerEvent(PLAYING));
         }
+    }
+
+    public void setCurrentDuration(int time) {
+        if (!isNull(mediaPlayer)) mediaPlayer.seekTo(time);
+    }
+
+    public int getDuration() {
+        if (isNull(currentTrack)) {
+            return 0;
+        }
+        return this.mediaPlayer.getDuration();
     }
 
     @Override
