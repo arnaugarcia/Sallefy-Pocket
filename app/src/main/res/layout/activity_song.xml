@@ -30,7 +30,7 @@
                 android:layout_marginBottom="10dp" />
 
             <TextView
-                android:id="@+id/activity_song_title"
+                android:id="@+id/tv_activity_song_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="marquee"
@@ -46,10 +46,10 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/activity_song_name"
+                android:id="@+id/tv_activity_artist_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Arist name"
+                android:text=""
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="20dp" />
@@ -71,19 +71,19 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:id="@+id/activity_song_currentTime"
+                    android:id="@+id/tv_song_currentTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
                     android:text="00:00"/>
                 <SeekBar
-                    android:id="@+id/activity_track_seekBar"
+                    android:id="@+id/sb_activity_song"
                     android:layout_width="180dp"
                     android:progressBackgroundTint="@android:color/white"
                     android:backgroundTint="@android:color/white"
                     android:layout_height="20dp"/>
                 <TextView
-                    android:id="@+id/activity_song_maxTime"
+                    android:id="@+id/tv_song_maxTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
