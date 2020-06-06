@@ -18,6 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sallefy.R;
 import com.sallefy.fragments.HomeFragment;
 import com.sallefy.fragments.SearchFragment;
+import com.sallefy.fragments.StatsFragment;
 import com.sallefy.fragments.YourLibraryFragment;
 import com.sallefy.model.Track;
 import com.sallefy.services.player.MediaPlayerEvent;
@@ -161,6 +162,9 @@ public class HomeActivity extends FragmentActivity {
                     break;
                 case R.id.action_search:
                     fragment = SearchFragment.getInstance(context, mFragmentManager);
+                    break;
+                case R.id.action_stats:
+                    fragment = StatsFragment.getInstance(context);
                     break;
                 case R.id.action_your_library:
                     fragment = YourLibraryFragment.getInstance(context, mFragmentManager);
