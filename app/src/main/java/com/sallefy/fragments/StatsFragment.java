@@ -107,7 +107,7 @@ public class StatsFragment extends Fragment implements MostFollowedPlaylistsCall
 
 
     private void getMostFollowedPlaylists() {
-        PlaylistManager.getInstance().getMostFollowedPlaylists(getContext(), this);
+        PlaylistManager.getInstance().getMostFollowedPlaylists(this);
     }
 
     @Override
