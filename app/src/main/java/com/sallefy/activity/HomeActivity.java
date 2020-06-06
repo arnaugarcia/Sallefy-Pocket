@@ -20,8 +20,10 @@ import com.sallefy.fragments.HomeFragment;
 import com.sallefy.fragments.SearchFragment;
 import com.sallefy.fragments.StatsFragment;
 import com.sallefy.fragments.YourLibraryFragment;
+import com.sallefy.model.Track;
 import com.sallefy.services.player.MediaPlayerEvent;
 import com.sallefy.services.player.MediaPlayerService;
+import com.sallefy.services.player.MediaPlayerState;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -29,6 +31,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
+import static com.sallefy.services.player.MediaPlayerState.PLAYING;
+import static org.greenrobot.eventbus.ThreadMode.MAIN;
 
 public class HomeActivity extends FragmentActivity {
 
@@ -39,6 +43,7 @@ public class HomeActivity extends FragmentActivity {
     private FragmentManager mFragmentManager;
     private TextView tvMusicNav;
     private ImageView btnPlay;
+    private MediaPlayerState playerState;
 
     private MediaPlayerService player;
     boolean mServiceBound = false;
@@ -99,22 +104,10 @@ public class HomeActivity extends FragmentActivity {
         EventBus.getDefault().register(this);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMediaPlayerStateChanged(MediaPlayerEvent.StateChanged event) {
-        switch (event.currentState) {
-            case PLAYING:
-                btnPlay.setImageResource(R.drawable.ic_pause);
-                break;
-            case PAUSED:
-                btnPlay.setImageResource(R.drawable.ic_play);
-                break;
-        }
-    }
-
     @Override
     public void onStop() {
         super.onStop();
-        if (mServiceBound){
+        if (mServiceBound) {
             unbindService(mServiceConnection);
             mServiceBound = false;
         }
@@ -128,15 +121,33 @@ public class HomeActivity extends FragmentActivity {
         bindService(intent, mServiceConnection, BIND_AUTO_CREATE);
     }
 
+    @Subscribe(threadMode = MAIN)
+    public void onMediaPlayerStateChanged(MediaPlayerEvent.StateChanged event) {
+        playerState = event.currentState;
+        Track track = player.getCurrentTrack();
+        switch (event.currentState) {
+            case PLAYING:
+                tvMusicNav.setText(track.getName() + " - " + track.getUserLogin());
+                btnPlay.setImageResource(R.drawable.ic_pause);
+                break;
+            case PAUSED:
+                btnPlay.setImageResource(R.drawable.ic_play);
+                break;
+        }
+    }
+
+
     private void initMusicNavView() {
         tvMusicNav = findViewById(R.id.music_nav_title);
         tvMusicNav.setOnClickListener(v -> startActivity(new Intent(this, TrackActivity.class)));
 
         btnPlay = findViewById(R.id.music_nav_play);
         btnPlay.setOnClickListener(listener -> {
-            makeText(getApplicationContext(), "Toggle track", LENGTH_SHORT).show();
-            player.pause();
-            // togglePlayButton();
+            if (playerState == PLAYING) {
+                player.pause();
+            } else {
+                player.resume();
+            }
         });
     }
 

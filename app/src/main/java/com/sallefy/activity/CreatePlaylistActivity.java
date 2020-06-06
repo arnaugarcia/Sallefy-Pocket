@@ -48,7 +48,7 @@ public class CreatePlaylistActivity extends AppCompatActivity implements
                 playlist.setName(etName.getText().toString());
                 playlist.setDescription(etDescription.getText().toString());
                 playlist.setPublicAccessible(sPrivate.isChecked());
-                PlaylistManager.getInstance().createPlaylist(this, playlist, this);
+                PlaylistManager.getInstance().createPlaylist(playlist, this);
 
             }
         });

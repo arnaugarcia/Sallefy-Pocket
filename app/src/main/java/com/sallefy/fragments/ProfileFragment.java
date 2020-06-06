@@ -92,7 +92,7 @@ public class ProfileFragment extends Fragment implements UserDataCallback {
     }
 
     private void getUserData() {
-        UserManager.getInstance().getUserData(context, this);
+        UserManager.getInstance().getUserData(this);
     }
 
     private void logout() {

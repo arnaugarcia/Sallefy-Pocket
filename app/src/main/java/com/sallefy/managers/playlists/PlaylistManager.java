@@ -24,14 +24,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class PlaylistManager extends BaseManager {
 
     private static PlaylistManager instance;
-    private Retrofit retrofit;
     private PlaylistService playlistService;
 
     private PlaylistManager() {
-        retrofit = new Retrofit.Builder()
-                .baseUrl(ApplicationConstants.API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
         playlistService = retrofit.create(PlaylistService.class);
     }
 
@@ -40,10 +35,9 @@ public class PlaylistManager extends BaseManager {
         return instance;
     }
 
-    public synchronized void getMyPlaylists(Context context, final MyPlaylistsCallback myPlaylistsCallback) {
-        String userToken = AuthenticationUtils.getToken(context);
+    public synchronized void getMyPlaylists(final MyPlaylistsCallback myPlaylistsCallback) {
 
-        Call<List<Playlist>> call = playlistService.getMyPlaylists("Bearer " + userToken);
+        Call<List<Playlist>> call = playlistService.getMyPlaylists();
         call.enqueue(new Callback<List<Playlist>>() {
             @Override
             public void onResponse(Call<List<Playlist>> call, Response<List<Playlist>> response) {
@@ -70,10 +64,9 @@ public class PlaylistManager extends BaseManager {
         });
     }
 
-    public synchronized void createPlaylist(Context context, PlaylistRequest playlistRequest, final CreatePlaylistCallback createPlaylistCallback) {
-        String userToken = AuthenticationUtils.getToken(context);
+    public synchronized void createPlaylist(PlaylistRequest playlistRequest, final CreatePlaylistCallback createPlaylistCallback) {
 
-        Call<Playlist> call = playlistService.createPlaylist("Bearer " + userToken, playlistRequest);
+        Call<Playlist> call = playlistService.createPlaylist( playlistRequest);
         call.enqueue(new Callback<Playlist>() {
             @Override
             public void onResponse(Call<Playlist> call, Response<Playlist> response) {
@@ -100,10 +93,9 @@ public class PlaylistManager extends BaseManager {
         });
     }
 
-    public synchronized void getMostFollowedPlaylists(Context context, final MostFollowedPlaylistsCallback mostFollowedPlaylistsCallback) {
-        String userToken = AuthenticationUtils.getToken(context);
+    public synchronized void getMostFollowedPlaylists(final MostFollowedPlaylistsCallback mostFollowedPlaylistsCallback) {
 
-        Call<List<Playlist>> call = playlistService.getMostFollowedPlaylists("Bearer " + userToken, "followers,desc");
+        Call<List<Playlist>> call = playlistService.getMostFollowedPlaylists("followers,desc");
         call.enqueue(new Callback<List<Playlist>>() {
             @Override
             public void onResponse(Call<List<Playlist>> call, Response<List<Playlist>> response) {
@@ -131,10 +123,9 @@ public class PlaylistManager extends BaseManager {
 
     }
 
-    public synchronized void updatePlaylist(Context context, PlaylistRequest playlistRequest, final UpdatePlaylistCallback callback){
-        String userToken = AuthenticationUtils.getToken(context);
+    public synchronized void updatePlaylist(PlaylistRequest playlistRequest, final UpdatePlaylistCallback callback){
 
-        Call<Playlist> call = playlistService.updatePlaylist("Bearer " + userToken, playlistRequest);
+        Call<Playlist> call = playlistService.updatePlaylist(playlistRequest);
         call.enqueue(new Callback<Playlist>() {
             @Override
             public void onResponse(Call<Playlist> call, Response<Playlist> response) {
@@ -161,10 +152,9 @@ public class PlaylistManager extends BaseManager {
         });
     }
 
-    public synchronized void followPlaylist(Context context, String playlistId, final FollowPlaylistCallback callback){
-        String userToken = AuthenticationUtils.getToken(context);
+    public synchronized void followPlaylist(String playlistId, final FollowPlaylistCallback callback){
 
-        Call<LikedDTO> call = playlistService.followPlaylist("Bearer " + userToken, playlistId);
+        Call<LikedDTO> call = playlistService.followPlaylist(playlistId);
         call.enqueue(new Callback<LikedDTO>() {
             @Override
             public void onResponse(Call<LikedDTO> call, Response<LikedDTO> response) {
@@ -192,10 +182,9 @@ public class PlaylistManager extends BaseManager {
     }
 
 
-    public synchronized void getMyFollowedPlaylists(Context context, final FollowedPlaylistsCallback callback) {
-        String userToken = AuthenticationUtils.getToken(context);
+    public synchronized void getMyFollowedPlaylists(final FollowedPlaylistsCallback callback) {
 
-        Call<List<Playlist>> call = playlistService.getMyFollowedPlaylists("Bearer " + userToken);
+        Call<List<Playlist>> call = playlistService.getMyFollowedPlaylists();
         call.enqueue(new Callback<List<Playlist>>() {
             @Override
             public void onResponse(Call<List<Playlist>> call, Response<List<Playlist>> response) {

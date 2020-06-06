@@ -19,16 +19,17 @@ import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.media.AudioManager.STREAM_MUSIC;
-import static android.widget.Toast.LENGTH_SHORT;
-import static android.widget.Toast.makeText;
 import static com.sallefy.services.player.MediaPlayerState.COMPLETED;
 import static com.sallefy.services.player.MediaPlayerState.ERROR;
 import static com.sallefy.services.player.MediaPlayerState.PAUSED;
 import static com.sallefy.services.player.MediaPlayerState.PLAYING;
 import static com.sallefy.services.player.MediaPlayerState.PREPARED;
 import static com.sallefy.services.player.MediaPlayerState.RESET;
+import static java.util.Objects.isNull;
 
 public class MediaPlayerService extends Service implements MediaPlayer.OnCompletionListener,
         MediaPlayer.OnPreparedListener,
@@ -49,9 +50,14 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
     private MediaSessionManager mediaSessionManager;
     private MediaSessionCompat mediaSession;
     private Track currentTrack; //an object of the currently playing audio
+    private List<Track> queue = new ArrayList<>();
 
     // Binder given to clients
     private final IBinder iBinder = new MediaPlayerBinder();
+
+    public Track getCurrentTrack() {
+        return currentTrack;
+    }
 
     public class MediaPlayerBinder extends Binder {
         public MediaPlayerService getService() {
@@ -88,9 +94,17 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
     }
 
     public void play(Track track) {
+        if (queue.isEmpty()) {
+            this.currentTrack = track;
+            queue.add(track);
+        }
+        if (!getLastSongOfQueue().equals(track)) {
+            queue.add(track);
+        }
+        currentTrack = getLastSongOfQueue();
         if (!mediaPlayer.isPlaying()) {
             try {
-                mediaPlayer.setDataSource(track.getUrl());
+                mediaPlayer.setDataSource(currentTrack.getUrl());
                 mediaPlayer.prepareAsync();
                 mediaPlayer.setOnPreparedListener(listener -> {
                     mediaPlayer.start();
@@ -99,19 +113,25 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else {
+            mediaPlayer.reset();
+            EventBus.getDefault().postSticky(mediaPlayerEvent(PAUSED));
+            play(currentTrack);
         }
     }
 
+    private Track getLastSongOfQueue() {
+        return queue.get(queue.size() - 1);
+    }
+
     public void play(Playlist playlist) {
-        if (!mediaPlayer.isPlaying()) {
-            try {
-                mediaPlayer.setDataSource(playlist.getTracks().get(0).getUrl());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            mediaPlayer.start();
-            EventBus.getDefault().postSticky(mediaPlayerEvent(PLAYING));
-        }
+        this.queue.addAll(playlist.getTracks());
+        this.play(getLastSongOfQueue());
+    }
+
+    public int getCurrentDuration() {
+        if (isNull(mediaPlayer)) return 0;
+        return mediaPlayer.getCurrentPosition();
     }
 
     public void stop() {
@@ -123,8 +143,8 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
     }
 
     @NotNull
-    private MediaPlayerEvent.StateChanged mediaPlayerEvent(MediaPlayerState paused) {
-        return new MediaPlayerEvent.StateChanged(paused);
+    private MediaPlayerEvent.StateChanged mediaPlayerEvent(MediaPlayerState state) {
+        return new MediaPlayerEvent.StateChanged(state);
     }
 
     public void pause() {
@@ -137,10 +157,21 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
 
     public void resume() {
         if (!mediaPlayer.isPlaying()) {
-            mediaPlayer.seekTo(resumePosition);
+            // mediaPlayer.seekTo(mediaPlayer.getCurrentPosition());
             mediaPlayer.start();
             EventBus.getDefault().postSticky(mediaPlayerEvent(PLAYING));
         }
+    }
+
+    public void setCurrentDuration(int time) {
+        if (!isNull(mediaPlayer)) mediaPlayer.seekTo(time);
+    }
+
+    public int getDuration() {
+        if (isNull(mediaPlayer)) {
+            return 0;
+        }
+        return this.mediaPlayer.getDuration();
     }
 
     @Override
@@ -149,7 +180,7 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
     }
 
     @Override
-    public void onBufferingUpdate(MediaPlayer mp, int percent) {
+    public void onBufferingUpdate(MediaPlayer mediaPlayer, int percent) {
         //Invoked indicating buffering status of a media resource being streamed over the network.
     }
 
@@ -192,7 +223,6 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
     public void onPrepared(MediaPlayer mp) {
         //Invoked when the media source is ready for playback.
         EventBus.getDefault().postSticky(mediaPlayerEvent(PREPARED));
-        makeText(this, "OnPrepared", LENGTH_SHORT).show();
     }
 
     @Override
@@ -235,15 +265,6 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
     @Override
     public void onDestroy() {
         super.onDestroy();
-        makeText(this, "Destroying MediaPlayerService", LENGTH_SHORT).show();
-        /*if (mediaPlayer != null) {
-            stopMedia();
-            mediaPlayer.release();
-        }
-        removeAudioFocus();
-
-        mediaPlayerNotification.removeNotification();*/
-
     }
 
     private void initMediaSession() throws RemoteException {
@@ -320,7 +341,6 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         try {
-            makeText(this, "onStartCommand", LENGTH_SHORT).show();
             //Load data from SharedPreferences
             //StorageUtil storage = new StorageUtil(getApplicationContext());
 
@@ -357,34 +377,17 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
     }
 
     private void skipToNext() {
-
-        /*if (audioIndex == audioList.size() - 1) {
-            //if last in playlist
-            audioIndex = 0;
-            currentTrack = audioList.get(audioIndex);
-        } else {
-            //get next in playlist
-            currentTrack = audioList.get(++audioIndex);
-        }*/
-
-        stop();
-        //reset mediaPlayer
-        EventBus.getDefault().postSticky(mediaPlayerEvent(RESET));
-        mediaPlayer.reset();
-        initMediaPlayer();
+        int nextSong = queue.indexOf(currentTrack) + 1;
+        if (nextSong != -1) {
+            currentTrack = queue.get(nextSong);
+            play(currentTrack);
+        }
     }
 
     private void skipToPrevious() {
-
-       /* if (audioIndex == 0) {
-            //if first in playlist
-            //set index to the last of audioList
-            audioIndex = audioList.size() - 1;
-            currentTrack = audioList.get(audioIndex);
-        } else {
-            //get previous in playlist
-            currentTrack = audioList.get(--audioIndex);
-        }*/
+        if (queue.isEmpty()) {
+            return;
+        }
 
         stop();
         //reset mediaPlayer

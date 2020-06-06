@@ -95,15 +95,15 @@ public class HomeFragment extends Fragment implements
     }
 
     private void getMostFollowedUsers() {
-        UserManager.getInstance().getMostFollowedUsers(getContext(), this);
+        UserManager.getInstance().getMostFollowedUsers(this);
     }
 
     private void getMostFollowedPlaylists() {
-        PlaylistManager.getInstance().getMostFollowedPlaylists(getContext(), this);
+        PlaylistManager.getInstance().getMostFollowedPlaylists(this);
     }
 
     private void getMostPlayedTracks() {
-        TrackManager.getInstance().getMostPlayedTracks(getContext(), this);
+        TrackManager.getInstance().getMostPlayedTracks(this);
     }
 
     @Override

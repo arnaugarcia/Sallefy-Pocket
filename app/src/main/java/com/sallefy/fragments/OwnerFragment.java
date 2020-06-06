@@ -91,11 +91,11 @@ public class OwnerFragment extends Fragment implements TracksByLoginCallback, Pl
     }
 
     private void getTracksByLogin(String login) {
-        UserManager.getInstance().getTracksByLogin(mContext, login, this);
+        UserManager.getInstance().getTracksByLogin(login, this);
     }
 
-    private void getPlaylistsByLogin(String login){
-        UserManager.getInstance().getPlaylistsByLogin(mContext, login, this);
+    private void getPlaylistsByLogin(String login) {
+        UserManager.getInstance().getPlaylistsByLogin(login, this);
     }
 
     @Override

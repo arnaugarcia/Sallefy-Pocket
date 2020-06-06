@@ -2,7 +2,6 @@ package com.sallefy.managers.authentication;
 
 import android.util.Log;
 
-import com.sallefy.constants.ApplicationConstants;
 import com.sallefy.model.JWTToken;
 import com.sallefy.model.UserCredentials;
 import com.sallefy.services.authentication.AuthenticationService;
@@ -13,7 +12,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.sallefy.constants.ApplicationConstants.API_BASE_URL;
+import static retrofit2.converter.gson.GsonConverterFactory.create;
 
 public class AuthenticationManager {
     private static AuthenticationManager instance;
@@ -22,8 +23,8 @@ public class AuthenticationManager {
 
     private AuthenticationManager() {
         retrofit = new Retrofit.Builder()
-                .baseUrl(ApplicationConstants.API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(API_BASE_URL)
+                .addConverterFactory(create())
                 .build();
         authService = retrofit.create(AuthenticationService.class);
     }

@@ -80,7 +80,7 @@ public class AddToPlaylistFragment extends Fragment implements MyPlaylistsCallba
     }
 
     private void getMyPlaylists() {
-        PlaylistManager.getInstance().getMyPlaylists(mContext, this);
+        PlaylistManager.getInstance().getMyPlaylists(this);
     }
         @Override
     public void onMyPlaylistsReceived(List<Playlist> playlists) {

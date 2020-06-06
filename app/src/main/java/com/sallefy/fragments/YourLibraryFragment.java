@@ -31,9 +31,17 @@ import com.sallefy.managers.tracks.MyTracksCallback;
 import com.sallefy.managers.tracks.TrackManager;
 import com.sallefy.model.Playlist;
 import com.sallefy.model.Track;
+import com.sallefy.services.player.MediaPlayerEvent;
 import com.sallefy.services.player.MediaPlayerService;
+import com.sallefy.services.player.MediaPlayerState;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
+
+import static android.content.Context.BIND_AUTO_CREATE;
+import static org.greenrobot.eventbus.ThreadMode.MAIN;
 
 public class YourLibraryFragment extends Fragment
         implements MyPlaylistsCallback, MyTracksCallback, TrackListCallback {
@@ -48,8 +56,9 @@ public class YourLibraryFragment extends Fragment
     private YourLibraryAdapter yourLibraryAdapter;
     private TextView mLibraryTitleTextView;
 
-    private MediaPlayerService mBoundService;
-    private boolean mServiceBound = false;
+    private MediaPlayerService player;
+    boolean serviceBound = false;
+    private MediaPlayerState playerState;
 
     public YourLibraryFragment(Context context, FragmentManager fragmentManager) {
         this.context = context;
@@ -68,8 +77,7 @@ public class YourLibraryFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = new Intent(getContext(), MediaPlayerService.class);
-        // getActivity().bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
+        checkAndStartMediaPlayerService();
     }
 
     @Override
@@ -96,6 +104,45 @@ public class YourLibraryFragment extends Fragment
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+
+    //Binding this Client to the AudioPlayer Service
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            MediaPlayerService.MediaPlayerBinder binder = (MediaPlayerService.MediaPlayerBinder) service;
+            player = binder.getService();
+            serviceBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            serviceBound = false;
+        }
+    };
+
+    private void checkAndStartMediaPlayerService() {
+        // EventBus.getDefault().register(context);
+        playerState = EventBus.getDefault().getStickyEvent(MediaPlayerEvent.StateChanged.class).currentState;
+        if (!serviceBound) {
+            // makeText(this, "[Track Activity] - Media Player service is not active", LENGTH_SHORT).show();
+            Intent playerIntent = new Intent(context, MediaPlayerService.class);
+            context.startService(playerIntent);
+            context.bindService(playerIntent, serviceConnection, BIND_AUTO_CREATE);
+        }
+    }
+
+    @Subscribe(threadMode = MAIN)
+    public void onMediaPlayerStateChanged(MediaPlayerEvent.StateChanged event) {
+        playerState = event.currentState;
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
     }
@@ -115,11 +162,11 @@ public class YourLibraryFragment extends Fragment
     }
 
     private void getMyPlaylists() {
-        PlaylistManager.getInstance().getMyPlaylists(context, this);
+        PlaylistManager.getInstance().getMyPlaylists(this);
     }
 
     private void getMyTracks() {
-        TrackManager.getInstance().getMyTracks(context, this);
+        TrackManager.getInstance().getMyTracks(this);
     }
 
     private void openProfileFragment() {
@@ -154,7 +201,7 @@ public class YourLibraryFragment extends Fragment
 
     @Override
     public void onTrackSelected(Track track) {
-        mBoundService.play(track);
+        player.play(track);
     }
 
     @Override
@@ -162,19 +209,25 @@ public class YourLibraryFragment extends Fragment
 
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             MediaPlayerService.MediaPlayerBinder binder = (MediaPlayerService.MediaPlayerBinder)service;
-            mBoundService = binder.getService();
+            player = binder.getService();
             // mBoundService.setCallback(SongsFragment.this);
-            mServiceBound = true;
+            serviceBound = true;
             // updateSeekBar();
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            mServiceBound = false;
+            serviceBound = false;
         }
     };
 }

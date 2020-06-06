@@ -7,19 +7,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.sallefy.R;
 import com.sallefy.model.Track;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 public class FeaturedTrackListAdapter extends RecyclerView.Adapter<FeaturedTrackListAdapter.ViewHolder> {
-
     private Context context;
-
     private List<Track> tracks;
 
     public FeaturedTrackListAdapter(Context context, List<Track> tracks) {

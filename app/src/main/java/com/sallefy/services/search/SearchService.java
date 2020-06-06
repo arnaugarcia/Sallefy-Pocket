@@ -9,6 +9,6 @@ import retrofit2.http.Query;
 
 public interface SearchService {
     @GET("search")
-    Call<SearchResult> getPlaylistsUsersTracksByKeyword(@Header("Authorization") String userToken, @Query("keyword") String keyword);
+    Call<SearchResult> getPlaylistsUsersTracksByKeyword(@Query("keyword") String keyword);
 
 }

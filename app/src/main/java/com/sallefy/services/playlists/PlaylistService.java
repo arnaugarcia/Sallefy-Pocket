@@ -18,21 +18,21 @@ import retrofit2.http.Query;
 public interface PlaylistService {
 
     @GET("me/playlists")
-    Call<List<Playlist>> getMyPlaylists(@Header("Authorization") String userToken);
+    Call<List<Playlist>> getMyPlaylists();
 
     @POST("playlists")
-    Call<Playlist> createPlaylist(@Header("Authorization") String userToken, @Body PlaylistRequest playlistRequest);
+    Call<Playlist> createPlaylist(@Body PlaylistRequest playlistRequest);
 
     @GET("playlists")
-    Call<List<Playlist>> getMostFollowedPlaylists(@Header("Authorization") String userToken, @Query("sort") String sortByFollowers);
+    Call<List<Playlist>> getMostFollowedPlaylists(@Query("sort") String sortByFollowers);
 
     @PUT("playlists")
-    Call<Playlist> updatePlaylist(@Header("Authorization") String userToken, @Body PlaylistRequest playlistRequest);
+    Call<Playlist> updatePlaylist(@Body PlaylistRequest playlistRequest);
 
     @PUT("playlists/{id}/follow")
-    Call<LikedDTO> followPlaylist(@Header("Authorization") String userToken, @Path("id") String id);
+    Call<LikedDTO> followPlaylist(@Path("id") String id);
 
     @GET("me/playlists/following")
-    Call<List<Playlist>> getMyFollowedPlaylists(@Header("Authorization") String userToken);
+    Call<List<Playlist>> getMyFollowedPlaylists();
 
 }

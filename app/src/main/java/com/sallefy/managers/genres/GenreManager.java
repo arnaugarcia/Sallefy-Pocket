@@ -21,14 +21,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GenreManager extends BaseManager {
     private static GenreManager instance;
-    private Retrofit retrofit;
     private GenreService genreService;
 
     public GenreManager() {
-        retrofit = new Retrofit.Builder()
-                .baseUrl(ApplicationConstants.API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
         genreService = retrofit.create(GenreService.class);
     }
 
@@ -37,10 +32,8 @@ public class GenreManager extends BaseManager {
         return instance;
     }
 
-    public synchronized void getAllGenres(Context context, final GenresCallback genresCallback) {
-        String userToken = AuthenticationUtils.getToken(context);
-
-        Call<List<Genre>> call = genreService.getAllGenres("Bearer " + userToken);
+    public synchronized void getAllGenres(final GenresCallback genresCallback) {
+        Call<List<Genre>> call = genreService.getAllGenres();
         call.enqueue(new Callback<List<Genre>>() {
             @Override
             public void onResponse(Call<List<Genre>> call, Response<List<Genre>> response) {
