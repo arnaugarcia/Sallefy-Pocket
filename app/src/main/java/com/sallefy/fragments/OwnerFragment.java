@@ -94,7 +94,7 @@ public class OwnerFragment extends Fragment implements TracksByLoginCallback, Pl
         UserManager.getInstance().getTracksByLogin(login, this);
     }
 
-    private void getPlaylistsByLogin(String login){
+    private void getPlaylistsByLogin(String login) {
         UserManager.getInstance().getPlaylistsByLogin(login, this);
     }
 
