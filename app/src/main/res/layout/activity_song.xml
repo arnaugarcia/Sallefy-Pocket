@@ -30,7 +30,7 @@
                 android:layout_marginBottom="10dp" />
 
             <TextView
-                android:id="@+id/activity_song_title"
+                android:id="@+id/tv_activity_song_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="marquee"
@@ -46,10 +46,10 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/activity_song_name"
+                android:id="@+id/tv_activity_artist_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Arist name"
+                android:text=""
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="20dp" />

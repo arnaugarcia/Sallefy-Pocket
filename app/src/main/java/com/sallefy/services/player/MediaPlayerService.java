@@ -54,6 +54,10 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
     // Binder given to clients
     private final IBinder iBinder = new MediaPlayerBinder();
 
+    public Track getCurrentTrack() {
+        return currentTrack;
+    }
+
     public class MediaPlayerBinder extends Binder {
         public MediaPlayerService getService() {
             return MediaPlayerService.this;
