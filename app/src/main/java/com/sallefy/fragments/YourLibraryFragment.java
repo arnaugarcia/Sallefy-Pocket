@@ -162,7 +162,7 @@ public class YourLibraryFragment extends Fragment
     }
 
     private void getMyPlaylists() {
-        PlaylistManager.getInstance().getMyPlaylists(context, this);
+        PlaylistManager.getInstance().getMyPlaylists(this);
     }
 
     private void getMyTracks() {

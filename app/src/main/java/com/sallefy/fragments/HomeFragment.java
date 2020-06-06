@@ -99,7 +99,7 @@ public class HomeFragment extends Fragment implements
     }
 
     private void getMostFollowedPlaylists() {
-        PlaylistManager.getInstance().getMostFollowedPlaylists(getContext(), this);
+        PlaylistManager.getInstance().getMostFollowedPlaylists(this);
     }
 
     private void getMostPlayedTracks() {
