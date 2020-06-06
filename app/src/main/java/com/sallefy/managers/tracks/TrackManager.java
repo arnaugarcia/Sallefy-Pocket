@@ -24,15 +24,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class TrackManager extends BaseManager {
 
     private static TrackManager instance;
-
-    private Retrofit retrofit;
     private TrackService trackService;
 
     private TrackManager() {
-        retrofit = new Retrofit.Builder()
-                .baseUrl(ApplicationConstants.API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
         trackService = retrofit.create(TrackService.class);
     }
 
@@ -41,10 +35,9 @@ public class TrackManager extends BaseManager {
         return instance;
     }
 
-    public synchronized void getMyTracks(Context context, final MyTracksCallback myTracksCallback) {
-        String userToken = AuthenticationUtils.getToken(context);
+    public synchronized void getMyTracks(final MyTracksCallback myTracksCallback) {
 
-        Call<List<Track>> call = trackService.getMyTracks("Bearer " + userToken);
+        Call<List<Track>> call = trackService.getMyTracks();
         call.enqueue(new Callback<List<Track>>() {
             @Override
             public void onResponse(Call<List<Track>> call, Response<List<Track>> response) {
@@ -71,10 +64,9 @@ public class TrackManager extends BaseManager {
         });
     }
 
-    public synchronized void getTracksByGenre(Context context, String genre, final TracksByGenreCallback tracksByGenreCallback) {
-        String userToken = AuthenticationUtils.getToken(context);
+    public synchronized void getTracksByGenre(String genre, final TracksByGenreCallback tracksByGenreCallback) {
 
-        Call<List<Track>> call = trackService.getTracksByGenre("Bearer " + userToken, genre);
+        Call<List<Track>> call = trackService.getTracksByGenre(genre);
         call.enqueue(new Callback<List<Track>>() {
             @Override
             public void onResponse(Call<List<Track>> call, Response<List<Track>> response) {
@@ -101,10 +93,9 @@ public class TrackManager extends BaseManager {
         });
     }
 
-    public synchronized void getMostPlayedTracks(Context context, final MostPlayedTracksCallback mostPlayedTracksCallback) {
-        String userToken = AuthenticationUtils.getToken(context);
+    public synchronized void getMostPlayedTracks(final MostPlayedTracksCallback mostPlayedTracksCallback) {
 
-        Call<List<Track>> call = trackService.getMostPlayedTracks("Bearer " + userToken, true);
+        Call<List<Track>> call = trackService.getMostPlayedTracks(true);
         call.enqueue(new Callback<List<Track>>() {
             @Override
             public void onResponse(Call<List<Track>> call, Response<List<Track>> response) {
@@ -131,10 +122,9 @@ public class TrackManager extends BaseManager {
         });
     }
 
-    public synchronized void updateTrackLiked(Context context, String id, final UpdateTrackLikedCallback callback){
-        String userToken = AuthenticationUtils.getToken(context);
+    public synchronized void updateTrackLiked(String id, final UpdateTrackLikedCallback callback){
 
-        Call<LikedDTO> call = trackService.updateTrackLiked("Bearer " + userToken, id);
+        Call<LikedDTO> call = trackService.updateTrackLiked(id);
         call.enqueue(new Callback<LikedDTO>() {
             @Override
             public void onResponse(Call<LikedDTO> call, Response<LikedDTO> response) {

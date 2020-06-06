@@ -81,7 +81,7 @@ public class GenreFragment extends Fragment implements TracksByGenreCallback, Tr
     }
 
     private void getTracksByGenre(String genre) {
-        TrackManager.getInstance().getTracksByGenre(context, genre, this);
+        TrackManager.getInstance().getTracksByGenre(genre, this);
     }
 
     @Override

@@ -166,7 +166,7 @@ public class YourLibraryFragment extends Fragment
     }
 
     private void getMyTracks() {
-        TrackManager.getInstance().getMyTracks(context, this);
+        TrackManager.getInstance().getMyTracks(this);
     }
 
     private void openProfileFragment() {

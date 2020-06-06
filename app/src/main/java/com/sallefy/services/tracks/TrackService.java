@@ -16,15 +16,15 @@ import retrofit2.http.Query;
 public interface TrackService {
 
     @GET("me/tracks")
-    Call<List<Track>> getMyTracks(@Header("Authorization") String userToken);
+    Call<List<Track>> getMyTracks();
 
     @GET("tracks")
-    Call<List<Track>> getTracksByGenre(@Header("Authorization") String userToken, @Query("genre") String genre);
+    Call<List<Track>> getTracksByGenre(@Query("genre") String genre);
 
     @PUT("tracks/{id}/like")
-    Call<LikedDTO> updateTrackLiked(@Header("Authorization") String userToken, @Path("id") String id);
+    Call<LikedDTO> updateTrackLiked(@Path("id") String id);
 
-    // TODO: Most liked tracks backed bug
+    // TODO: Most liked tracks backend bug
     @GET("tracks")
-    Call<List<Track>> getMostPlayedTracks(@Header("Authorization") String userToken, @Query("played") boolean sortByPlays);
+    Call<List<Track>> getMostPlayedTracks(@Query("played") boolean sortByPlays);
 }
