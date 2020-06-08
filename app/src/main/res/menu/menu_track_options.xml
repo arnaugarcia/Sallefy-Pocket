@@ -17,4 +17,8 @@
         android:id="@+id/menu_track_owner"
         android:icon="@drawable/artist_profile"
         android:title="@string/menu_track_owner"/>
+    <item
+        android:id="@+id/menu_track_download"
+        android:icon="@drawable/outline_cloud_download_24"
+        android:title="@string/download_track"/>
 </menu>

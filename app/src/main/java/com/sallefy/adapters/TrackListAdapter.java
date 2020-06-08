@@ -3,6 +3,7 @@ package com.sallefy.adapters;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,8 @@ import com.sallefy.managers.tracks.UpdateTrackLikedCallback;
 import com.sallefy.model.LikedDTO;
 import com.sallefy.model.Playlist;
 import com.sallefy.model.Track;
+import com.sallefy.object_box.ObjectBox;
+import com.sallefy.object_box.TrackOffline;
 
 import java.util.List;
 
@@ -31,6 +34,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
+import io.objectbox.Box;
 
 import static java.util.Objects.isNull;
 
@@ -158,6 +162,9 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
                 case R.id.menu_track_owner:
                     Toast.makeText(mContext, "owner!", Toast.LENGTH_SHORT).show();
                     break;
+                case R.id.menu_track_download:
+                    downloadTrack(currentTrack);
+                    break;
                 default:
                     return false;
             }
@@ -165,6 +172,16 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
         });
 
         popupMenu.show();
+    }
+
+    private void downloadTrack(Track track) {
+//        TrackOffline newTrack = new TrackOffline(track);
+
+//        Box<TrackOffline> trackBox = ObjectBox.get().boxFor(TrackOffline.class);
+//
+//        TrackOffline newTrack = new TrackOffline();
+//        newTrack.name = "New Track";
+//        trackBox.put(newTrack);
     }
 
     private void openAddToPlaylistFragment(Track currentTrack) {
