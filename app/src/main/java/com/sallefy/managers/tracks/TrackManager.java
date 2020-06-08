@@ -2,6 +2,7 @@ package com.sallefy.managers.tracks;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.sallefy.constants.ApplicationConstants;
 import com.sallefy.managers.BaseManager;
@@ -143,6 +144,22 @@ public class TrackManager extends BaseManager {
                 Log.d(ApplicationConstants.LOGCAT_ID, "Error  like not successful: " + Arrays.toString(t.getStackTrace()));
                 callback.onMyTracksFailure(new Throwable("Error " + Arrays.toString(t.getStackTrace())));
 
+            }
+        });
+    }
+
+    public synchronized void getTrack(String id, final TrackCallback trackCallback) {
+
+        Call<Track> call = trackService.findTrack(id);
+        call.enqueue(new Callback<Track>() {
+            @Override
+            public void onResponse(Call<Track> call, Response<Track> response) {
+                trackCallback.onTrackSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Track> call, Throwable throwable) {
+                trackCallback.onTrackFailure(throwable);
             }
         });
     }
