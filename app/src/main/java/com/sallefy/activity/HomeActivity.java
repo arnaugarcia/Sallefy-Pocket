@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.widget.ImageView;
@@ -27,7 +28,6 @@ import com.sallefy.services.player.MediaPlayerState;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
@@ -76,6 +76,13 @@ public class HomeActivity extends FragmentActivity {
         initMusicNavView();
         setInitialFragment();
         checkAndStartMediaPlayerService();
+        checkDeepLinking();
+    }
+
+    private void checkDeepLinking() {
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        Uri data = intent.getData();
     }
 
     private void checkAndStartMediaPlayerService() {
