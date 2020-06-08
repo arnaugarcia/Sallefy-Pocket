@@ -1,0 +1,42 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "2:2665535109343282579",
+      "lastPropertyId": "2:6415528096416748891",
+      "name": "TrackOffline",
+      "properties": [
+        {
+          "id": "1:8731144406622950468",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6415528096416748891",
+          "name": "name",
+          "type": 9
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "2:2665535109343282579",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [
+    6837908359223792273
+  ],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [
+    5371075635139198468,
+    660371898953127450
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}

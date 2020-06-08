@@ -82,4 +82,5 @@
     <string name="tracks">tracks</string>
     <string name="follow">FOLLOW</string>
     <string name="unfollow">UNFOLLOW</string>
+    <string name="download_track">Download song</string>
 </resources>
