@@ -28,7 +28,18 @@
             android:label="@string/create_a_playlist" />
         <activity
             android:name=".activity.HomeActivity"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter android:label="@string/app_name">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "http://www.sallefy.com/” -->
+                <data android:scheme="http"
+                    android:host="www.sallefy.com"
+                    android:pathPrefix="/" />
+                <!-- note that the leading "/" is required for pathPrefix-->
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login"
@@ -43,7 +54,6 @@
             android:theme="@style/AuthenticationTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

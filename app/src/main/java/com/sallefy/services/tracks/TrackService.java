@@ -27,4 +27,7 @@ public interface TrackService {
     // TODO: Most liked tracks backend bug
     @GET("tracks")
     Call<List<Track>> getMostPlayedTracks(@Query("played") boolean sortByPlays);
+
+    @GET("tracks/{id}")
+    Call<Track> findTrack(@Path("id") String id);
 }
