@@ -4,10 +4,12 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -20,21 +22,28 @@ import com.sallefy.fragments.HomeFragment;
 import com.sallefy.fragments.SearchFragment;
 import com.sallefy.fragments.StatsFragment;
 import com.sallefy.fragments.YourLibraryFragment;
+import com.sallefy.managers.tracks.TrackCallback;
+import com.sallefy.managers.tracks.TrackManager;
 import com.sallefy.model.Track;
 import com.sallefy.services.player.MediaPlayerEvent;
 import com.sallefy.services.player.MediaPlayerService;
 import com.sallefy.services.player.MediaPlayerState;
+import com.sallefy.services.tracks.TrackService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
+
+import retrofit2.Call;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
 import static com.sallefy.services.player.MediaPlayerState.PLAYING;
+import static java.util.Objects.isNull;
 import static org.greenrobot.eventbus.ThreadMode.MAIN;
 
-public class HomeActivity extends FragmentActivity {
+public class HomeActivity extends FragmentActivity implements TrackCallback {
 
     private Context context;
 
@@ -76,6 +85,21 @@ public class HomeActivity extends FragmentActivity {
         initMusicNavView();
         setInitialFragment();
         checkAndStartMediaPlayerService();
+        checkDeepLinking();
+    }
+
+    private void checkDeepLinking() {
+        Intent intent = getIntent();
+        Uri data = intent.getData();
+        if (!isNull(data)) {
+            String[] split = intent.getData().getPath().split("/");
+            String type = split[1];
+            switch (type) {
+                case "tracks":
+                    TrackManager.getInstance().getTrack(split[2], this);
+                    break;
+            }
+        }
     }
 
     private void checkAndStartMediaPlayerService() {
@@ -206,4 +230,14 @@ public class HomeActivity extends FragmentActivity {
         mTransaction.commit();
     }
 
+    @Override
+    public void onTrackSuccess(Track track) {
+        player.play(track);
+        startActivity(new Intent(this, TrackActivity.class));
+    }
+
+    @Override
+    public void onTrackFailure(Throwable throwable) {
+        makeText(context, "Not track found :(", LENGTH_SHORT).show();
+    }
 }
